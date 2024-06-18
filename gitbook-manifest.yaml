@@ -1,0 +1,12 @@
+name: writeSomeThing
+title: writeSomeThing
+organization: writeSomeThing
+visibility: private
+description: ''
+script: src\index.tsx
+scopes: []
+blocks:
+  - id: writeSomeThing
+    title: writeSomeThing
+    description: My GitBook Integration
+secrets: {}

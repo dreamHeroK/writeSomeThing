@@ -1,0 +1,17 @@
+{
+    "name": "writeSomeThing",
+    "private": true,
+    "scripts": {
+        "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
+        "typecheck": "tsc --noEmit",
+        "publish": "gitbook publish ."
+    },
+    "dependencies": {
+        "@gitbook/runtime": "*"
+    },
+    "devDependencies": {
+        "@gitbook/cli": "^0.16.0",
+        "@gitbook/eslint-config": "*",
+        "@gitbook/tsconfig": "*"
+    }
+}
