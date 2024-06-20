@@ -4,6 +4,7 @@
     <div :id="'ring' + index" class="ring"></div>
 </template>
 <script>
+
 export default {
     name: 'RingEchart',
     props: {
@@ -42,7 +43,16 @@ export default {
                     itemWidth: 8,
                     itemGap: 15,
                     formatter: function(params) {
-                        return [`{a|${params.split('|')[0]}}`, ` {b|${params.split('|')[1] || '0%'}}`].join('');
+                        let colorMap = {
+                            关键客户: 'b',
+                            非关键客户: 'c',
+                            非目标客户: 'd'
+                        };
+                        console.log(params.split('|')[0].replace(' ', ''), '000');
+                        return [
+                            `{a|${params.split('|')[0]}}`,
+                            `{${colorMap[params.split('|')[0].replace(' ', '')]}|${params.split('|')[1] || '0%'}}`
+                        ].join('');
                     },
                     textStyle: {
                         fontSize: 14,
@@ -52,7 +62,15 @@ export default {
                             },
                             b: {
                                 fontWeight: 'bold',
-                                color: '#333333'
+                                color: '#5573FA'
+                            },
+                            c: {
+                                fontWeight: 'bold',
+                                color: '#FFC700'
+                            },
+                            d: {
+                                fontWeight: 'bold',
+                                color: '#4CD1B6'
                             }
                         }
                     }
@@ -92,9 +110,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .ring {
-    width: 232px;
+    width: 260px;
     height: 102px;
 }
 </style>
+
 
 ```
