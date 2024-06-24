@@ -1,0 +1,1172 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>uniapp 华为应用市场权限说明解决方案 vuex · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 5.1.4">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="FORMATFLOAT.html" />
+    
+    
+    <link rel="prev" href="ringChart.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="ringChart.html">
+            
+                <a href="ringChart.html">
+            
+                    
+                    vue2 echarts环图配置 
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3" data-path="UNIAPPPERMISSION.html">
+            
+                <a href="UNIAPPPERMISSION.html">
+            
+                    
+                    uniapp 华为应用市场权限说明解决方案 vuex
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="FORMATFLOAT.html">
+            
+                <a href="FORMATFLOAT.html">
+            
+                    
+                    JS保留小数并四舍五入
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="PRODECTMANAGER.html">
+            
+                <a href="PRODECTMANAGER.html">
+            
+                    
+                    产品经理负面教材
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="IOSDATE.html">
+            
+                <a href="IOSDATE.html">
+            
+                    
+                    uniapp在ios内时间错误问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="REFSTYLE.html">
+            
+                <a href="REFSTYLE.html">
+            
+                    
+                    vue3设置ref.value.style失败
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >uniapp 华为应用市场权限说明解决方案 vuex</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p>uniapp 华为应用市场权限说明解决方案,在使用需要权限的功能前，先进行权限判断，使用<code>uni.createRequestPermissionListener()</code> 开启监听，因为这个监听是监听所有的权限弹窗，所以需要知道当前是拉起的什么权限弹窗。</p>
+<p>下面是vuex代码,涉及到读取手机状态，拨打电话权限，读取相册，拉起相机，读取存储，获取定位，保存文件等权限，更多权限可以自定义。
+下面是权限列表</p>
+<table>
+<thead>
+<tr>
+<th>权限名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>android.permission.WRITE_USER_DICTIONARY</td>
+<td>允许应用程序向用户词典中写入新词</td>
+</tr>
+<tr>
+<td>android.permission.WRITE_SYNC_SETTINGS</td>
+<td>写入 Google 在线同步设置</td>
+</tr>
+<tr>
+<td>android.permission.WRITE_SOCIAL_STREAM</td>
+<td>读取用户的社交信息流</td>
+</tr>
+<tr>
+<td>android.permission.WRITE_SMS</td>
+<td>允许程序写短信</td>
+</tr>
+<tr>
+<td>android.permission.WRITE_SETTINGS</td>
+<td>允许程序读取或写入系统设置</td>
+</tr>
+<tr>
+<td>android.permission.WRITE_SECURE_SETTINGS</td>
+<td>允许应用程序读取或写入安全系统设置</td>
+</tr>
+<tr>
+<td>android.permission.WRITE_PROFILE</td>
+<td>允许程序写入个人资料数据</td>
+</tr>
+<tr>
+<td>android.browser.permission.WRITE_HISTORY_BOOKMARKS</td>
+<td>允许一个应用程序写(但不可读)用户的浏览历史和书签</td>
+</tr>
+<tr>
+<td>android.permission.WRITE_GSERVICES</td>
+<td>允许程序修改 Google 服务地图</td>
+</tr>
+<tr>
+<td>android.permission.WRITE_EXTERNAL_STORAGE</td>
+<td>允许程序写入外部存储,如 SD 卡上写文件</td>
+</tr>
+<tr>
+<td>android.permission.WRITE_CONTACTS    写入联系人,但不可读取</td>
+</tr>
+<tr>
+<td>android.permission.WRITE_CALL_LOG</td>
+<td>允许程序写入（但是不能读）用户的联系人数据</td>
+</tr>
+<tr>
+<td>android.permission.WRITE_CALENDAR</td>
+<td>允许程序写入日程，但不可读取</td>
+</tr>
+<tr>
+<td>android.permission.WRITE_APN_SETTINGS</td>
+<td>允许程序写入网络 GPRS 接入点设置</td>
+</tr>
+<tr>
+<td>android.permission.WAKE_LOCK</td>
+<td>允许程序在手机屏幕关闭后后台进程仍然运行</td>
+</tr>
+<tr>
+<td>android.permission.VIBRATE</td>
+<td>允许程序振动</td>
+</tr>
+<tr>
+<td>android.permission.USE_SIP</td>
+<td>允许程序使用 SIP 视频服务</td>
+</tr>
+<tr>
+<td>android.permission.USE_CREDENTIALS</td>
+<td>允许程序请求验证从 AccountManager</td>
+</tr>
+<tr>
+<td>android.permission.UPDATE_DEVICE_STATS</td>
+<td>允许程序更新设备状态</td>
+</tr>
+<tr>
+<td>android.launcher.permission.UNINSTALL_SHORTCUT    删除快捷方式</td>
+</tr>
+<tr>
+<td>android.permission.TRANSMIT_IR</td>
+<td>允许使用设备的红外发射器，如果可用</td>
+</tr>
+<tr>
+<td>android.permission.SYSTEM_ALERT_WINDOW</td>
+<td>允许程序显示系统窗口</td>
+</tr>
+<tr>
+<td>android.permission.SUBSCRIBED_FEEDS_WRITE</td>
+<td>允许程序写入或修改订阅内容的数据库</td>
+</tr>
+<tr>
+<td>android.permission.SUBSCRIBED_FEEDS_READ</td>
+<td>允许程序访问订阅信息的数据库</td>
+</tr>
+<tr>
+<td>android.permission.STATUS_BAR</td>
+<td>允许程序打开、关闭、禁用状态栏</td>
+</tr>
+<tr>
+<td>android.permission.SIGNAL_PERSISTENT_PROCESSES</td>
+<td>允许程序发送一个永久的进程信号，已废弃</td>
+</tr>
+<tr>
+<td>android.permission.SET_WALLPAPER_HINTS</td>
+<td>允许程序设置壁纸建议</td>
+</tr>
+<tr>
+<td>android.permission.SET_WALLPAPER</td>
+<td>允许程序设置桌面壁纸</td>
+</tr>
+<tr>
+<td>android.permission.SET_TIME_ZONE</td>
+<td>允许程序设置系统时区</td>
+</tr>
+<tr>
+<td>android.permission.SET_TIME</td>
+<td>允许程序设置系统时间</td>
+</tr>
+<tr>
+<td>android.permission.SET_PROCESS_LIMIT</td>
+<td>允许程序设置最大的进程数量的限制</td>
+</tr>
+<tr>
+<td>android.permission.SET_PREFERRED_APPLICATIONS</td>
+<td>允许程序设置应用的参数，已不再工作具体查看 addPackageToPreferred(String) 介绍</td>
+</tr>
+<tr>
+<td>android.permission.SET_POINTER_SPEED</td>
+<td>无法被第三方应用获得，系统权限</td>
+</tr>
+<tr>
+<td>android.permission.SET_ORIENTATION</td>
+<td>允许程序设置屏幕方向为横屏或标准方式显示，不用于普通应用</td>
+</tr>
+<tr>
+<td>android.permission.SET_DEBUG_APP</td>
+<td>允许程序设置调试程序，一般用于开发</td>
+</tr>
+<tr>
+<td>android.permission.SET_ANIMATION_SCALE</td>
+<td>允许程序设置全局动画缩放</td>
+</tr>
+<tr>
+<td>android.permission.SET_ALWAYS_FINISH</td>
+<td>允许程序设置程序在后台是否总是退出</td>
+</tr>
+<tr>
+<td>android.alarm.permission.SET_ALARM</td>
+<td>允许程序设置闹铃提醒</td>
+</tr>
+<tr>
+<td>android.permission.SET_ACTIVITY_WATCHER</td>
+<td>允许程序设置 Activity 观察器一般用于 monkey 测试</td>
+</tr>
+<tr>
+<td>android.permission.SEND_SMS</td>
+<td>允许程序发送短信</td>
+</tr>
+<tr>
+<td>android.permission.SEND_RESPOND_VIA_MESSAGE</td>
+<td>允许用户在来电的时候用你的应用进行即时的短信息回复。</td>
+</tr>
+<tr>
+<td>android.permission.RESTART_PACKAGES</td>
+<td>允许程序结束任务通过 restartPackage(String)方法，该方式将在外来放弃</td>
+</tr>
+<tr>
+<td>android.permission.REORDER_TASKS</td>
+<td>允许程序重新排序系统 Z 轴运行中的任务</td>
+</tr>
+<tr>
+<td>android.permission.RECORD_AUDIO</td>
+<td>允许程序录制声音通过手机或耳机的麦克</td>
+</tr>
+<tr>
+<td>android.permission.RECEIVE_WAP_PUSH</td>
+<td>允许程序接收 WAP PUSH 信息</td>
+</tr>
+<tr>
+<td>android.permission.RECEIVE_SMS</td>
+<td>允许程序接收短信</td>
+</tr>
+<tr>
+<td>android.permission.RECEIVE_MMS</td>
+<td>允许程序接收彩信</td>
+</tr>
+<tr>
+<td>android.permission.RECEIVE_BOOT_COMPLETED</td>
+<td>允许程序开机自动运行</td>
+</tr>
+<tr>
+<td>android.permission.REBOOT</td>
+<td>允许程序重新启动设备</td>
+</tr>
+<tr>
+<td>android.permission.READ_USER_DICTIONARY</td>
+<td>从一个提供器中获取数据，针对对应的提供器，应用程序需要“读访问权限”</td>
+</tr>
+<tr>
+<td>android.permission.READ_SYNC_STATS</td>
+<td>允许程序读取同步状态，获得 Google 在线同步状态</td>
+</tr>
+<tr>
+<td>android.permission.READ_SYNC_SETTINGS</td>
+<td>允许程序读取同步设置，读取 Google 在线同步设置</td>
+</tr>
+<tr>
+<td>android.permission.READ_SOCIAL_STREAM</td>
+<td>读取用户的社交信息流</td>
+</tr>
+<tr>
+<td>android.permission.READ_SMS</td>
+<td>允许程序读取短信内容</td>
+</tr>
+<tr>
+<td>android.permission.READ_PROFILE</td>
+<td>访问用户个人资料</td>
+</tr>
+<tr>
+<td>android.permission.READ_PHONE_STATE</td>
+<td>允许程序访问电话状态</td>
+</tr>
+<tr>
+<td>android.permission.READ_LOGS</td>
+<td>允许程序读取系统底层日志</td>
+</tr>
+<tr>
+<td>android.permission.READ_INPUT_STATE</td>
+<td>允许程序读取当前键的输入状态，仅用于系统</td>
+</tr>
+<tr>
+<td>android.browser.permission.READ_HISTORY_BOOKMARKS</td>
+<td>允许程序读取浏览器收藏夹和历史记录</td>
+</tr>
+<tr>
+<td>android.permission.READ_FRAME_BUFFER</td>
+<td>允许程序读取帧缓存用于屏幕截图</td>
+</tr>
+<tr>
+<td>android.permission.READ_EXTERNAL_STORAGE</td>
+<td>程序可以读取设备外部存储空间（内置 SDcard 和外置 SDCard）的文件，如果您的 App 已经添加了“WRITE_EXTERNAL_STORAGE ”权限 ，则就没必要添加读的权限了，写权限已经包含了读权限了。</td>
+</tr>
+<tr>
+<td>android.permission.READ_CONTACTS</td>
+<td>允许程序访问联系人通讯录信息</td>
+</tr>
+<tr>
+<td>android.permission.READ_CALL_LOG</td>
+<td>读取通话记录</td>
+</tr>
+<tr>
+<td>android.permission.READ_CALENDAR</td>
+<td>允许程序读取用户的日程信息</td>
+</tr>
+<tr>
+<td>android.permission.PROCESS_OUTGOING_CALLS</td>
+<td>允许程序监视，修改或放弃播出电话</td>
+</tr>
+<tr>
+<td>android.permission.PERSISTENT_ACTIVITY</td>
+<td>允许程序创建一个永久的 Activity，该功能标记为将来将被移除</td>
+</tr>
+<tr>
+<td>android.permission.NFC</td>
+<td>允许程序执行 NFC 近距离通讯操作，用于移动支持</td>
+</tr>
+<tr>
+<td>android.permission.MOUNT_UNMOUNT_FILESYSTEMS</td>
+<td>允许程序挂载、反挂载外部文件系统</td>
+</tr>
+<tr>
+<td>android.permission.MOUNT_FORMAT_FILESYSTEMS</td>
+<td>允许程序格式化可移动文件系统，比如格式化清空 SD 卡</td>
+</tr>
+<tr>
+<td>android.permission.MODIFY_PHONE_STATE</td>
+<td>允许程序修改电话状态，如飞行模式，但不包含替换系统拨号器界面</td>
+</tr>
+<tr>
+<td>android.permission.MODIFY_AUDIO_SETTINGS</td>
+<td>允许程序修改声音设置信息</td>
+</tr>
+<tr>
+<td>android.permission.MEDIA_CONTENT_CONTROL</td>
+<td>允许一个应用程序知道什么是播放和控制其内容。不被第三方应用使用。</td>
+</tr>
+<tr>
+<td>android.permission.MASTER_CLEAR</td>
+<td>允许程序执行软格式化，删除系统配置信息</td>
+</tr>
+<tr>
+<td>android.permission.MANAGE_DOCUMENTS</td>
+<td>允许一个应用程序来管理文档的访问，通常是一个文档选择器部分</td>
+</tr>
+<tr>
+<td>android.permission.MANAGE_APP_TOKENS</td>
+<td>管理创建、摧毁、Z 轴顺序，仅用于系统</td>
+</tr>
+<tr>
+<td>android.permission.MANAGE_ACCOUNTS</td>
+<td>允许程序管理 AccountManager 中的账户列表</td>
+</tr>
+<tr>
+<td>android.permission.LOCATION_HARDWARE</td>
+<td>允许一个应用程序中使用定位功能的硬件，不使用第三方应用</td>
+</tr>
+<tr>
+<td>android.permission.KILL_BACKGROUND_PROCESSES</td>
+<td>允许程序调用 killBackgroundProcesses(String).方法结束后台进程</td>
+</tr>
+<tr>
+<td>android.permission.INTERNET</td>
+<td>允许程序访问网络连接，可能产生 GPRS 流量</td>
+</tr>
+<tr>
+<td>android.permission.INTERNAL_SYSTEM_WINDOW</td>
+<td>允许程序打开内部窗口，不对第三方应用程序开放此权限</td>
+</tr>
+<tr>
+<td>android.launcher.permission.INSTALL_SHORTCUT</td>
+<td>创建快捷方式</td>
+</tr>
+<tr>
+<td>android.permission.INSTALL_PACKAGES</td>
+<td>允许程序安装应用</td>
+</tr>
+<tr>
+<td>android.permission.INSTALL_LOCATION_PROVIDER</td>
+<td>允许程序安装定位提供</td>
+</tr>
+<tr>
+<td>android.permission.INJECT_EVENTS</td>
+<td>允许程序访问本程序的底层事件，获取按键、轨迹球的事件流</td>
+</tr>
+<tr>
+<td>android.permission.HARDWARE_TEST</td>
+<td>允许程序访问硬件辅助设备，用于硬件测试</td>
+</tr>
+<tr>
+<td>android.permission.GLOBAL_SEARCH</td>
+<td>允许程序允许全局搜索</td>
+</tr>
+<tr>
+<td>android.permission.GET_TOP_ACTIVITY_INFO</td>
+<td>允许一个应用程序检索私有信息是当前最顶级的活动，不被第三方应用使用</td>
+</tr>
+<tr>
+<td>android.permission.GET_TASKS</td>
+<td>允许程序获取任务信息</td>
+</tr>
+<tr>
+<td>android.permission.GET_PACKAGE_SIZE</td>
+<td>允许程序获取应用的文件大小</td>
+</tr>
+<tr>
+<td>android.permission.GET_ACCOUNTS</td>
+<td>允许程序访问账户 Gmail 列表</td>
+</tr>
+<tr>
+<td>android.permission.FORCE_BACK</td>
+<td>允许程序强制使用 back 后退按键，无论 Activity 是否在顶层</td>
+</tr>
+<tr>
+<td>android.permission.FLASHLIGHT</td>
+<td>允许访问闪光灯</td>
+</tr>
+<tr>
+<td>android.permission.FACTORY_TEST</td>
+<td>允许程序运行工厂测试模式</td>
+</tr>
+<tr>
+<td>android.permission.EXPAND_STATUS_BAR</td>
+<td>允许程序扩展或收缩状态栏</td>
+</tr>
+<tr>
+<td>android.permission.DUMP</td>
+<td>允许程序获取系统 dump 信息从系统服务</td>
+</tr>
+<tr>
+<td>android.permission.DISABLE_KEYGUARD</td>
+<td>允许程序禁用键盘锁</td>
+</tr>
+<tr>
+<td>android.permission.DIAGNOSTIC</td>
+<td>允许程序到 RW 到诊断资源</td>
+</tr>
+<tr>
+<td>android.permission.DEVICE_POWER</td>
+<td>允许程序访问底层电源管理</td>
+</tr>
+<tr>
+<td>android.permission.DELETE_PACKAGES</td>
+<td>允许程序删除应用</td>
+</tr>
+<tr>
+<td>android.permission.DELETE_CACHE_FILES</td>
+<td>允许程序删除缓存文件</td>
+</tr>
+<tr>
+<td>android.permission.CONTROL_LOCATION_UPDATES</td>
+<td>允许程序获得移动网络定位信息改变</td>
+</tr>
+<tr>
+<td>android.permission.CLEAR_APP_USER_DATA</td>
+<td>允许程序清除用户数据</td>
+</tr>
+<tr>
+<td>android.permission.CLEAR_APP_CACHE</td>
+<td>允许程序清除应用缓存</td>
+</tr>
+<tr>
+<td>android.permission.CHANGE_WIFI_STATE</td>
+<td>允许程序改变 WiFi 状态</td>
+</tr>
+<tr>
+<td>android.permission.CHANGE_WIFI_MULTICAST_STATE</td>
+<td>允许程序改变 WiFi 多播状态</td>
+</tr>
+<tr>
+<td>android.permission.CHANGE_NETWORK_STATE</td>
+<td>允许程序改变网络状态,如是否联网</td>
+</tr>
+<tr>
+<td>android.permission.CHANGE_CONFIGURATION</td>
+<td>允许当前应用改变配置，如定位</td>
+</tr>
+<tr>
+<td>android.permission.CHANGE_COMPONENT_ENABLED_STATE    改变组件是否启用状态</td>
+</tr>
+<tr>
+<td>android.permission.CAPTURE_VIDEO_OUTPUT</td>
+<td>允许一个应用程序捕获视频输出，不被第三方应用使用</td>
+</tr>
+<tr>
+<td>android.permission.CAPTURE_SECURE_VIDEO_OUTPUT</td>
+<td>允许一个应用程序捕获视频输出。不被第三方应用使用</td>
+</tr>
+<tr>
+<td>android.permission.CAPTURE_AUDIO_OUTPUT</td>
+<td>允许一个应用程序捕获音频输出。不被第三方应用使用</td>
+</tr>
+<tr>
+<td>android.permission.CAMERA</td>
+<td>允许程序访问摄像头进行拍照</td>
+</tr>
+<tr>
+<td>android.permission.CALL_PRIVILEGED</td>
+<td>允许程序拨打电话，替换系统的拨号器界面</td>
+</tr>
+<tr>
+<td>android.permission.CALL_PHONE</td>
+<td>允许程序从非系统拨号器里拨打电话</td>
+</tr>
+<tr>
+<td>android.permission.BROADCAST_WAP_PUSH    WAP PUSH 服务收到后触发一个广播</td>
+</tr>
+<tr>
+<td>android.permission.BROADCAST_STICKY</td>
+<td>允许程序收到广播后快速收到下一个广播</td>
+</tr>
+<tr>
+<td>android.permission.BROADCAST_SMS</td>
+<td>允许程序当收到短信时触发一个广播</td>
+</tr>
+<tr>
+<td>android.permission.BROADCAST_PACKAGE_REMOVED</td>
+<td>允许程序删除时广播</td>
+</tr>
+<tr>
+<td>android.permission.BRICK</td>
+<td>能够禁用手机，非常危险，顾名思义就是让手机变成砖头</td>
+</tr>
+<tr>
+<td>android.permission.BLUETOOTH_PRIVILEGED</td>
+<td>允许应用程序配对蓝牙设备，而无需用户交互</td>
+</tr>
+<tr>
+<td>android.permission.BLUETOOTH_ADMIN</td>
+<td>允许程序进行发现和配对新的蓝牙设备</td>
+</tr>
+<tr>
+<td>android.permission.BLUETOOTH</td>
+<td>允许程序连接配对过的蓝牙设备</td>
+</tr>
+<tr>
+<td>android.permission.BLUETOOTH_SCAN</td>
+<td>Android12 的蓝牙权限 如果您的应用查找蓝牙设备（如蓝牙低功耗 (BLE) 外围设备）</td>
+</tr>
+<tr>
+<td>android.permission.BLUETOOTH_CONNECT</td>
+<td>Android12 的蓝牙权限 如果您的应用与已配对的蓝牙设备通信或者获取当前手机蓝牙是否打开</td>
+</tr>
+<tr>
+<td>android.permission.BIND_WALLPAPER</td>
+<td>必须通过 WallpaperService 服务来请求，只有系统才能用</td>
+</tr>
+<tr>
+<td>android.permission.BIND_VPN_SERVICE</td>
+<td>绑定 VPN 服务必须通过 VpnService 服务来请求,只有系统才能用</td>
+</tr>
+<tr>
+<td>android.permission.BIND_TEXT_SERVICE</td>
+<td>必须要求 textservice(例如吗 spellcheckerservice)，以确保只有系统可以绑定到它。</td>
+</tr>
+<tr>
+<td>android.permission.BIND_REMOTEVIEWS</td>
+<td>必须通过 RemoteViewsService 服务来请求，只有系统才能用</td>
+</tr>
+<tr>
+<td>android.permission.BIND_PRINT_SERVICE</td>
+<td>必须要求由 printservice，以确保只有系统可以绑定到它。</td>
+</tr>
+<tr>
+<td>android.permission.BIND_NOTIFICATION_LISTENER_SERVICE</td>
+<td>必须要求由 notificationlistenerservice，以确保只有系统可以绑定到它。</td>
+</tr>
+<tr>
+<td>android.permission.BIND_NFC_SERVICE</td>
+<td>由 hostapduservice 或 offhostapduservice 必须确保只有系统可以绑定到它。</td>
+</tr>
+<tr>
+<td>android.permission.BIND_INPUT_METHOD</td>
+<td>请求 InputMethodService 服务，只有系统才能使用</td>
+</tr>
+<tr>
+<td>android.permission.BIND_DEVICE_ADMIN</td>
+<td>请求系统管理员接收者 receiver，只有系统才能使用</td>
+</tr>
+<tr>
+<td>android.permission.BIND_APPWIDGET</td>
+<td>允许程序告诉 appWidget 服务需要访问小插件的数据库，只有非常少的应用才用到此权限</td>
+</tr>
+<tr>
+<td>android.permission.BIND_ACCESSIBILITY_SERVICE</td>
+<td>请求 accessibilityservice 服务，以确保只有系统可以绑定到它。</td>
+</tr>
+<tr>
+<td>android.permission.AUTHENTICATE_ACCOUNTS</td>
+<td>允许程序通过账户验证方式访问账户管理 ACCOUNT_MANAGER 相关信息</td>
+</tr>
+<tr>
+<td>android.voicemail.permission.ADD_VOICEMAIL</td>
+<td>允许一个应用程序添加语音邮件系统</td>
+</tr>
+<tr>
+<td>android.permission.ACCOUNT_MANAGER</td>
+<td>允许程序获取账户验证信息，主要为 GMail 账户信息，只有系统级进程才能访问的权限</td>
+</tr>
+<tr>
+<td>android.permission.ACCESS_WIFI_STATE</td>
+<td>允许程序获取当前 WiFi 接入的状态以及 WLAN 热点的信息</td>
+</tr>
+<tr>
+<td>android.permission.ACCESS_SURFACE_FLINGER    Android 平台上底层的图形显示支持，一般用于游戏或照相机预览界面和底层模式的屏幕截图</td>
+</tr>
+<tr>
+<td>android.permission.ACCESS_NETWORK_STATE</td>
+<td>允许程序获取网络信息状态，如当前的网络连接是否有效</td>
+</tr>
+<tr>
+<td>android.permission.ACCESS_MOCK_LOCATION</td>
+<td>允许程序获取模拟定位信息，一般用于帮助开发者调试应用</td>
+</tr>
+<tr>
+<td>android.permission.ACCESS_LOCATION_EXTRA_COMMANDS</td>
+<td>允许程序访问额外的定位提供者指令</td>
+</tr>
+<tr>
+<td>android.permission.ACCESS_FINE_LOCATION</td>
+<td>允许程序通过 GPS 芯片接收卫星的定位信息</td>
+</tr>
+<tr>
+<td>android.permission.ACCESS_COARSE_LOCATION</td>
+<td>允许程序通过 WiFi 或移动基站的方式获取用户错略的经纬度信息</td>
+</tr>
+<tr>
+<td>android.permission.ACCESS_CHECKIN_PROPERTIES</td>
+<td>允许程序读取或写入登记 check-in 数据库属性表的权限</td>
+</tr>
+</tbody>
+</table>
+<pre><code>const state = {
+  dialogView: null,
+  //   permissionListener: null,
+  list: [
+    {
+      name: &apos;READ_CALENDAR&apos;,
+      title: &apos;手机状态权限申请说明:&apos;,
+      content: &apos;uni-app正在申请手机日历日历状态权限,允许或拒绝均不会获取任何隐私信息。&apos;
+    },
+    {
+      name: &apos;CALL_PHONE&apos;,
+      title: &apos;拨打电话权限申请说明:&apos;,
+      content: &apos;uni-app正在申请拨打电话权限,允许或拒绝均不会获取任何隐私信息。&apos;
+    },
+    {
+      name: &apos;CAMERA&apos;,
+      title: &apos;读取存储权限申请说明:&apos;,
+      content: &apos;uni-app正在申请摄像头权限,允许或拒绝均不会获取任何隐私信息。&apos;
+    },
+    {
+      name: &apos;READ_EXTERNAL_STORAGE&apos;,
+      title: &apos;读取存储权限申请说明:&apos;,
+      content: &apos;app正在申请读取存储权限,允许或拒绝均不会获取任何隐私信息。&apos;
+    },
+    {
+      name: &apos;ACCESS_FINE_LOCATION&apos;,
+      title: &apos;获取定位权限申请说明:&apos;,
+      content: &apos;app正在申请获取定位权限,允许或拒绝均不会获取任何隐私信息。&apos;
+    },
+    {
+      name: &apos;WRITE_EXTERNAL_STORAGE&apos;,
+      title: &apos;保存文件权限申请说明:&apos;,
+      content: &apos;app正在申请保存文件权限,允许或拒绝均不会获取任何隐私信息。&apos;
+    }
+  ]
+};
+const actions = {
+  //监听权限申请
+  async requestPermission({ state, dispatch }, { permissionID, content }) {
+    return new Promise((resolve, reject) =&gt; {
+      try {
+        console.log(uni.getSystemInfoSync(), &apos;uni.getSystemInfoSync().platfor&apos;);
+        if (uni.getSystemInfoSync().platform !== &apos;android&apos;) {
+          return resolve(true);
+        }
+        /**
+         * @description plus.navigator.checkPermission 检查应用是否获取指定权限
+         * 有些权限检测不到 就继续下面的代码，比如相册权限就可以直接检测，就很方便，授权情况下不需要再走下面代码了
+         * checkPermission 返回参数
+         * @params undetermined 未确定
+         * @params authorized 授权
+         */
+        let checkPermission = plus.navigator.checkPermission(&apos;android.permission.&apos; + permissionID);
+        if (checkPermission == &apos;authorized&apos;) return resolve(true);
+        //判断是否自己在list里面配置了这个权限
+        let index = state.list.findIndex((item) =&gt; item.name == permissionID);
+        if (index == -1) throw new Error(&apos;这个权限没有配置&apos;);
+        //唤起原生权限说明弹框
+        dispatch(&apos;requestPermissionDialog&apos;, { index, content });
+        //授权检测回调
+        plus.android.requestPermissions(
+          [
+            &apos;android.permission.&apos; + permissionID //单个权限
+            // &apos;android.permission.CAMERA&apos;, &apos;android.permission.READ_EXTERNAL_STORAGE&apos;  //多个权限
+          ],
+          (resultObj) =&gt; {
+            console.log(resultObj, &apos;resultObj&apos;);
+            // 权限申请结果
+            /**
+             * @description resultObj.deniedAlways 永久拒绝授权
+             * 多个权限返回结果可能是{&quot;granted&quot;:[&quot;android.permission.CAMERA&quot;],&quot;deniedPresent&quot;:[],&quot;deniedAlways&quot;:[&quot;android.permission.READ_EXTERNAL_STORAGE&quot;]}
+             * 这个情况就是我同时授权相册和相机，但是只允许了相机，没有授权相册
+             * 这个时候 可以通过deniedAlways 查看哪个权限被永久拒绝了，然后自行在设置弹框内容
+             * 所以可以自己判断细分一下，我下面的代码是先判断了是否有永久拒绝的权限，然后直接弹框提示用户去设置
+             */
+            if (resultObj.deniedAlways &amp;&amp; resultObj.deniedAlways.length &gt; 0) {
+              uni.showModal({
+                title: &apos;提示&apos;,
+                content: &apos;操作权限已被拒绝，请手动前往设置&apos;,
+                confirmText: &apos;立即设置&apos;,
+                success: (res) =&gt; {
+                  if (res.confirm) {
+                    dispatch(&apos;gotoAppPermissionSetting&apos;);
+                  } else {
+                    resolve(false);
+                  }
+                }
+              });
+              console.log(&apos;永久拒绝授权&apos;);
+            } else if (resultObj.deniedPresent &amp;&amp; resultObj.deniedPresent.length &gt; 0) {
+              resolve(false);
+              console.log(&apos;拒绝授权&apos;);
+            } else if (resultObj.granted &amp;&amp; resultObj.granted.length &gt; 0) {
+              resolve(true);
+              console.log(&apos;授权成功&apos;);
+            }
+          },
+          (error) =&gt; {
+            reject(false);
+            console.log(&apos;申请权限错误：&apos;, error);
+          }
+        );
+      } catch (err) {
+        reject(false);
+        console.log(err);
+      }
+    });
+  },
+  //监听弹框
+  requestPermissionDialog({ state, dispatch, commit }, { index, content }) {
+    try {
+      console.log(&apos;state.permissionListener&apos;, state.permissionListener);
+      if (!state.permissionListener) {
+        commit(&apos;SET_LISTENER&apos;, uni.createRequestPermissionListener());
+      }
+      const dialogData = state.list[index];
+      if (content) {
+        dialogData = JONS.parse(JSON.stringify({ ...dialogData, content }));
+      }
+      state.permissionListener.onConfirm((res) =&gt; {
+        dispatch(&apos;dialogStyle&apos;, { dialogData, status: true });
+      });
+      state.permissionListener.onComplete(async (res) =&gt; {
+        dispatch(&apos;dialogStyle&apos;, { dialogData: {}, status: false });
+      });
+    } catch (err) {
+      console.log(&apos;监听弹框错误&apos;, err);
+    }
+  },
+  //弹框样式
+  dialogStyle({ state }, { dialogData, status }) {
+    try {
+      console.log(&apos;dialogStyle&apos;);
+      if (!status) return state.dialogView.close();
+      const systemInfo = uni.getSystemInfoSync();
+      const statusBarHeight = systemInfo.statusBarHeight;
+      const navigationBarHeight = systemInfo.platform === &apos;android&apos; ? 48 : 44;
+      const totalHeight = statusBarHeight + navigationBarHeight;
+      state.dialogView = new plus.nativeObj.View(&apos;per-modal&apos;, {
+        top: &apos;0px&apos;,
+        left: &apos;0px&apos;,
+        width: &apos;100%&apos;,
+        backgroundColor: &apos;#444&apos;
+        //opacity: .5;
+      });
+      state.dialogView.drawRect(
+        {
+          color: &apos;#fff&apos;,
+          radius: &apos;5px&apos;
+        },
+        {
+          top: totalHeight + &apos;px&apos;,
+          left: &apos;5%&apos;,
+          width: &apos;90%&apos;,
+          height: &apos;100px&apos;
+        }
+      );
+      state.dialogView.drawText(
+        dialogData.title,
+        {
+          top: totalHeight + 5 + &apos;px&apos;,
+          left: &apos;8%&apos;,
+          height: &apos;30px&apos;
+        },
+        {
+          align: &apos;left&apos;,
+          color: &apos;#000&apos;
+        }
+      );
+      state.dialogView.drawText(
+        dialogData.content,
+        {
+          top: totalHeight + 35 + &apos;px&apos;,
+          height: &apos;60px&apos;,
+          left: &apos;8%&apos;,
+          width: &apos;84%&apos;
+        },
+        {
+          whiteSpace: &apos;normal&apos;,
+          size: &apos;14px&apos;,
+          align: &apos;left&apos;,
+          color: &apos;#656563&apos;
+        }
+      );
+      state.dialogView.show();
+    } catch (e) {
+      console.log(e, &apos;权限说明弹框样式错误&apos;);
+    }
+  },
+  //跳转到app权限设置页面
+  gotoAppPermissionSetting() {
+    if (!uni.getSystemInfoSync().platform == &apos;android&apos;) {
+      var UIApplication = plus.ios.import(&apos;UIApplication&apos;);
+      var application2 = UIApplication.sharedApplication();
+      var NSURL2 = plus.ios.import(&apos;NSURL&apos;);
+      // var setting2 = NSURL2.URLWithString(&quot;prefs:root=LOCATION_SERVICES&quot;);
+      var setting2 = NSURL2.URLWithString(&apos;app-settings:&apos;);
+      application2.openURL(setting2);
+
+      plus.ios.deleteObject(setting2);
+      plus.ios.deleteObject(NSURL2);
+      plus.ios.deleteObject(application2);
+    } else {
+      // console.log(plus.device.vendor);
+      var Intent = plus.android.importClass(&apos;android.content.Intent&apos;);
+      var Settings = plus.android.importClass(&apos;android.provider.Settings&apos;);
+      var Uri = plus.android.importClass(&apos;android.net.Uri&apos;);
+      var mainActivity = plus.android.runtimeMainActivity();
+      var intent = new Intent();
+      intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+      var uri = Uri.fromParts(&apos;package&apos;, mainActivity.getPackageName(), null);
+      intent.setData(uri);
+      mainActivity.startActivity(intent);
+    }
+  }
+};
+
+const mutations = {
+  SET_LISTENER(state, value) {
+    state.permissionListener = value;
+  }
+};
+export default {
+  state,
+  actions,
+  mutations
+};
+</code></pre><p>在项目中使用</p>
+<pre><code>if (!(await this.requestPermission({ permissionID: &apos;ACCESS_FINE_LOCATION&apos; }))) return;
+uni.getLocation()
+</code></pre>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="ringChart.html" class="navigation navigation-prev " aria-label="Previous page: vue2 echarts环图配置 ">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="FORMATFLOAT.html" class="navigation navigation-next " aria-label="Next page: JS保留小数并四舍五入">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"uniapp 华为应用市场权限说明解决方案 vuex","level":"1.3","depth":1,"next":{"title":"JS保留小数并四舍五入","level":"1.4","depth":1,"path":"FORMATFLOAT.md","ref":"FORMATFLOAT.md","articles":[]},"previous":{"title":"vue2 echarts环图配置 ","level":"1.2","depth":1,"path":"ringChart.md","ref":"ringChart.md","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"UNIAPPPERMISSION.md","mtime":"2024-06-20T07:40:45.342Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-06-24T03:39:10.564Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
