@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>产品经理负面教材 · HonKit</title>
+        <title>vue3node节点异常问题 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -56,10 +56,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="IOSDATE.html" />
     
-    
-    <link rel="prev" href="FORMATFLOAT.html" />
+    <link rel="prev" href="REFSTYLE.html" />
     
 
     </head>
@@ -140,7 +138,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5" data-path="PRODECTMANAGER.html">
+        <li class="chapter " data-level="1.5" data-path="PRODECTMANAGER.html">
             
                 <a href="PRODECTMANAGER.html">
             
@@ -179,7 +177,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8" data-path="VUE3NODE.html">
+        <li class="chapter active" data-level="1.8" data-path="VUE3NODE.html">
             
                 <a href="VUE3NODE.html">
             
@@ -222,7 +220,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >产品经理负面教材</a>
+        <a href="." >vue3node节点异常问题</a>
     </h1>
 </div>
 
@@ -237,13 +235,17 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>有一个负面的产品经理可以教会你做产品的反面教材。</p>
-<ol>
-<li>看一版改一版，现看现改</li>
-<li>没有产品规划，头脑一热就要改</li>
-<li>权利过大，还兼顾项目经理的职责，对开发排期指指点点</li>
-<li>没有系统性的做过产品,完全的头脑发热，整些尬发言觉得自己很有深度</li>
-</ol>
+                                <p>修改屎山代码遇到个问题。</p>
+<p>通过<code>v-if</code>设置组件条件渲染在设置了一次后，第二次再触发时间，提示node节点不存在</p>
+<p>看了半天代码页也没发现什么原因造成的。</p>
+<p>后面一条条属性删除，删除了一个没用到的<code>ref</code>属性解决了。
+后面增加一个随机<code>ref</code>又可以成功渲染。
+查看gitlog，还原到之前的代码,发现是这个哥们把<code>ref</code>名和组件名一致了。
+问题代码</p>
+<pre><code>&lt;componentName ref=&quot;slideVerification&quot; /&gt;
+
+import componentName from &apos;./componentName.vue&apos;
+</code></pre><p>解决方案，修改ref属性或修改组件名</p>
 
                                 
                                 </section>
@@ -271,14 +273,10 @@
 
             
                 
-                <a href="FORMATFLOAT.html" class="navigation navigation-prev " aria-label="Previous page: JS保留小数并四舍五入">
+                <a href="REFSTYLE.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: vue3设置ref.value.style失败">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="IOSDATE.html" class="navigation navigation-next " aria-label="Next page: uniapp在ios内时间错误问题">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -287,7 +285,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"产品经理负面教材","level":"1.5","depth":1,"next":{"title":"uniapp在ios内时间错误问题","level":"1.6","depth":1,"path":"IOSDATE.md","ref":"IOSDATE.md","articles":[]},"previous":{"title":"JS保留小数并四舍五入","level":"1.4","depth":1,"path":"FORMATFLOAT.md","ref":"FORMATFLOAT.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"PRODECTMANAGER.md","mtime":"2024-06-21T01:00:25.030Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-06-24T09:38:45.055Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"vue3node节点异常问题","level":"1.8","depth":1,"previous":{"title":"vue3设置ref.value.style失败","level":"1.7","depth":1,"path":"REFSTYLE.md","ref":"REFSTYLE.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"VUE3NODE.md","mtime":"2024-06-24T06:49:26.619Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-06-24T09:38:45.055Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
