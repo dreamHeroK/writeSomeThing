@@ -5,7 +5,7 @@
   "scripts": {
     "build": "honkit build",
     "serve": "honkit serve",
-    "publish": "node publish.js",
+    "publish": "honkit build&&node publish.js",
     "prepare": "husky"
   },
   "author": "",
