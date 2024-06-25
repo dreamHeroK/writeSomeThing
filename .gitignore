@@ -1,5 +1,5 @@
 # build output
-dist
+_book
 .next
 
 # dependencies
@@ -23,5 +23,3 @@ test/**/out
 
 # Editors
 **/.idea
-
-_book/*
