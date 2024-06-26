@@ -7,3 +7,4 @@
 * [vue3node节点异常问题](VUE3NODE.md)
 * [gitbook发布gitpages配置流程](GITPAGES.md)
 * [HUSKY使用](HUSKY.md)
+* [技术扶贫之小程序包体压缩](wechappAp.md)
