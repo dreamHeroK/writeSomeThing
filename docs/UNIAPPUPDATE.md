@@ -17,3 +17,5 @@
 ##### 遇到的问题
 
 1. 下载完依赖后打包遇到一个`Syntax Error: Error: Node Sass version 6.0.1 is incompatible with ^4.0.0.`错误，确认了一下流水线配置的node版本为12，到[node-sass](https://github.com/sass/node-sass)查询了一下和node版本的对应关系，修改版本为4.14，重新下载依赖打包项目，OK，打包成功。
+
+2. 更新完项目遇到语法错误,`Syntax Error: Error: PostCSS plugin postcss-uniapp-plugin requires PostCSS 8.`,通过 `npm ls postcss`查看 目前的`postcss`版本，都是 7.0.39,除了vue目录下的升级到了8版本，直接固定postcss版本 `npm i -D postcss@7`,再执行项目，正常启动无问题
