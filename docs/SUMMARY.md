@@ -8,3 +8,5 @@
 * [gitbook发布gitpages配置流程](GITPAGES.md)
 * [HUSKY使用](HUSKY.md)
 * [技术扶贫之小程序包体压缩](wechappAp.md)
+* [uniapp基座版本升级](UNIAPPUPDATE.md)
+
