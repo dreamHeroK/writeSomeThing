@@ -9,7 +9,7 @@
 ##### 操作步骤
 
 1. 下载4.0.8的android sdk，部署到对应的libs目录下
-2. 使用[@dcloudio/uvm](https://www.npmjs.com/package/@dcloudio/uvm)到对应的uniapp项目进行cli工具升级,执行命令 `npx @dcloudio/uvm@4.08.2024040127 // 版本自行选择`
+2. 使用[@dcloudio/uvm](https://www.npmjs.com/package/@dcloudio/uvm)到对应的uniapp项目进行cli工具升级,执行命令 `npx @dcloudio/uvm@latest 4.08.2024040127 // 版本自行选择`
 3. ok，依赖更新完成，执行打包操作
 4. 上传到服务器
 
