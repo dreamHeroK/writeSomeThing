@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>uniapp在ios内时间错误问题 · HonKit</title>
+        <title>uniapp基座版本升级 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -56,10 +56,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="REFSTYLE.html" />
     
-    
-    <link rel="prev" href="PRODECTMANAGER.html" />
+    <link rel="prev" href="wechappAp.html" />
     
 
     </head>
@@ -153,7 +151,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.6" data-path="IOSDATE.html">
+        <li class="chapter " data-level="1.6" data-path="IOSDATE.html">
             
                 <a href="IOSDATE.html">
             
@@ -231,7 +229,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="UNIAPPUPDATE.html">
+        <li class="chapter active" data-level="1.12" data-path="UNIAPPUPDATE.html">
             
                 <a href="UNIAPPUPDATE.html">
             
@@ -274,7 +272,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >uniapp在ios内时间错误问题</a>
+        <a href="." >uniapp基座版本升级</a>
     </h1>
 </div>
 
@@ -289,10 +287,22 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>在ios系统内，浏览器时间校验比较严格，只有YYYY/MM/DD 的格式才会被认为是正常日期，否则是不正常日期，使用momentjs会报错</p>
-<p>解决方案 替换YYYY-MM-DD 的格式为YYYY/MM/DD</p>
-<pre><code>date.replace(/-/g,&apos;/&apos;)
-</code></pre>
+                                <h3 id="uniapp基座版本升级">uniapp基座版本升级</h3>
+<h5 id="背景">背景</h5>
+<p>这个uniapp之间使用的android离线sdk打包方案，套了个android应用的壳。
+最近需要升级基座版本，但是这个壳的基座版本是3.2.6，需要升级基座版本到4.0.8。</p>
+<h5 id="操作步骤">操作步骤</h5>
+<ol>
+<li>下载4.0.8的android sdk，部署到对应的libs目录下</li>
+<li>使用<a href="https://www.npmjs.com/package/@dcloudio/uvm" target="_blank">@dcloudio/uvm</a>到对应的uniapp项目进行cli工具升级,执行命令 <code>npx @dcloudio/uvm@4.08.2024040127 // 版本自行选择</code></li>
+<li>ok，依赖更新完成，执行打包操作</li>
+<li>上传到服务器</li>
+</ol>
+<h5 id="遇到的问题">遇到的问题</h5>
+<ol>
+<li>下载完依赖后打包遇到一个<code>Syntax Error: Error: Node Sass version 6.0.1 is incompatible with ^4.0.0.</code>错误，确认了一下流水线配置的node版本为12，到<a href="https://github.com/sass/node-sass" target="_blank">node-sass</a>查询了一下和node版本的对应关系，修改版本为4.14，重新下载依赖打包项目，OK，打包成功。</li>
+</ol>
+
                                 
                                 </section>
                             
@@ -319,14 +329,10 @@
 
             
                 
-                <a href="PRODECTMANAGER.html" class="navigation navigation-prev " aria-label="Previous page: 产品经理负面教材">
+                <a href="wechappAp.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 技术扶贫之小程序包体压缩">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="REFSTYLE.html" class="navigation navigation-next " aria-label="Next page: vue3设置ref.value.style失败">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -335,7 +341,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"uniapp在ios内时间错误问题","level":"1.6","depth":1,"next":{"title":"vue3设置ref.value.style失败","level":"1.7","depth":1,"path":"REFSTYLE.md","ref":"REFSTYLE.md","articles":[]},"previous":{"title":"产品经理负面教材","level":"1.5","depth":1,"path":"PRODECTMANAGER.md","ref":"PRODECTMANAGER.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"IOSDATE.md","mtime":"2024-06-25T01:34:46.809Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-06-28T00:15:55.052Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"uniapp基座版本升级","level":"1.12","depth":1,"previous":{"title":"技术扶贫之小程序包体压缩","level":"1.11","depth":1,"path":"wechappAp.md","ref":"wechappAp.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"UNIAPPUPDATE.md","mtime":"2024-06-28T00:15:37.127Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-06-28T00:15:55.052Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
