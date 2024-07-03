@@ -9,4 +9,4 @@
 * [HUSKY使用](HUSKY.md)
 * [技术扶贫之小程序包体压缩](wechappAp.md)
 * [uniapp基座版本升级](UNIAPPUPDATE.md)
-
+* [vue自定义hover指令](VUEDIRECTIVE.md)
