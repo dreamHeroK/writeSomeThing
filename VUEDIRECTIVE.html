@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>HUSKY使用 · HonKit</title>
+        <title>vue自定义hover指令 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -56,10 +56,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="wechappAp.html" />
     
-    
-    <link rel="prev" href="GITPAGES.html" />
+    <link rel="prev" href="UNIAPPUPDATE.html" />
     
 
     </head>
@@ -205,7 +203,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.10" data-path="HUSKY.html">
+        <li class="chapter " data-level="1.10" data-path="HUSKY.html">
             
                 <a href="HUSKY.html">
             
@@ -244,7 +242,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.13" data-path="VUEDIRECTIVE.html">
+        <li class="chapter active" data-level="1.13" data-path="VUEDIRECTIVE.html">
             
                 <a href="VUEDIRECTIVE.html">
             
@@ -287,7 +285,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >HUSKY使用</a>
+        <a href="." >vue自定义hover指令</a>
     </h1>
 </div>
 
@@ -302,14 +300,38 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h3 id="husky-使用文档">HUSKY 使用文档</h3>
-<ol>
-<li>安装 <code>npm install --save-dev husky</code></li>
-<li>husky init <code>npx husky init</code></li>
-<li>编辑pre-commit <code>npm test</code></li>
-</ol>
-<h4 id="恭喜-你已经学会了husky的使用方法">恭喜 你已经学会了husky的使用方法</h4>
-
+                                <h4 id="vue-自定义hover指令">vue 自定义hover指令</h4>
+<p>由于项目迭代更新，产品要求页面全局增加一个hover效果，可点击区域文字hover透明度调整以及点击区域背景色调整。</p>
+<p>由于页面元素过多，一个一个实现费时费力，修改起来也费劲，直接就想到了使用vue directive 自定义指令实现。</p>
+<p>实现方式：</p>
+<p><code>textHover.js</code> 指令核心代码</p>
+<pre><code>export default {
+    bind(el, binding, vnode) {
+        el.onmouseover = () =&gt; {
+            el.style.opacity = &apos;0.6&apos;;
+        };
+        el.onmouseout = () =&gt; {
+            el.style.opacity = &apos;1&apos;;
+        };
+    }
+};
+</code></pre><p>在使用到的页面内注册指令,注册代码：</p>
+<pre><code>import textHover from &apos;./textHover&apos;;
+export default {
+    ...
+    directives: {
+        textHover
+    }
+}
+</code></pre><p>done！到这里文字颜色的指令就完成了，再到需要使用的地方直接使用即可。eg:</p>
+<pre><code>&lt;template&gt;
+    &lt;div&gt;
+        &lt;div v-text-hover&gt;
+            我是hover效果
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
                                 
                                 </section>
                             
@@ -336,14 +358,10 @@
 
             
                 
-                <a href="GITPAGES.html" class="navigation navigation-prev " aria-label="Previous page: gitbook发布gitpages配置流程">
+                <a href="UNIAPPUPDATE.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: uniapp基座版本升级">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="wechappAp.html" class="navigation navigation-next " aria-label="Next page: 技术扶贫之小程序包体压缩">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -352,7 +370,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"HUSKY使用","level":"1.10","depth":1,"next":{"title":"技术扶贫之小程序包体压缩","level":"1.11","depth":1,"path":"wechappAp.md","ref":"wechappAp.md","articles":[]},"previous":{"title":"gitbook发布gitpages配置流程","level":"1.9","depth":1,"path":"GITPAGES.md","ref":"GITPAGES.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"HUSKY.md","mtime":"2024-06-25T09:41:45.625Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-07-03T08:23:08.961Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"vue自定义hover指令","level":"1.13","depth":1,"previous":{"title":"uniapp基座版本升级","level":"1.12","depth":1,"path":"UNIAPPUPDATE.md","ref":"UNIAPPUPDATE.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"VUEDIRECTIVE.md","mtime":"2024-07-03T08:22:13.368Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-07-03T08:23:08.961Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
