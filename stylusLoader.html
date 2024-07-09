@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>uniapp基座版本升级 · HonKit</title>
+        <title>react stylus-loader配置 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -56,10 +56,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="VUEDIRECTIVE.html" />
     
-    
-    <link rel="prev" href="wechappAp.html" />
+    <link rel="prev" href="VUEDIRECTIVE.html" />
     
 
     </head>
@@ -231,7 +229,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.12" data-path="UNIAPPUPDATE.html">
+        <li class="chapter " data-level="1.12" data-path="UNIAPPUPDATE.html">
             
                 <a href="UNIAPPUPDATE.html">
             
@@ -257,7 +255,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.14" data-path="stylusLoader.html">
+        <li class="chapter active" data-level="1.14" data-path="stylusLoader.html">
             
                 <a href="stylusLoader.html">
             
@@ -300,7 +298,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >uniapp基座版本升级</a>
+        <a href="." >react stylus-loader配置</a>
     </h1>
 </div>
 
@@ -315,26 +313,74 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h3 id="uniapp基座版本升级">uniapp基座版本升级</h3>
-<h5 id="背景">背景</h5>
-<p>这个uniapp之间使用的android离线sdk打包方案，套了个android应用的壳。
-最近需要升级基座版本，但是这个壳的基座版本是3.2.6，需要升级基座版本到4.0.8。</p>
+                                <h4 id="stylus-loader-在-create-react-app-中的使用">stylus-loader 在 create-react-app 中的使用</h4>
+<p>由于 create-react-app 默认使用的 css-loader，sass-loader，并没有使用到 stylus-loader，所以需要手动配置 stylus-loader。</p>
 <h5 id="操作步骤">操作步骤</h5>
 <ol>
-<li>下载4.0.8的android sdk，部署到对应的libs目录下</li>
-<li>使用<a href="https://www.npmjs.com/package/@dcloudio/uvm" target="_blank">@dcloudio/uvm</a>到对应的uniapp项目进行cli工具升级,执行命令 <code>npx @dcloudio/uvm@latest 4.08.2024040127 // 版本自行选择</code></li>
-<li>ok，依赖更新完成，执行打包操作</li>
-<li>上传到服务器</li>
+<li>暴露出 create-react-app 的 webpack 配置文件 <code>npm run eject</code></li>
+<li>安装 stylus,stylus-loader <code>npm i stylus stylus-loader --save-dev</code></li>
+<li><p>修改 <code>config/webpack.config.js</code> 中的 <code>rules</code> 配置，添加 <code>stylus-loader</code>
+这里可以模仿代码之前存在的 sass-loader 配置</p>
+<pre><code>const stylusRegex = /\.styl$/;
+const stylusModuleRegex = /\.module\.styl$/;
+
+...
+// 跟在sass-loader配置后面就行
+            {
+           test:stylusRegex,
+           exclude:stylusModuleRegex,
+           use: getStyleLoaders(
+             {
+               importLoaders: 3,
+               sourceMap: isEnvProduction
+                 ? shouldUseSourceMap
+                 : isEnvDevelopment,
+               modules: {
+                 mode: &apos;icss&apos;,
+               },
+             },
+             &apos;stylus-loader&apos;
+           ),
+           sideEffects: true,
+         },
+         {
+           test: stylusModuleRegex,
+           use: getStyleLoaders(
+             {
+               importLoaders: 3,
+               sourceMap: isEnvProduction
+                 ? shouldUseSourceMap
+                 : isEnvDevelopment,
+               modules: {
+                 mode: &apos;local&apos;,
+                 getLocalIdent: getCSSModuleLocalIdent,
+               },
+             },
+             &apos;stylus-loader&apos;
+           ),
+         },
+</code></pre></li>
+<li><p>重启项目 <code>npm start</code></p>
+</li>
+<li>新建 <code>page.modlue.styl</code></li>
 </ol>
-<h5 id="遇到的问题">遇到的问题</h5>
-<ol>
-<li><p>下载完依赖后打包遇到一个<code>Syntax Error: Error: Node Sass version 6.0.1 is incompatible with ^4.0.0.</code>错误，确认了一下流水线配置的node版本为12，到<a href="https://github.com/sass/node-sass" target="_blank">node-sass</a>查询了一下和node版本的对应关系，修改版本为4.14，重新下载依赖打包项目，OK，打包成功。</p>
-</li>
-<li><p>更新完项目遇到语法错误,<code>Syntax Error: Error: PostCSS plugin postcss-uniapp-plugin requires PostCSS 8.</code>,通过 <code>npm ls postcss</code>查看 目前的<code>postcss</code>版本，都是 7.0.39,除了vue目录下的升级到了8版本，直接固定postcss版本 <code>npm i -D postcss@7</code>,再执行项目，正常启动无问题</p>
-</li>
-<li><p>使用android sdk离线打包，遇到监听权限弹窗方法不能使用的问题，查阅资料发现一个回答<a href="https://ask.dcloud.net.cn/question/193097" target="_blank">dcloud论坛</a>,开发者回复4.21版本才会带上，所以可以自行升级到4.21版本的sdk或者在android项目中引入第三方库。</p>
-</li>
+<pre><code>.card{
+    backgroud-color: #f00;
+}
+</code></pre><ol>
+<li>项目使用 <code>app.js</code></li>
 </ol>
+<pre><code>import page from &apos;./page.module.styl&apos;;
+
+function App() {
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;header className={page.card}&gt;
+      &lt;/header&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre><p>OK, 大功告成。Done</p>
 
                                 
                                 </section>
@@ -362,14 +408,10 @@
 
             
                 
-                <a href="wechappAp.html" class="navigation navigation-prev " aria-label="Previous page: 技术扶贫之小程序包体压缩">
+                <a href="VUEDIRECTIVE.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: vue自定义hover指令">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="VUEDIRECTIVE.html" class="navigation navigation-next " aria-label="Next page: vue自定义hover指令">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -378,7 +420,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"uniapp基座版本升级","level":"1.12","depth":1,"next":{"title":"vue自定义hover指令","level":"1.13","depth":1,"path":"VUEDIRECTIVE.md","ref":"VUEDIRECTIVE.md","articles":[]},"previous":{"title":"技术扶贫之小程序包体压缩","level":"1.11","depth":1,"path":"wechappAp.md","ref":"wechappAp.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"UNIAPPUPDATE.md","mtime":"2024-07-02T03:31:00.471Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-07-09T03:29:53.117Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"react stylus-loader配置","level":"1.14","depth":1,"previous":{"title":"vue自定义hover指令","level":"1.13","depth":1,"path":"VUEDIRECTIVE.md","ref":"VUEDIRECTIVE.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"stylusLoader.md","mtime":"2024-07-09T03:29:01.375Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-07-09T03:29:53.117Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
