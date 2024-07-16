@@ -374,7 +374,7 @@
 <p>如果 A is-a B，则认为 B 是基类，A 为子类，A 应该继承 B。那这个简单了，众所周知正方形是长方形，立即推，长方形是基类，正方形是子类，正方形应该继承长方形</p>
 <p><img src="images/6402.webp" alt="图3">
 基类长方形中有 SetHeight()和 SetWidth()方法，但是子类正方形有一个特点，长和宽是相等的，所以在实现 SetHeight()和 SetWidth()都必须同时设置宽和高，我们来看代码。</p>
-<p><img src="images/6403" alt="图4">.webp)</p>
+<p><img src="images/6403.webp" alt="图4"></p>
 <p>还是那句话任何基类可以出现的地方，子类一定可以出现，所以在创建 Rectangle 对象指针的时候，这里其实给的是子类的对象，最终代码运行断言报错。</p>
 <pre><code>Assertion failed: rect-&gt;GetArea() == 10, file .\main.cpp, line 10
 </code></pre><p>如果 new 出来的对象是 Rectangle，则程序能够正常执行。如果 new 出来的是 Square 则会进入断言。从而 Square 不能代替 Rectangle，所以不符合 LSP 原则，实际上 Square 并不是 Rectangle 的子类。</p>
@@ -458,7 +458,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"SOLID 五大基本原则","level":"1.16","depth":1,"previous":{"title":"vue 数组表单校验","level":"1.15","depth":1,"path":"VueArrayValidate.md","ref":"VueArrayValidate.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"SOLID.md","mtime":"2024-07-16T08:43:20.788Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-07-16T08:48:54.255Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"SOLID 五大基本原则","level":"1.16","depth":1,"previous":{"title":"vue 数组表单校验","level":"1.15","depth":1,"path":"VueArrayValidate.md","ref":"VueArrayValidate.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"SOLID.md","mtime":"2024-07-16T08:58:53.501Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-07-16T08:59:09.618Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
