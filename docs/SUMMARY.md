@@ -12,3 +12,4 @@
 * [vue自定义hover指令](VUEDIRECTIVE.md)
 * [react stylus-loader配置](stylusLoader.md)
 * [vue 数组表单校验](VueArrayValidate.md)
+* [SOLID 五大基本原则](SOLID.md)
