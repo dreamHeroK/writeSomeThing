@@ -13,4 +13,4 @@
 * [react stylus-loader配置](stylusLoader.md)
 * [vue 数组表单校验](VueArrayValidate.md)
 * [SOLID 五大基本原则](SOLID.md)
-* [关于滚动锚点的使用](Anchors)
+* [关于滚动锚点的使用](Anchors.md)
