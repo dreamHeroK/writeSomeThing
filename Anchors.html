@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>uniapp在ios内时间错误问题 · HonKit</title>
+        <title>关于滚动锚点的使用 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -56,10 +56,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="REFSTYLE.html" />
     
-    
-    <link rel="prev" href="PRODECTMANAGER.html" />
+    <link rel="prev" href="SOLID.html" />
     
 
     </head>
@@ -153,7 +151,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.6" data-path="IOSDATE.html">
+        <li class="chapter " data-level="1.6" data-path="IOSDATE.html">
             
                 <a href="IOSDATE.html">
             
@@ -296,7 +294,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.17" data-path="Anchors.html">
+        <li class="chapter active" data-level="1.17" data-path="Anchors.html">
             
                 <a href="Anchors.html">
             
@@ -339,7 +337,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >uniapp在ios内时间错误问题</a>
+        <a href="." >关于滚动锚点的使用</a>
     </h1>
 </div>
 
@@ -354,10 +352,58 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>在ios系统内，浏览器时间校验比较严格，只有YYYY/MM/DD 的格式才会被认为是正常日期，否则是不正常日期，使用momentjs会报错</p>
-<p>解决方案 替换YYYY-MM-DD 的格式为YYYY/MM/DD</p>
-<pre><code>date.replace(/-/g,&apos;/&apos;)
-</code></pre>
+                                <p>最近项目中遇到传统的锚点问题。那什么是锚点问题呢？</p>
+<p>锚点 是网页制作中超级链接的一种，又叫命名锚记。命名锚记像一个迅速定位器一样是一种页面内的超级链接，运用相当普遍。并且可以对网站内容通过菜单进行快速定位。</p>
+<p><img src="images/ahchors1.webp" alt="图1">
+上图所示为锚点示意图，那这种需求我们怎么实现呢？下面我就来提供一些在不同场景下，可以使用的锚点方式。</p>
+<h5 id="1-使用-a-标签">1. 使用 a 标签</h5>
+<p>使用 a 标签实现锚点，<code>href</code>属性指向需要锚点的标签 id，代码如下：</p>
+<pre><code>&lt;a href=&quot;#content1&quot;&gt;Menu1&lt;/a&gt;
+&lt;a href=&quot;#content2&quot;&gt;Menu2&lt;/a&gt;
+
+&lt;div id=&quot;content1&quot;&gt;Content1&lt;/div&gt;
+&lt;div id=&quot;content2&quot;&gt;Content2&lt;/div&gt;
+</code></pre><h5 id="2-使用-js-scrolltop">2. 使用 js scrollTop</h5>
+<p>使用 scrollTop 的情况一般适用于固定页面元素的锚点设置，或者设置返回顶部按钮。</p>
+<pre><code>// 通过element.scrollTop来获取当前元素滚动条高度
+// 可以在控制台输出下
+document.documentElement.scrollTop  ====&gt; number
+// 返回一个number类型的内容，是滚动条的高度
+
+
+// 也可以通过给scrollTop赋值去设置滚动条高度
+// 在控制台输出
+document.documentElement.scrollTop = 0
+// 会发现已经滚动的滚动条，滚动到页面最顶端。
+</code></pre><p>由于不同的浏览器支持不同，需要考虑浏览器兼容性问题</p>
+<pre><code>// 获取滚动条高度兼容性写法
+let scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+</code></pre><h5 id="3-使用-scroll​into​view-属性">3. 使用 scroll​Into​View 属性</h5>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollIntoView" target="_blank">scrollIntoView</a>属性目前在主流浏览器中支持良好，在 android、ios 中也得到支持，如果不考虑老版本兼容可以直接使用，<a href="https://caniuse.com/?search=scroll%E2%80%8BInto%E2%80%8BView" target="_blank">支持版本</a></p>
+<p>使用方法：</p>
+<pre><code>// 将某个元素跳转到浏览器视口的最上方
+// 等同于element.scrollIntoView(true)
+element.scrollIntoView();
+
+// Boolean型参数
+// true  元素的顶端将和其所在滚动区的可视区域的顶端对齐 ； false 元素的底端将和其所在滚动区的可视区域的底端对齐
+element.scrollIntoView(alignToTop);
+
+// 一个带有选项的object：
+// {
+//     behavior: &quot;auto&quot;(默认)  | &quot;instant&quot; | &quot;smooth&quot;(缓动),
+//     block:    &quot;start&quot; | &quot;end&quot;,
+// }
+element.scrollIntoView(scrollIntoViewOptions); // Object型参数
+</code></pre><h5 id="4-缓慢滚动css属性">4. 缓慢滚动css属性</h5>
+<p>基本锚点功能已经实现，但是在某些情况下，我们需要实现的是缓慢滚动，而不是瞬间滚动。
+可以在样式中使用<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/scroll-behavior" target="_blank">scroll-behavior</a>修改滚动表现</p>
+<pre><code>scroll-behavior: smooth; // 滚动条缓慢滚动
+</code></pre><h5 id="5-参考资料">5. 参考资料</h5>
+<p><a href="https://segmentfault.com/a/1190000019111664" target="_blank">滚动条滚动到指定位置(锚点)的不同实现方式</a>
+<a href="https://developer.mozilla.org/zh-CN/" target="_blank">MDN Web Docs</a>
+<a href="https://caniuse.com/?search=scroll%E2%80%8BInto%E2%80%8BView" target="_blank">Can I use</a></p>
+
                                 
                                 </section>
                             
@@ -384,14 +430,10 @@
 
             
                 
-                <a href="PRODECTMANAGER.html" class="navigation navigation-prev " aria-label="Previous page: 产品经理负面教材">
+                <a href="SOLID.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: SOLID 五大基本原则">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="REFSTYLE.html" class="navigation navigation-next " aria-label="Next page: vue3设置ref.value.style失败">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -400,7 +442,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"uniapp在ios内时间错误问题","level":"1.6","depth":1,"next":{"title":"vue3设置ref.value.style失败","level":"1.7","depth":1,"path":"REFSTYLE.md","ref":"REFSTYLE.md","articles":[]},"previous":{"title":"产品经理负面教材","level":"1.5","depth":1,"path":"PRODECTMANAGER.md","ref":"PRODECTMANAGER.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"IOSDATE.md","mtime":"2024-07-16T08:03:32.879Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-07-31T01:34:10.302Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"关于滚动锚点的使用","level":"1.17","depth":1,"previous":{"title":"SOLID 五大基本原则","level":"1.16","depth":1,"path":"SOLID.md","ref":"SOLID.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"Anchors.md","mtime":"2024-07-31T01:32:00.280Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-07-31T01:34:10.302Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
