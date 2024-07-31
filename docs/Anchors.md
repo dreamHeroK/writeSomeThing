@@ -75,6 +75,6 @@ scroll-behavior: smooth; // 滚动条缓慢滚动
 
 ##### 5. 参考资料
 
-[滚动条滚动到指定位置(锚点)的不同实现方式](https://segmentfault.com/a/1190000019111664)
-[MDN Web Docs](https://developer.mozilla.org/zh-CN/)
-[Can I use](https://caniuse.com/?search=scroll%E2%80%8BInto%E2%80%8BView)
+* [滚动条滚动到指定位置(锚点)的不同实现方式](https://segmentfault.com/a/1190000019111664)
+* [MDN Web Docs](https://developer.mozilla.org/zh-CN/)
+* [Can I use](https://caniuse.com/?search=scroll%E2%80%8BInto%E2%80%8BView)
