@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>Introduction · HonKit</title>
+        <title>eslint import保存自动删除 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -56,8 +56,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="ringChart.html" />
     
+    <link rel="prev" href="Anchors.html" />
     
 
     </head>
@@ -86,7 +86,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -294,7 +294,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.17" data-path="eslintImport.html">
+        <li class="chapter active" data-level="1.17" data-path="eslintImport.html">
             
                 <a href="eslintImport.html">
             
@@ -337,7 +337,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >eslint import保存自动删除</a>
     </h1>
 </div>
 
@@ -352,16 +352,39 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h3 id="gitbook-从入门到放弃">gitbook 从入门到放弃</h3>
-<p>开始想搭建个本地浏览 md 的电子书，选择了 gitbook。</p>
-<p>按照<a href="https://developer.gitbook.com/getting-started/development" target="_blank">官网文档</a>，安装<code>@gitbook/cli</code>，然后<code>gitbook auth</code>，到<code>app.gitbook.com</code>登录账号。
-结果网站被墙了，小问题，翻墙登录，拿到 token</p>
-<p><code>gitbook auth yourToken</code></p>
-<p><code>gitbook new yourProject</code> 创建个文件夹。</p>
-<p><code>gitbook dev yourSpaceId</code> 在这一步，一直报错npm error Node.js v20.14.0</p>
-<p>折腾好久，去github也只看到对应node版本 18以上。</p>
-<p>还是个企业版，操作要翻墙。</p>
-<p>直接放弃，转为使用<a href="https://github.com/honkit/honkit" target="_blank">honkit</a></p>
+                                <p>今天遇到一个奇怪的问题，导致了应用白屏
+在于修改代码时,有一段分环境的 uniapp 引用被删除掉了。
+eg:</p>
+<pre><code>// #ifdef H5
+// h5端
+import Fly from &apos;xxxx&apos;;
+// #endif
+
+// #ifdef APP-PLUS
+// app端
+import Fly from &apos;xxxx&apos;;
+// #endif
+
+// #ifdef MP-WEIXIN
+import Fly from &apos;xxx&apos;;
+// #endif
+</code></pre><p>在保存后，发现其他引用消失了</p>
+<pre><code>// #ifdef H5
+// h5端
+import Fly from &apos;flyio/dist/npm/fly&apos;;
+// #endif
+
+// #ifdef APP-PLUS
+// app端
+// #endif
+
+// #ifdef MP-WEIXIN
+// #endif
+</code></pre><p>另外一个同事保存是 ok 的，于是查询资料<a href="https://segmentfault.com/q/1010000043953631" target="_blank">eslint 自动删除无效引用</a>,在这里查了一下对应资料，打开自己的 vscode 配置，搜索<code>eslint.codeActionsOnSave</code>,发现我的默认配置为</p>
+<pre><code>    &quot;editor.codeActionsOnSave&quot;: {
+        &quot;source.organizeImports&quot;: &quot;explicit&quot; 
+    },
+</code></pre><p>修改<code>&quot;source.organizeImports&quot;</code>为&quot;never&quot;后，保存发现可以保存成功，于是在这个uniapp项目下增加本地vscode配置就ok了</p>
 
                                 
                                 </section>
@@ -389,10 +412,10 @@
 
             
                 
-                
-                <a href="ringChart.html" class="navigation navigation-next navigation-unique" aria-label="Next page: vue2 echarts环图配置 ">
-                    <i class="fa fa-angle-right"></i>
+                <a href="Anchors.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 关于滚动锚点的使用">
+                    <i class="fa fa-angle-left"></i>
                 </a>
+                
                 
             
         
@@ -401,7 +424,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"vue2 echarts环图配置 ","level":"1.2","depth":1,"path":"ringChart.md","ref":"ringChart.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"README.md","mtime":"2024-07-16T08:03:32.890Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-08T09:03:28.884Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"eslint import保存自动删除","level":"1.17","depth":1,"previous":{"title":"关于滚动锚点的使用","level":"1.16","depth":1,"path":"Anchors.md","ref":"Anchors.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"eslintImport.md","mtime":"2024-08-08T09:02:42.226Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-08T09:03:28.884Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
