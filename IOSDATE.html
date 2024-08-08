@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>uniapp在ios内时间错误问题 · HonKit</title>
+        <title>uniapp踩坑记录 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -145,7 +145,7 @@
                 <a href="IOSDATE.html">
             
                     
-                    uniapp在ios内时间错误问题
+                    uniapp踩坑记录
             
                 </a>
             
@@ -339,7 +339,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >uniapp在ios内时间错误问题</a>
+        <a href="." >uniapp踩坑记录</a>
     </h1>
 </div>
 
@@ -354,10 +354,15 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>在ios系统内，浏览器时间校验比较严格，只有YYYY/MM/DD 的格式才会被认为是正常日期，否则是不正常日期，使用momentjs会报错</p>
-<p>解决方案 替换YYYY-MM-DD 的格式为YYYY/MM/DD</p>
+                                <ol>
+<li>在 ios 系统内，浏览器时间校验比较严格，只有 YYYY/MM/DD 的格式才会被认为是正常日期，否则是不正常日期，使用 momentjs 会报错</li>
+</ol>
+<p>解决方案 替换 YYYY-MM-DD 的格式为 YYYY/MM/DD</p>
 <pre><code>date.replace(/-/g,&apos;/&apos;)
-</code></pre>
+</code></pre><ol>
+<li>在 android 系统内，项目代码 str.replaceAll(&quot;-&quot;,&quot;/&quot;) 会报错，not a funciton, 解决方案 使用 str.replace(/-/g,&quot;/&quot;)正则实现</li>
+</ol>
+
                                 
                                 </section>
                             
@@ -400,7 +405,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"uniapp在ios内时间错误问题","level":"1.5","depth":1,"next":{"title":"vue3设置ref.value.style失败","level":"1.6","depth":1,"path":"REFSTYLE.md","ref":"REFSTYLE.md","articles":[]},"previous":{"title":"JS保留小数并四舍五入","level":"1.4","depth":1,"path":"FORMATFLOAT.md","ref":"FORMATFLOAT.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"IOSDATE.md","mtime":"2024-07-16T08:03:32.879Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-08T09:03:28.884Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"uniapp踩坑记录","level":"1.5","depth":1,"next":{"title":"vue3设置ref.value.style失败","level":"1.6","depth":1,"path":"REFSTYLE.md","ref":"REFSTYLE.md","articles":[]},"previous":{"title":"JS保留小数并四舍五入","level":"1.4","depth":1,"path":"FORMATFLOAT.md","ref":"FORMATFLOAT.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"IOSDATE.md","mtime":"2024-08-08T09:44:44.052Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-08T09:45:10.461Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
