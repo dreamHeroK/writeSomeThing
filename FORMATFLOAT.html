@@ -354,10 +354,21 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>JS 保留小数并四舍五入方法，默认保留两位</p>
+                                <h4 id="js-保留小数并四舍五入方法，默认保留两位">JS 保留小数并四舍五入方法，默认保留两位</h4>
 <pre><code> const formatFloat = (num, bitNum = 2) =&gt; { // 默认两位
     const retainNum = Math.pow(10, bitNum);
     return Math.round(num * retainNum) / retainNum;
+};
+</code></pre><h4 id="js-数字转百分比保留两位小数并去掉多余-0">JS 数字转百分比保留两位小数并去掉多余 0</h4>
+<pre><code>const getPercent = (decimal) =&gt; {
+  let percent = decimal * 100;
+
+  let percentStr = percent % 1 === 0 ? percent.toString() : percent.toFixed(2);
+
+  if (percentStr.includes(&quot;.&quot;)) {
+    percentStr = percentStr.replace(/\.?0+$/, &quot;&quot;);
+  }
+  return percentStr + &quot;%&quot;;
 };
 </code></pre>
                                 
@@ -402,7 +413,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"JS保留小数并四舍五入","level":"1.4","depth":1,"next":{"title":"uniapp踩坑记录","level":"1.5","depth":1,"path":"IOSDATE.md","ref":"IOSDATE.md","articles":[]},"previous":{"title":"uniapp 华为应用市场权限说明解决方案 vuex","level":"1.3","depth":1,"path":"UNIAPPPERMISSION.md","ref":"UNIAPPPERMISSION.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"FORMATFLOAT.md","mtime":"2024-07-16T08:03:32.879Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-08T09:45:10.461Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"JS保留小数并四舍五入","level":"1.4","depth":1,"next":{"title":"uniapp踩坑记录","level":"1.5","depth":1,"path":"IOSDATE.md","ref":"IOSDATE.md","articles":[]},"previous":{"title":"uniapp 华为应用市场权限说明解决方案 vuex","level":"1.3","depth":1,"path":"UNIAPPPERMISSION.md","ref":"UNIAPPPERMISSION.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"FORMATFLOAT.md","mtime":"2024-08-13T07:41:18.946Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-13T07:41:32.020Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
