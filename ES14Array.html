@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>vue3设置ref.value.style失败 · HonKit</title>
+        <title>ES14 数组升级，新增API · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -56,10 +56,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="VUE3NODE.html" />
     
-    
-    <link rel="prev" href="IOSDATE.html" />
+    <link rel="prev" href="eslintImport.html" />
     
 
     </head>
@@ -153,7 +151,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.6" data-path="REFSTYLE.html">
+        <li class="chapter " data-level="1.6" data-path="REFSTYLE.html">
             
                 <a href="REFSTYLE.html">
             
@@ -309,7 +307,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.18" data-path="ES14Array.html">
+        <li class="chapter active" data-level="1.18" data-path="ES14Array.html">
             
                 <a href="ES14Array.html">
             
@@ -352,7 +350,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >vue3设置ref.value.style失败</a>
+        <a href="." >ES14 数组升级，新增API</a>
     </h1>
 </div>
 
@@ -367,24 +365,87 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h5 id="vue3-中设置-refvaluestyle-失败">vue3 中设置 ref.value.style 失败</h5>
-<p>在uniapp中使用 vue3 时，通过 ref 访问 dom，再修改 dom 样式</p>
-<pre><code>&lt;div ref=&quot;some&quot;&gt;&lt;/div&gt;
+                                <h3 id="baseline-2023-newly-available">Baseline 2023 Newly available</h3>
+<h4 id="排序方法">排序方法</h4>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/toSorted" target="_blank">toSorted()</a>
+语法</p>
+<pre><code>// 传入比较函数
+toSorted(compareFn)
+</code></pre><p>作用:根据 compareFn,排序数组元素，返回一个<font color="red">新的排好序的数组,不修改原数组</font>。</p>
+<p>eg:</p>
+<pre><code>const numbers = [22, 11, 23, 31, 21];
+const sortedNums = numbers.toSorted((a, b) =&gt; a - b);
+console.log(sortedNums); // [11, 21, 22, 23, 31]
+console.log(numbres); // [22, 11, 23, 31, 21]
+</code></pre><p>此例按数值从小到大升序排列数组元素，<font color="red">返回新数组而不改变原数组 numbers</font>。</p>
+<h4 id="反转数组">反转数组</h4>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/toReversed" target="_blank">toReversed()</a>
+语法</p>
+<pre><code>arr.toReversed()
+</code></pre><p>作用:反转数组元素顺序,返回一个新的反转数组。
+eg:</p>
+<pre><code>const arr = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;];
+const reversedArr = arr.toReversed();
+console.log(reversedArr); // [&apos;c&apos;, &apos;b&apos;, &apos;a&apos;]
+console.log(arr); // [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]
+</code></pre><p>反转数组而不修改原数组 arr。</p>
+<h4 id="替换指定索引位置元素">替换指定索引位置元素</h4>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/with" target="_blank">with()</a>
+语法</p>
+<pre><code>arr.with(index, newValue)
+</code></pre><p>作用:用新值替换指定索引位置的元素，<font color="red">返回一个新的数组</font>。</p>
+<p>eg:</p>
+<pre><code>const colors = [&apos;red&apos;, &apos;blue&apos;, &apos;green&apos;];
+const newColors = colors.with(1, &apos;yellow&apos;);
+console.log(newColors); // [&apos;red&apos;, &apos;yellow&apos;, &apos;green&apos;];
+console.log(colors); // [&apos;red&apos;, &apos;blue&apos;, &apos;green&apos;]
+</code></pre><h4 id="查询符合条件的最后一个元素">查询符合条件的最后一个元素</h4>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findLast" target="_blank">findLast()</a>
+语法:</p>
+<pre><code>arr.findLast(callback[, thisArg])
+</code></pre><p>作用:从后向前查询符合条件的最后一个元素。
+示例:</p>
+<pre><code>const nums=[11,22,33,45,22]
+const num = nums.findLast(n =&gt; n&gt;22);
+console.log(num); // 45
+</code></pre><p>支持传递 thisArg 参数，用于改变 this 指向。</p>
+<pre><code>// 定义一个对象
+const obj = {
+  testValue: 10
+};
 
-const some=ref(null)
+const nums = [5, 15, 10, 20];
 
-mounted(){
-    some.value.style.background=&apos;#f1f1f1&apos;;
-}
-</code></pre><p>发现这样始终修改不了，代码提示some.value.style is notdefined</p>
-<p>改为内联样式修改</p>
-<pre><code>&lt;div ref=&quot;some&quot; :style=&quot;someStyle&quot;&gt;&lt;/div&gt;
+// 使用对象作为thisArg
+const lastMatch = nums.findLast(function(num){
+    console.log(this,&apos;this&apos;) // {testValue: 10}
+  return num % this.testValue === 0;
+}, obj);
 
-const someStyle=ref({})
+console.log(lastMatch); // 20
+</code></pre><h4 id="查询符合条件的最后一个元素索引">查询符合条件的最后一个元素索引</h4>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findLastIndex" target="_blank">findLastIndex()</a></p>
+<p>语法：</p>
+<pre><code>arr.findLastIndex(callback[, thisArg])
+</code></pre><p>作用:从后向前查找匹配元素的索引，而不是元素本身。</p>
+<p>eg:</p>
+<pre><code>const nums = [1, 5, 3, 4, 2];
 
-update(){
-    someStyle.value={background:&apos;#f1f1f1&apos;};
-}
+const num = nums.findLastIndex(n =&gt; n&gt;2);
+
+console.log(num); // 3--&gt;4
+</code></pre><h4 id="拼接方法">拼接方法</h4>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/toSpliced" target="_blank">toSpliced()</a></p>
+<p>toSpliced() 方法是 splice() 方法的复制版本。它返回一个新数组，并在给定的索引处删除和/或替换了一些元素。</p>
+<p>语法：</p>
+<pre><code>arr.toSpliced(start, deleteCount, ...items)
+</code></pre><p>eg:</p>
+<pre><code>const nums = [1, 2, 3];
+
+// 在索引1位置插入&apos;22&apos;,&apos;33&apos;
+const newNums = nums.toSpliced(1, 0, 22, 33);
+
+console.log(newNums); // [1, 22, 33, 2, 3]
 </code></pre>
                                 
                                 </section>
@@ -412,14 +473,10 @@ update(){
 
             
                 
-                <a href="IOSDATE.html" class="navigation navigation-prev " aria-label="Previous page: uniapp踩坑记录">
+                <a href="eslintImport.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: eslint import保存自动删除">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="VUE3NODE.html" class="navigation navigation-next " aria-label="Next page: vue3node节点异常问题">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -428,7 +485,7 @@ update(){
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"vue3设置ref.value.style失败","level":"1.6","depth":1,"next":{"title":"vue3node节点异常问题","level":"1.7","depth":1,"path":"VUE3NODE.md","ref":"VUE3NODE.md","articles":[]},"previous":{"title":"uniapp踩坑记录","level":"1.5","depth":1,"path":"IOSDATE.md","ref":"IOSDATE.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"REFSTYLE.md","mtime":"2024-07-16T08:03:32.892Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-14T08:32:44.297Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"ES14 数组升级，新增API","level":"1.18","depth":1,"previous":{"title":"eslint import保存自动删除","level":"1.17","depth":1,"path":"eslintImport.md","ref":"eslintImport.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"ES14Array.md","mtime":"2024-08-14T08:24:39.371Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-14T08:32:44.297Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
