@@ -4,23 +4,23 @@
 
 > **本文只针对 Windows 下的 Chrome 浏览器的使用。**
 
-## [特点]
+## 特点
 
 1.  安全绿色免安装，可直接拷贝到 U 盘等随声携带，不用担心被植入一些其他东西。
 2.  支持任意版本，可随意选择。
 3.  和现有日常使用的 Chrome 共存，不会有冲突。
 
-## [原理]
+## 原理
 
 利用`GoogleChromePortable.exe`启动器来启动 Chrome 主程序，所有 Chrome 用户数据都指向本程序所在的`Data`目录，从而实现和系统安装的 Chrome 隔离。
 
-## [制作步骤]
+## 制作步骤
 
-### [目录建立]
+### 目录建立
 
 可以现在任意地方新建一个目录，用于存放多版本 chrome，例如我们可以新建一个`chromes`目录
 
-### [下载并提取启动器]
+### 下载并提取启动器
 
 下载地址：[https://portableapps.com/apps/internet/google_chrome_portableopen in new window](https://portableapps.com/apps/internet/google_chrome_portable)
 下载下来是个 exe 文件，不要直接双击打开，如果你电脑上的压缩软件支持右键以压缩包的形式打开的可以直接以压缩包的形式打开，
@@ -30,7 +30,7 @@
 
 如果上面的下载地址打不开或者速度过慢的话，可以用我已经提取的，下载地址：[https://www.lanzous.com/i7mnqfiopen in new window](https://www.lanzous.com/i7mnqfi)
 
-### [提取 Chrome 主程序]
+### 提取 Chrome 主程序
 
 这里我们可以下载所需要的任意版本的 Chrome，注意下载的必须是离线版本的，不是在线安装的。
 离线版本下载地址：[https://github.com/ABBCHN/Chrome---/blob/master/chrome_offline_download.md](https://github.com/ABBCHN/Chrome---/blob/master/chrome_offline_download.md)
@@ -39,7 +39,7 @@
 
 ![图2](\images\chrome2.png)
 
-### [制作便携版]
+### 制作便携版
 
 1.  在上面新建的`chromes`目录中新建一个版本号的目录`76`，为了方便区分（我们上面下载的 Chrome 版本就是 76）。
 2.  复制`GoogleChromePortable.exe`到这个文件夹，可以改名成自己想要的名称，比如`Chrome76.exe`。
