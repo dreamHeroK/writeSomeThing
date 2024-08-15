@@ -54,4 +54,4 @@
 
 然后双击`Chrome76.exe`即可运行，首次运行会在当前目录生成一个`Data`目录，用于存放 Chrome 的数据，这样就不会和系统的安装的 Chrome 有冲突了。
 
-参考文章：[点击查看 open in new window](https://www.cnblogs.com/xiangyuecn/p/10583788.html)
+参考文章：[点击查看](https://www.cnblogs.com/xiangyuecn/p/10583788.html)
