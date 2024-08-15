@@ -5,6 +5,7 @@
   "scripts": {
     "build": "honkit build",
     "serve": "honkit serve",
+    "serve:reload":"honkit serve --reload",
     "publish": "honkit build&&node publish.js",
     "prepare": "husky"
   },
