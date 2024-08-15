@@ -393,44 +393,44 @@
                                 
                                 <p>由于某些原因需要切换 Chrome 的版本做些测试性的工作，如果重新下载旧版本安装的话，本机的新版本就被会覆盖。
 这不是我想要的，上古时代做些 IE 兼容性的工作的时候往往会下载一个 IETester，可以切换各个版本的 IE，而且和本机的 IE 互相不冲突。所以去 google 了一下，有没有类似的 Chrome 多版本共存的软件，找了一圈不怎么理想，然后找到一篇关于自己动手制作多版本 Chrome 共存的文章。
-自己尝试了下，觉得很不错，留存记录下，参考文章：<a href="https://www.cnblogs.com/xiangyuecn/p/10583788.html" target="_blank">点击查看open in new window</a></p>
+自己尝试了下，觉得很不错，留存记录下</p>
 <blockquote>
 <p><strong>本文只针对 Windows 下的 Chrome 浏览器的使用。</strong></p>
 </blockquote>
-<h2 id="特点"><a href="https://liubing.me/article/other/chrome-multiple-versions.html#%E7%89%B9%E7%82%B9" target="_blank">特点</a></h2>
+<h2 id="特点">[特点]</h2>
 <ol>
 <li>安全绿色免安装，可直接拷贝到 U 盘等随声携带，不用担心被植入一些其他东西。</li>
 <li>支持任意版本，可随意选择。</li>
 <li>和现有日常使用的 Chrome 共存，不会有冲突。</li>
 </ol>
-<h2 id="原理"><a href="https://liubing.me/article/other/chrome-multiple-versions.html#%E5%8E%9F%E7%90%86" target="_blank">原理</a></h2>
+<h2 id="原理">[原理]</h2>
 <p>利用<code>GoogleChromePortable.exe</code>启动器来启动 Chrome 主程序，所有 Chrome 用户数据都指向本程序所在的<code>Data</code>目录，从而实现和系统安装的 Chrome 隔离。</p>
-<h2 id="制作步骤"><a href="https://liubing.me/article/other/chrome-multiple-versions.html#%E5%88%B6%E4%BD%9C%E6%AD%A5%E9%AA%A4" target="_blank">制作步骤</a></h2>
-<h3 id="目录建立"><a href="https://liubing.me/article/other/chrome-multiple-versions.html#%E7%9B%AE%E5%BD%95%E5%BB%BA%E7%AB%8B" target="_blank">目录建立</a></h3>
+<h2 id="制作步骤">[制作步骤]</h2>
+<h3 id="目录建立">[目录建立]</h3>
 <p>可以现在任意地方新建一个目录，用于存放多版本 chrome，例如我们可以新建一个<code>chromes</code>目录</p>
-<h3 id="下载并提取启动器"><a href="https://liubing.me/article/other/chrome-multiple-versions.html#%E4%B8%8B%E8%BD%BD%E5%B9%B6%E6%8F%90%E5%8F%96%E5%90%AF%E5%8A%A8%E5%99%A8" target="_blank">下载并提取启动器</a></h3>
+<h3 id="下载并提取启动器">[下载并提取启动器]</h3>
 <p>下载地址：<a href="https://portableapps.com/apps/internet/google_chrome_portable" target="_blank">https://portableapps.com/apps/internet/google_chrome_portableopen in new window</a>
 下载下来是个 exe 文件，不要直接双击打开，如果你电脑上的压缩软件支持右键以压缩包的形式打开的可以直接以压缩包的形式打开，
 如果不支持的话可以将文件后缀改成<code>zip</code>打开，提取里面的<code>GoogleChromePortable.exe</code>，放到上面新建的<code>chromes</code>目录。</p>
-<p>[图片上传失败...(image-13396e-1708945007444)]</p>
+<p><img src="images/chrome1.png" alt="图1"></p>
 <p>如果上面的下载地址打不开或者速度过慢的话，可以用我已经提取的，下载地址：<a href="https://www.lanzous.com/i7mnqfi" target="_blank">https://www.lanzous.com/i7mnqfiopen in new window</a></p>
-<h3 id="提取-chrome-主程序"><a href="https://liubing.me/article/other/chrome-multiple-versions.html#%E6%8F%90%E5%8F%96-chrome-%E4%B8%BB%E7%A8%8B%E5%BA%8F" target="_blank">提取 Chrome 主程序</a></h3>
+<h3 id="提取-chrome-主程序">[提取 Chrome 主程序]</h3>
 <p>这里我们可以下载所需要的任意版本的 Chrome，注意下载的必须是离线版本的，不是在线安装的。
-这里推荐一个较为安全的网站，收集了 Chrome 的各个版本：<a href="https://www.chromedownloads.net/chrome64win" target="_blank">https://www.chromedownloads.net/chrome64winopen in new window</a>
+离线版本下载地址：<a href="https://github.com/ABBCHN/Chrome---/blob/master/chrome_offline_download.md" target="_blank">https://github.com/ABBCHN/Chrome---/blob/master/chrome_offline_download.md</a>
 找到自己想要的 Chrome 版本，下载完成后也是一个<code>exe</code>安装包，同上<code>提取启动器</code>，不要直接双击打开安装，修改下扩展名，改为<code>zip</code>后打开。
 打开后里面就一个<code>chrome.7z</code>的压缩文件，将其提取出来。</p>
-<p>[图片上传失败...(image-e0448f-1708945007444)]</p>
-<h3 id="制作便携版"><a href="https://liubing.me/article/other/chrome-multiple-versions.html#%E5%88%B6%E4%BD%9C%E4%BE%BF%E6%90%BA%E7%89%88" target="_blank">制作便携版</a></h3>
+<p><img src="images/chrome2.png" alt="图2"></p>
+<h3 id="制作便携版">[制作便携版]</h3>
 <ol>
 <li>在上面新建的<code>chromes</code>目录中新建一个版本号的目录<code>76</code>，为了方便区分（我们上面下载的 Chrome 版本就是 76）。</li>
 <li>复制<code>GoogleChromePortable.exe</code>到这个文件夹，可以改名成自己想要的名称，比如<code>Chrome76.exe</code>。</li>
 <li>新建<code>App</code>目录，将上面提取的 Chrome 主程序<code>chrome.7z</code>复制进来，右键<code>chrome.7z</code>选择<code>解压到当前文件夹</code>（解压出来后就是<code>Chrome-bin</code>，解压完成后可以删除<code>chrome.7z</code>或留着备用）</li>
 </ol>
 <p>最终形成以下的目录形式即可</p>
-<p>[图片上传失败...(image-9edd49-1708945007443)]</p>
-<p>[图片上传失败...(image-99aff9-1708945007443)]</p>
+<p><img src="images/chrome3.png" alt="图3"></p>
+<p><img src="images/chrome4.png" alt="图4"></p>
 <p>然后双击<code>Chrome76.exe</code>即可运行，首次运行会在当前目录生成一个<code>Data</code>目录，用于存放 Chrome 的数据，这样就不会和系统的安装的 Chrome 有冲突了。</p>
-<h2 id="结语"><a href="https://liubing.me/article/other/chrome-multiple-versions.html#%E7%BB%93%E8%AF%AD" target="_blank">结语</a></h2>
+<p>参考文章：<a href="https://www.cnblogs.com/xiangyuecn/p/10583788.html" target="_blank">点击查看 open in new window</a></p>
 
                                 
                                 </section>
@@ -470,7 +470,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"chrome多版本配置","level":"1.20","depth":1,"previous":{"title":"浏览器渲染进程","level":"1.19","depth":1,"path":"bowserProcess.md","ref":"bowserProcess.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"chrome.md","mtime":"2024-08-15T03:17:02.647Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-15T03:17:22.733Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"chrome多版本配置","level":"1.20","depth":1,"previous":{"title":"浏览器渲染进程","level":"1.19","depth":1,"path":"bowserProcess.md","ref":"bowserProcess.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"chrome.md","mtime":"2024-08-15T06:48:01.640Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-15T06:48:13.846Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
