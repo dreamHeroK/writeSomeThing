@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>vue2 echarts环图配置  · HonKit</title>
+        <title>从 Event Loop谈JS的运行机制 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -56,10 +56,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="UNIAPPPERMISSION.html" />
     
-    
-    <link rel="prev" href="./" />
+    <link rel="prev" href="chrome.html" />
     
 
     </head>
@@ -101,7 +99,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2" data-path="ringChart.html">
+        <li class="chapter " data-level="1.2" data-path="ringChart.html">
             
                 <a href="ringChart.html">
             
@@ -348,7 +346,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.21" data-path="eventloop.html">
+        <li class="chapter active" data-level="1.21" data-path="eventloop.html">
             
                 <a href="eventloop.html">
             
@@ -391,7 +389,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >vue2 echarts环图配置 </a>
+        <a href="." >从 Event Loop谈JS的运行机制</a>
     </h1>
 </div>
 
@@ -406,122 +404,10 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>随便写个环图代码</p>
-<pre><code>&lt;template&gt;
-    &lt;div :id=&quot;&apos;ring&apos; + index&quot; class=&quot;ring&quot;&gt;&lt;/div&gt;
-&lt;/template&gt;
-&lt;script&gt;
+                                <h2 id="从-event-loop-谈-js-的运行机制">从 Event Loop 谈 JS 的运行机制</h2>
+<p>注意，这里不谈<font color="#1990FE">可执行上下文，VO，scop chain</font>等概念（这些完全可以整理成另一篇文章了），这里主要是结合 <code>Event Loop</code> 来谈 JS 代码是如何执行的。</p>
+<p>读这部分的前提是已经知道了JS引擎是单线程，而且这里会用到<a href="bowserProcess.html">上文</a>中的几个概念：（如果不是很理解，可以回头温习）</p>
 
-export default {
-    name: &apos;RingEchart&apos;,
-    props: {
-        list: {
-            type: Array,
-            default: () =&gt; []
-        },
-        index: Number
-    },
-    mounted() {
-        this.formatOptions();
-    },
-    methods: {
-        formatOptions() {
-            let option = {
-                tooltip: {
-                    trigger: &apos;item&apos;
-                },
-                grid: {
-                    top: &apos;5%&apos;,
-                    let: &apos;5%&apos;,
-                    bottom: &apos;5%&apos;
-                },
-                tooltip: {
-                    formatter: function(params) {
-                        console.log(params);
-                        return params.name.split(&apos;|&apos;)[0] + params.value;
-                    }
-                },
-                legend: {
-                    right: 0,
-                    top: 12,
-                    bottom: 20,
-                    orient: &apos;vertical&apos;,
-                    icon: &apos;circle&apos;,
-                    itemWidth: 8,
-                    itemGap: 15,
-                    formatter: function(params) {
-                        let colorMap = {
-                            关键客户: &apos;b&apos;,
-                            非关键客户: &apos;c&apos;,
-                            非目标客户: &apos;d&apos;
-                        };
-                        console.log(params.split(&apos;|&apos;)[0].replace(&apos; &apos;, &apos;&apos;), &apos;000&apos;);
-                        return [
-                            `{a|${params.split(&apos;|&apos;)[0]}}`,
-                            `{${colorMap[params.split(&apos;|&apos;)[0].replace(&apos; &apos;, &apos;&apos;)]}|${params.split(&apos;|&apos;)[1] || &apos;0%&apos;}}`
-                        ].join(&apos;&apos;);
-                    },
-                    textStyle: {
-                        fontSize: 14,
-                        rich: {
-                            a: {
-                                color: &apos;#666666&apos;
-                            },
-                            b: {
-                                fontWeight: &apos;bold&apos;,
-                                color: &apos;#5573FA&apos;
-                            },
-                            c: {
-                                fontWeight: &apos;bold&apos;,
-                                color: &apos;#FFC700&apos;
-                            },
-                            d: {
-                                fontWeight: &apos;bold&apos;,
-                                color: &apos;#4CD1B6&apos;
-                            }
-                        }
-                    }
-                },
-                series: [
-                    {
-                        type: &apos;pie&apos;,
-                        radius: [&apos;58%&apos;, &apos;80%&apos;],
-                        center: [&apos;28%&apos;, &apos;50%&apos;], // 调整这里的center属性
-                        avoidLabelOverlap: false,
-                        label: {
-                            show: false,
-                            position: &apos;center&apos;
-                        },
-                        labelLine: {
-                            show: false
-                        },
-                        data: this.list
-                    }
-                ],
-                color: [&apos;#5573FA&apos;, &apos;#FFC700&apos;, &apos;#4CD1B6&apos;]
-            };
-            this.initEchart(option);
-        },
-        initEchart(option) {
-            let ring = document.getElementById(&apos;ring&apos; + this.index);
-            let echart = echarts.init(ring);
-            echart.setOption(option);
-        }
-    },
-    watch: {
-        list() {
-            this.formatOptions();
-        }
-    }
-};
-&lt;/script&gt;
-&lt;style lang=&quot;scss&quot; scoped&gt;
-.ring {
-    width: 260px;
-    height: 102px;
-}
-&lt;/style&gt;
-</code></pre>
                                 
                                 </section>
                             
@@ -548,14 +434,10 @@ export default {
 
             
                 
-                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Introduction">
+                <a href="chrome.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: chrome多版本配置">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="UNIAPPPERMISSION.html" class="navigation navigation-next " aria-label="Next page: uniapp 华为应用市场权限说明解决方案 vuex">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -564,7 +446,7 @@ export default {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"vue2 echarts环图配置 ","level":"1.2","depth":1,"next":{"title":"uniapp 华为应用市场权限说明解决方案 vuex","level":"1.3","depth":1,"path":"UNIAPPPERMISSION.md","ref":"UNIAPPPERMISSION.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"ringChart.md","mtime":"2024-07-16T08:03:32.892Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-15T07:33:14.039Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"从 Event Loop谈JS的运行机制","level":"1.21","depth":1,"previous":{"title":"chrome多版本配置","level":"1.20","depth":1,"path":"chrome.md","ref":"chrome.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"eventloop.md","mtime":"2024-08-15T07:32:47.352Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-15T07:33:14.039Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

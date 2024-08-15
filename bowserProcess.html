@@ -348,6 +348,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.21" data-path="eventloop.html">
+            
+                <a href="eventloop.html">
+            
+                    
+                    从 Event Loop谈JS的运行机制
+            
+                </a>
+            
+
+            
+        </li>
+    
 
     
 
@@ -492,8 +505,10 @@ GUI 更新则会被保存在一个队列中等到 JS 引擎线程空闲时立即
 </ul>
 </li>
 <li><p>SharedWorker 是浏览器所有页面共享的，不能采用与 Worker 同样的方式实现，因为它不隶属于某个 Render 进程，可以为多个 Render 进程共享使用</p>
-<pre><code>- 所以 Chrome 浏览器为 SharedWorker 单独创建一个进程来运行 JavaScript 程序，在浏览器中每个相同的 JavaScript 只存在一个 SharedWorker 进程，不管它被创建多少次。
-</code></pre><p>看到这里，应该就很容易明白了，本质上就是进程和线程的区别。SharedWorker 由独立的进程管理，WebWorker 只是属于 render 进程下的一个线程</p>
+<ul>
+<li>所以 Chrome 浏览器为 SharedWorker 单独创建一个进程来运行 JavaScript 程序，在浏览器中每个相同的 JavaScript 只存在一个 SharedWorker 进程，不管它被创建多少次。</li>
+</ul>
+<p>看到这里，应该就很容易明白了，本质上就是进程和线程的区别。SharedWorker 由独立的进程管理，WebWorker 只是属于 render 进程下的一个线程</p>
 </li>
 </ul>
 <h4 id="简单梳理下浏览器渲染流程">简单梳理下浏览器渲染流程</h4>
@@ -502,22 +517,88 @@ GUI 更新则会被保存在一个队列中等到 JS 引擎线程空闲时立即
 <div style="background:#dadada;border-radius:5px;padding: 5px;">
 - 浏览器输入url，浏览器主进程接管，开一个下载线程，
 然后进行 http请求（略去DNS查询，IP寻址等等操作），然后等待响应，获取内容，
-随后将内容通过RendererHost接口转交给Renderer进程
+随后将内容通过RendererHost接口转交给Renderer进程<br>
 - 浏览器渲染流程开始
 </div>
 
 <p>浏览器器内核拿到内容后，渲染大概可以划分成以下几个步骤：</p>
 <ol>
-<li>解析html建立dom树</li>
-<li>解析css构建render树（将CSS代码解析成树形的数据结构，然后结合DOM合并成render树）</li>
-<li>布局render树（Layout/reflow），负责各元素尺寸、位置的计算</li>
-<li>绘制render树（paint），绘制页面像素信息</li>
-<li>浏览器会将各层的信息发送给GPU，GPU会将各层合成（composite），显示在屏幕上。</li>
+<li>解析 html 建立 dom 树</li>
+<li>解析 css 构建 render 树（将 CSS 代码解析成树形的数据结构，然后结合 DOM 合并成 render 树）</li>
+<li>布局 render 树（Layout/reflow），负责各元素尺寸、位置的计算</li>
+<li>绘制 render 树（paint），绘制页面像素信息</li>
+<li>浏览器会将各层的信息发送给 GPU，GPU 会将各层合成（composite），显示在屏幕上。</li>
 </ol>
-<p>所有详细步骤都已经略去，渲染完毕后就是load事件了，之后就是自己的JS逻辑处理了</p>
+<p>所有详细步骤都已经略去，渲染完毕后就是 load 事件了，之后就是自己的 JS 逻辑处理了</p>
 <p>既然略去了一些详细的步骤，那么就提一些可能需要注意的细节把。</p>
 <p>这里重绘参考来源中的一张图：（参考来源第一篇）
 <img src="images/domRender.webp" alt="dom渲染"></p>
+<h4 id="load-事件与-domcontentloaded-事件的先后">load 事件与 DOMContentLoaded 事件的先后</h4>
+<p>上面提到，渲染完毕后会触发<code>load</code>事件，那么你能分清楚<code>load</code>事件与<code>DOMContentLoaded</code>事件的先后么？</p>
+<p>很简单，知道它们的定义就可以了：</p>
+<ul>
+<li><p>当 <code>DOMContentLoaded</code> 事件触发时，仅当 DOM 加载完成，不包括样式表，图片。
+(譬如如果有 async 加载的脚本就不一定完成)</p>
+</li>
+<li><p>当 <code>onload</code> 事件触发时，页面上所有的 DOM，样式表，脚本，图片都已经加载完成了。
+（渲染完毕了）</p>
+</li>
+</ul>
+<p>所以，顺序是：<code>DOMContentLoaded -&gt; load</code></p>
+<h4 id="css-加载是否会阻塞-dom-树渲染？">css 加载是否会阻塞 dom 树渲染？</h4>
+<p>这里说的是头部引入 css 的情况</p>
+<p>首先，我们都知道：<strong>css 是由单独的下载线程异步下载的</strong>。
+然后再说下几个现象：</p>
+<ul>
+<li>css 加载不会阻塞 DOM 树解析（异步加载时 DOM 照常构建）</li>
+<li>但会阻塞 render 树渲染（渲染时需等 css 加载完毕，因为 render 树需要 css 信息）</li>
+</ul>
+<p>这可能也是浏览器的一种优化机制。
+因为你加载 css 的时候，可能会修改下面 DOM 节点的样式，
+如果 css 加载不阻塞 render 树渲染的话，那么当 css 加载完之后，
+render 树可能又得重新重绘或者回流了，这就造成了一些没有必要的损耗。
+所以干脆就先把 DOM 树的结构先解析完，把可以做的工作做完，然后等你 css 加载完之后，
+在根据最终的样式来渲染 render 树，这种做法性能方面确实会比较好一点。</p>
+<h4 id="普通图层和复合图层">普通图层和复合图层</h4>
+<p>渲染步骤中就提到了<code>composite</code>概念。</p>
+<p>可以简单的这样理解，浏览器渲染的图层一般包含两大类：<font color="#1990fe">普通图层</font>以及<font color="#1990fe">复合图层</font></p>
+<p>首先，普通文档流内可以理解为一个复合图层（这里称为<font color="#1990fe">默认复合层</font>，里面不管添加多少元素，其实都是在同一个复合图层中）</p>
+<p>其次，absolute 布局（fixed 也一样），虽然可以脱离普通文档流，但它仍然属于<font color="#1990fe">默认复合层</font>。</p>
+<p>然后，可以通过<font color="#1990fe">硬件加速</font>的方式，声明一个<font color="#1990fe">新的复合图层</font>，它会单独分配资源
+（当然也会脱离普通文档流，这样一来，不管这个复合图层中怎么变化，也不会影响默认复合层里的回流重绘）</p>
+<p>可以简单理解下：<strong>GPU 中，各个复合图层是单独绘制的，所以互不影响</strong>，这也是为什么某些场景硬件加速效果一级棒</p>
+<p>可以 <font color="#1990fe">Chrome 源码调试 -&gt; More Tools -&gt; Rendering -&gt; Layer borders</font> 中看到，黄色的就是复合图层信息</p>
+<p>如下图。可以验证上述的说法
+<img src="images/browser2.webp" alt="图2">
+如何变成复合图层（硬件加速）</p>
+<p>将该元素变成一个复合图层，就是传说中的硬件加速技术</p>
+<ul>
+<li>最常用的方式：<code>translate3d</code>、<code>translateZ</code></li>
+<li><code>opacity</code>属性/过渡动画（需要动画执行的过程中才会创建合成层，动画没有开始或结束后元素还会回到之前的状态）</li>
+<li><p><code>will-chang</code>属性（这个比较偏僻），一般配合 opacity 与 translate 使用（而且经测试，除了上述可以引发硬件加速的属性外，其它属性并不会变成复合层），
+作用是提前告诉浏览器要变化，这样浏览器会开始做一些优化工作（这个最好用完后就释放</p>
+</li>
+<li><p><code>&lt;video&gt;&lt;iframe&gt;&lt;canvas&gt;&lt;webgl&gt;</code>等元素</p>
+</li>
+<li>其它，譬如以前的<code>flash</code>插件</li>
+</ul>
+<h4 id="absolute-和硬件加速的区别">absolute 和硬件加速的区别</h4>
+<p>可以看到，absolute 虽然可以脱离普通文档流，但是无法脱离默认复合层。
+所以，就算 absolute 中信息改变时不会改变普通文档流中 render 树，
+但是，浏览器最终绘制时，是整个复合层绘制的，所以 absolute 中信息的改变，仍然会影响整个复合层的绘制。
+（浏览器会重绘它，如果复合层中内容多，absolute 带来的绘制信息变化过大，资源消耗是非常严重的）</p>
+<p>而硬件加速直接就是在另一个复合层了（另起炉灶），所以它的信息改变不会影响默认复合层
+（当然了，内部肯定会影响属于自己的复合层），仅仅是引发最后的合成（输出视图）</p>
+<h4 id="复合图层的作用？">复合图层的作用？</h4>
+<p>一般一个元素开启硬件加速后会变成复合图层，可以独立于普通文档流中，改动后可以避免整个页面重绘，提升性能</p>
+<p>但是尽量不要大量使用复合图层，否则由于资源消耗过度，页面反而会变的更卡</p>
+<h4 id="硬件加速时请使用-index">硬件加速时请使用 index</h4>
+<p>使用硬件加速时，尽可能的使用 index，防止浏览器默认给后续的元素创建复合层渲染</p>
+<p>具体的原理时这样的：
+<strong>webkit CSS3 中，如果这个元素添加了硬件加速，并且 index 层级比较低，那么在这个元素的后面其它元素（层级比这个元素高的，或者相同的，并且 releative 或 absolute 属性相同的），会默认变为复合层渲染，如果处理不当会极大的影响性能</strong></p>
+<p>简单点理解，其实可以认为是一个隐式合成的概念：<strong>如果 a 是一个复合图层，而且 b 在 a 上面，那么 b 也会被隐式转为一个复合图层</strong>，这点需要特别注意</p>
+<p>另外，这个问题可以在这个地址看到重现（原作者分析的挺到位的，直接上链接）：
+<a href="http://web.jobbole.com/83575/" target="_blank">http://web.jobbole.com/83575/</a></p>
 <h4 id="参考资料">参考资料</h4>
 <p><a href="https://www.cnblogs.com/lhb25/p/how-browsers-work.html" target="_blank">https://www.cnblogs.com/lhb25/p/how-browsers-work.html</a>
 <a href="https://segmentfault.com/a/1190000012925872#item-10-17" target="_blank">https://segmentfault.com/a/1190000012925872#item-10-17</a>
@@ -574,7 +655,7 @@ GUI 更新则会被保存在一个队列中等到 JS 引擎线程空闲时立即
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"浏览器渲染进程","level":"1.19","depth":1,"next":{"title":"chrome多版本配置","level":"1.20","depth":1,"path":"chrome.md","ref":"chrome.md","articles":[]},"previous":{"title":"ES14 数组升级，新增API","level":"1.18","depth":1,"path":"ES14Array.md","ref":"ES14Array.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"bowserProcess.md","mtime":"2024-08-15T02:30:39.339Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-15T06:51:49.062Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"浏览器渲染进程","level":"1.19","depth":1,"next":{"title":"chrome多版本配置","level":"1.20","depth":1,"path":"chrome.md","ref":"chrome.md","articles":[]},"previous":{"title":"ES14 数组升级，新增API","level":"1.18","depth":1,"path":"ES14Array.md","ref":"ES14Array.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"bowserProcess.md","mtime":"2024-08-15T07:29:52.089Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-15T07:33:14.039Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
