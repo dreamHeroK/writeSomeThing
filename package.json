@@ -5,7 +5,7 @@
   "scripts": {
     "build": "honkit build",
     "serve": "honkit serve",
-    "serve:reload":"honkit serve --reload",
+    "serve:reload": "honkit serve --reload",
     "publish": "honkit build&&node publish.js",
     "prepare": "husky"
   },
@@ -16,5 +16,8 @@
     "gh-pages": "^6.1.1",
     "honkit": "^5.1.4",
     "husky": "^9.0.11"
+  },
+  "dependencies": {
+    "request": "^2.88.2"
   }
 }
