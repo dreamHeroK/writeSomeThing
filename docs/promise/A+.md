@@ -87,6 +87,7 @@ console.log(data);
 3. `rejected`: 一个 promise 被 reject 后就处于`rejected`状态，这个状态也不能再改变，而且必须拥有一个**不可变**的拒绝原因(reason)。
 
 注意这里的**不可变**指的是`===`，也就是说，如果`value`或者`reason`是对象，只要保证引用不变就行，规范没有强制要求里面的属性也不变。Promise 状态其实很简单，画张图就是:
+
 ![图二](\images\promise\promise2.webp)
 
 #### then 方法
@@ -260,3 +261,518 @@ new Promise(fn).then(onFulfilled, onRejected);
 ```
 
 上面代码`then`是在实例对象一创建好就调用了，这时候`fn`里面的异步操作可能还没结束呢，也就是说他的`status`还是`PENDING`，这怎么办呢，这时候我们肯定不能立即调`onFulfilled`或者`onRejected`的，因为`fn`到底成功还是失败还不知道呢。那什么时候知道`fn`成功还是失败呢？答案是 fn 里面主动调`resolve`或者`reject`的时候。所以如果这时候`status`状态还是`PENDING`，我们应该将`onFulfilled`和`onRejected`两个回调存起来，等到`fn`有了结论，`resolve`或者`reject`的时候再来调用对应的代码。因为后面`then`还有链式调用，会有多个`onFulfilled`和`onRejected`，我这里用两个数组将他们存起来，等`resolve`或者`reject`的时候将数组里面的全部方法拿出来执行一遍：
+
+```
+function MyPromise(fn) {
+  // ...省略前面代码...
+  this.onFulfilledCallbacks = [];
+  this.onRejectedCallbacks = [];
+
+  // 定义resolve和reject方法
+  // 当状态为pending时，调用resolve和reject方法，改变状态
+  const resolve = (value) => {
+    if (this.status === PENDING) {
+      this.status = FULFILLED;
+      this.value = value;
+      this.onFulfilledCallbacks.forEach((callback) => callback(this.value));
+    }
+  };
+  const rejected = (reason) => {
+    if (this.status === PENDING) {
+      this.status = REJECTED;
+      this.reason = reason;
+      this.onRejectedCallbacks.forEach((callback) => callback(this.reason));
+    }
+  };
+
+  // ...省略前面代码...
+  MyPromise.prototype.then = function (onFulfilled, onRejected) {
+  // ...省略前面代码...
+  if (this.status === PENDING) {
+    this.onFulfilledCallbacks.push(() => realOnFulfilled(this.value));
+    this.onRejectedCallbacks.push(() => realOnRejected(this.reason));
+  }
+};
+
+}
+```
+
+上面这种暂时将回调保存下来，等条件满足的时候再拿出来运行让我想起了一种模式：订阅发布模式。我们往回调数组里面 push 回调函数，其实就相当于往事件中心注册事件了，resolve 就相当于发布了一个成功事件，所有注册了的事件，即 onFulfilledCallbacks 里面的所有方法都会拿出来执行，同理 reject 就相当于发布了一个失败事件。[更多订阅发布模式的原理可以看这里](https://juejin.cn/post/6844904101331877895)。
+
+#### 完成了一小步
+
+到这里为止，其实我们已经可以实现异步调用了，只是 then 的返回值还没实现，还不能实现链式调用，我们先来玩一下：
+
+```
+
+const MyPromise = require("./myPromise");
+
+let myPromise1 = new MyPromise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("myPromise1 success");
+  }, 1000);
+});
+
+myPromise1.then((data) => {
+  console.log(data);
+});
+
+let myPromise2 = new MyPromise((resolve, reject) => {
+  setTimeout(() => {
+    reject("myPromise2 reject");
+  }, 2000);
+});
+
+myPromise2.then(
+  (data) => {
+    console.log(data);
+  },
+  (err) => {
+    console.log(err,'err');
+  }
+);
+
+```
+
+上述代码输出如下图，符合我们的预期，说明到目前为止，我们的代码都没问题:
+
+![图三](\images\promise\promise3.webp)
+
+#### then 的返回值
+
+根据规范 then 的返回值必须是一个 promise，规范还定义了不同情况应该怎么处理，我们先来处理几种比较简单的情况:
+
+1. 如果 `onFulfilled` 或者 `onRejected` 抛出一个异常 `e` ，则 `promise2` 必须拒绝执行，并返回原因 e。
+
+```
+MyPromise.prototype.then = function (onFulfilled, onRejected) {
+  // 省略其他代码
+  if (this.status === FULFILLED) {
+    let promise = new MyPromise((resolve, reject) => {
+      try {
+        realOnFulfilled(this.value);
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return promise;
+  }
+  if (this.status === REJECTED) {
+    let promise = new MyPromise((resolve, reject) => {
+      try {
+        realOnRejected(this.reason);
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return promise;
+  }
+  if (this.status === PENDING) {
+    let promise = new MyPromise((resolve, reject) => {
+      this.onFulfilledCallbacks.push(() => {
+        try {
+          realOnFulfilled(this.value);
+        } catch (error) {
+          reject(error);
+        }
+      });
+      this.onRejectedCallbacks.push(() => {
+        try {
+          realOnRejected(this.reason);
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+    return promise;
+  }
+};
+```
+
+2. 如果 `onFulfilled` 不是函数且 `promise1` 成功执行， `promise2` 必须成功执行并返回相同的值
+
+```
+// 这是个例子，每个realOnFulfilled后面都要这样写
+  if (this.status === FULFILLED) {
+    let promise = new MyPromise((resolve, reject) => {
+      try {
+        realOnFulfilled(this.value);
+        resolve(this.value);
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return promise;
+  }
+```
+
+3. 如果 `onRejected` 不是函数且 `promise1` 拒绝执行， `promise2` 必须拒绝执行并返回相同的据因。需要注意的是，如果 promise1 的 onRejected 执行成功了，promise2 应该被 resolve。改造代码如下:
+
+```
+  if (this.status === REJECTED) {
+    let promise = new MyPromise((resolve, reject) => {
+      try {
+        realOnRejected(this.reason);
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return promise;
+  }
+```
+
+4. 如果 `onFulfilled` 或者 `onRejected` 返回一个值 `x` ，则运行下面的 **Promise 解决过程**：`[[Resolve]](promise2, x)`。这条其实才是规范的第一条，因为他比较麻烦，所以我将它放到了最后。前面我们代码的实现，其实只要`onRejected`或者`onFulfilled`成功执行了，我们都要`resolve promise`。多了这条，我们还需要对`onRejected`或者`onFulfilled`的返回值进行判断，如果有返回值就要进行 **Promise 解决过程**。我们专门写一个方法来进行 Promise 解决过程。前面我们代码的实现，其实只要`onRejected`或者`onFulfilled`成功执行了，我们都要`resolve promise`，这个过程我们也放到这个方法里面去吧，所以代码变为下面这样，其他地方类似：
+
+```
+  if (this.status === FULFILLED) {
+    let promise = new MyPromise((resolve, reject) => {
+      try {
+        let x = realOnFulfilled(this.value);
+        resolvePromise(promise, x, resolve, reject);
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return promise;
+  }
+```
+
+#### Promise 解决过程
+
+现在我们该来实现 resolvePromise 方法了
+
+```
+function resolvePromise(promise, x, resolve, reject) {
+  // 防止死循环
+  if (promise === x) {
+    return reject(new TypeError("Chaining cycle detected for promise"));
+  }
+  // 如果x是一个promise
+  // 则将x的状态和值传递给promise
+  if (x instanceof MyPromise) {
+    x.then((y) => {
+      resolvePromise(promise, y, resolve, reject);
+    }, reject);
+  }
+  // 如果x是一个对象或者函数
+  // 则将x的then方法赋值给then
+  else if (typeof x === "object" || typeof x === "function") {
+    if (x === null) {
+      return resolve(x);
+    }
+    let then;
+    try {
+      then = x.then;
+    } catch (error) {
+      return reject(error);
+    }
+    if (typeof then === "function") {
+      let called = false;
+      try {
+        then.call(
+          x,
+          (y) => {
+            if (called) return;
+            called = true;
+            resolvePromise(promise, y, resolve, reject);
+          },
+          (r) => {
+            if (called) return;
+            called = true;
+            reject(r);
+          }
+        );
+      } catch (error) {
+        if (called) return;
+        // called = true;
+        reject(error);
+      }
+    } else {
+      resolve(x);
+    }
+  } // 否则直接将x的值传递给promise
+  else {
+    resolve(x);
+  }
+}
+```
+
+#### onFulfilled 和 onRejected 的执行时机
+
+在规范中还有一条：`onFulfilled` 和 `onRejected` 只有在执行环境堆栈仅包含平台代码时才可被调用。这一条的意思是实践中要确保 `onFulfilled` 和 `onRejected` 方法异步执行，且应该在 `then` 方法被调用的那一轮事件循环之后的新执行栈中执行。所以在我们执行`onFulfilled` 和 `onRejected`的时候都应该包到 setTimeout 里面去。
+
+```
+MyPromise.prototype.then = function (onFulfilled, onRejected) {
+  // 如果onFulfilled不是函数，给一个默认函数，返回value
+  let realOnFulfilled = onFulfilled;
+  if (typeof realOnFulfilled !== "function") {
+    realOnFulfilled = (value) => value;
+  }
+
+  // 如果onRejected不是函数，给一个默认函数，返回reason的Error
+  let realOnRejected = onRejected;
+  if (typeof realOnRejected !== "function") {
+    realOnRejected = (reason) => {
+      throw reason;
+    };
+  }
+  if (this.status === FULFILLED) {
+    let promise = new MyPromise((resolve, reject) => {
+      setTimeout(() => {
+        try {
+          let x = realOnFulfilled(this.value);
+          resolvePromise(promise, x, resolve, reject);
+        } catch (error) {
+          reject(error);
+        }
+      }, 0);
+    });
+    return promise;
+  }
+  if (this.status === REJECTED) {
+    let promise = new MyPromise((resolve, reject) => {
+      setTimeout(() => {
+        try {
+          let x = realOnRejected(this.reason);
+          resolvePromise(promise, x, resolve, reject);
+        } catch (error) {
+          reject(error);
+        }
+      }, 0);
+    });
+    return promise;
+  }
+  if (this.status === PENDING) {
+    let promise = new MyPromise((resolve, reject) => {
+      this.onFulfilledCallbacks.push(() => {
+        setTimeout(() => {
+          try {
+            let x = realOnFulfilled(this.value);
+            resolvePromise(promise, x, resolve, reject);
+          } catch (error) {
+            reject(error);
+          }
+        }, 0);
+      });
+      this.onRejectedCallbacks.push(() => {
+        setTimeout(() => {
+          try {
+            let x = realOnRejected(this.reason);
+            resolvePromise(promise, x, resolve, reject);
+          } catch (error) {
+            reject(error);
+          }
+        }, 0);
+      });
+    });
+    return promise;
+  }
+};
+```
+
+#### 测试我们的 Promise
+
+我们使用 Promise/A+官方的测试工具[promises-aplus-tests](https://github.com/promises-aplus/promises-tests)来对我们的 `MyPromise` 进行测试，要使用这个工具我们必须实现一个静态方法 `deferred`，官方对这个方法的定义如下:
+
+- deferred: 返回一个包含{ promise, resolve, reject }的对象
+- promise 是一个处于 pending 状态的 promise
+- resolve(value) 用 value 解决上面那个 promise
+- reject(reason) 用 reason 拒绝上面那个 promise
+
+我们实现代码如下：
+
+```
+MyPromise.deferred = function () {
+  let dfd = {};
+  dfd.promise = new MyPromise((resolve, reject) => {
+    dfd.resolve = resolve;
+    dfd.reject = reject;
+  });
+  return dfd;
+};
+```
+
+然后用 npm 将 promises-aplus-tests 下载下来，再配置下 package.json 就可以跑测试了:
+
+```
+  "scripts": {
+    "test": "promises-aplus-tests myPromise"
+  },
+    "dependencies": {
+    "promises-aplus-tests": "^2.1.2"
+  }
+```
+
+这个测试总共 872 用例，我们写的 Promise 完美通过了所有用例:
+
+![图四](\images\promise\promise4.webp)
+
+#### 其他 Promise 方法
+
+在 ES6 的官方 Promise 还有很多 API，比如：
+
+- Promise.resolve
+
+- Promise.reject
+
+- Promise.all
+
+- Promise.race
+
+- Promise.prototype.catch
+
+- Promise.prototype.finally
+
+- Promise.allSettled
+
+虽然这些都不在 Promise/A+里面，但是我们也来实现一下吧，加深理解。其实我们前面实现了 Promise/A+再来实现这些已经是小菜一碟了，因为这些 API 全部是前面的封装而已。
+
+##### Promise.resolve
+
+将现有对象转为 Promise 对象，如果 Promise.resolve 方法的参数，不是具有 then 方法的对象（又称 thenable 对象），则返回一个新的 Promise 对象，且它的状态为 fulfilled。
+
+```
+MyPromise.resolve = function (fn) {
+  if (fn instanceof MyPromise) {
+    return fn;
+  }
+  return new MyPromise((resolve) => {
+    resolve(fn);
+  });
+};
+```
+
+##### Promise.reject
+
+返回一个新的 Promise 实例，该实例的状态为 rejected。Promise.reject 方法的参数 reason，会被传递给实例的回调函数。
+
+```
+MyPromise.reject = function (reason) {
+  return new MyPromise((resolve, reject) => {
+    reject(reason);
+  });
+};
+```
+
+##### Promise.all
+
+该方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
+
+```
+const p = Promise.all([p1, p2, p3]);
+```
+
+Promise.all()方法接受一个数组作为参数，p1、p2、p3 都是 Promise 实例，如果不是，就会先调用 Promise.resolve 方法，将参数转为 Promise 实例，再进一步处理。当 p1, p2, p3 全部 resolve，大的 promise 才 resolve，有任何一个 reject，大的 promise 都 reject。
+
+```
+MyPromise.all = function (promises) {
+  return new MyPromise((resolve, reject) => {
+    let arr = [];
+    let index = 0;
+    let len = promises.length;
+    function processData(i, data) {
+      arr[i] = data;
+      index++;
+      if (index === len) {
+        resolve(arr);
+      }
+    }
+    promises.forEach((promise, i) => {
+      MyPromise.resolve(promise).then(
+        (data) => {
+          processData(i, data);
+        },
+        (reason) => {
+          reject(reason);
+        }
+      );
+    });
+  });
+};
+```
+
+##### Promise.race
+
+用法：
+
+```
+const p = Promise.race([p1, p2, p3]);
+```
+
+该方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。上面代码中，只要 p1、p2、p3 之中有一个实例率先改变状态，p 的状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给 p 的回调函数。
+
+```
+MyPromise.race = function (promises) {
+  return new MyPromise((resolve, reject) => {
+    promises.forEach((promise) => {
+      MyPromise.resolve(promise).then(resolve, reject);
+    });
+  });
+};
+```
+
+##### Promise.prototype.catch
+
+`Promise.prototype.catch`方法是`.then(null, rejection)`或`.then(undefined, rejection)`的别名，用于指定发生错误时的回调函数。
+
+```
+MyPromise.prototype.catch = function (onRejected) {
+  return this.then(null, onRejected);
+};
+
+```
+
+##### Promise.prototype.finally
+
+`finally`方法用于指定不管 Promise 对象最后状态如何，都会执行的操作。该方法是 ES2018 引入标准的。
+
+```
+MyPromise.prototype.finally = function (callback) {
+  return this.then(
+    (value) => {
+      return MyPromise.resolve(callback()).then(() => value);
+    },
+    (reason) => {
+      return MyPromise.resolve(callback()).then(() => {
+        throw reason;
+      });
+    }
+  );
+};
+```
+
+##### Promise.allSettled
+
+该方法接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例。只有等到所有这些参数实例都返回结果，不管是 `fulfilled`还是`rejected`，包装实例才会结束。该方法由 ES2020 引入。该方法返回的新的 Promise 实例，一旦结束，状态总是`fulfilled`，不会变成`rejected`。状态变成 fulfilled 后，Promise 的监听函数接收到的参数是一个数组，每个成员对应一个传入`Promise.allSettled()`的 Promise 实例的执行结果。
+
+```
+MyPromise.allSettled = function (promises) {
+  return new MyPromise((resolve, reject) => {
+    let arr = [];
+    let index = 0;
+    let len = promises.length;
+    function processData(i, data) {
+      arr[i] = data;
+      index++;
+      if (index === len) {
+        resolve(arr);
+      }
+    }
+    promises.forEach((promise, i) => {
+      MyPromise.resolve(promise).then(
+        (data) => {
+          processData(i, { status: FULFILLED, value: data });
+        },
+        (reason) => {
+          processData(i, { status: REJECTED, reason: reason });
+        }
+      );
+    });
+  });
+};
+```
+
+##### 完整代码
+完全版的代码较长，这里如果看不清楚的可以去我的GitHub上看:
+[]
