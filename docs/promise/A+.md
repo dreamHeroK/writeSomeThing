@@ -774,5 +774,15 @@ MyPromise.allSettled = function (promises) {
 ```
 
 ##### 完整代码
-完全版的代码较长，这里如果看不清楚的可以去我的GitHub上看:
-[]
+[https://github.com/dreamHeroK/writeSomeThing/blob/main/docs/promise/myPromise.js](https://github.com/dreamHeroK/writeSomeThing/blob/main/docs/promise/myPromise.js)
+
+#### 总结
+
+至此，我们的Promise就简单实现了，只是我们不是原生代码，使用的`setTimeout`模拟，不能做成微任务，如果一定要做成微任务的话，只能用其他微任务API模拟，比如`MutaionObserver`或者`process.nextTick`。下面再回顾下几个要点:
+
+- Promise其实是一个发布订阅模式
+- then方法对于还在pending的任务，其实是将回调函数`onFilfilled`和`onRejected`塞入了两个数组
+- Promise构造函数里面的resolve方法会将数组`onFilfilledCallbacks`里面的方法全部拿出来执行，这里面是之前then方法塞进去的成功回调
+- 同理，Promise构造函数里面的`reject`方法会将数组`onRejectedCallbacks`里面的方法全部拿出来执行，这里面是之前then方法塞进去的失败回调
+- `then`方法会返回一个新的Promise以便执行链式调用
+- `catch`和`finally`这些实例方法都必须返回一个新的Promise实例以便实现链式调用
