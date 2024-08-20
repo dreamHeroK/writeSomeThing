@@ -1030,8 +1030,17 @@ myPromise2.then(
   });
 };
 </code></pre><h5 id="完整代码">完整代码</h5>
-<p>完全版的代码较长，这里如果看不清楚的可以去我的GitHub上看:
-[]</p>
+<p><a href="https://github.com/dreamHeroK/writeSomeThing/blob/main/docs/promise/myPromise.js" target="_blank">https://github.com/dreamHeroK/writeSomeThing/blob/main/docs/promise/myPromise.js</a></p>
+<h4 id="总结">总结</h4>
+<p>至此，我们的Promise就简单实现了，只是我们不是原生代码，使用的<code>setTimeout</code>模拟，不能做成微任务，如果一定要做成微任务的话，只能用其他微任务API模拟，比如<code>MutaionObserver</code>或者<code>process.nextTick</code>。下面再回顾下几个要点:</p>
+<ul>
+<li>Promise其实是一个发布订阅模式</li>
+<li>then方法对于还在pending的任务，其实是将回调函数<code>onFilfilled</code>和<code>onRejected</code>塞入了两个数组</li>
+<li>Promise构造函数里面的resolve方法会将数组<code>onFilfilledCallbacks</code>里面的方法全部拿出来执行，这里面是之前then方法塞进去的成功回调</li>
+<li>同理，Promise构造函数里面的<code>reject</code>方法会将数组<code>onRejectedCallbacks</code>里面的方法全部拿出来执行，这里面是之前then方法塞进去的失败回调</li>
+<li><code>then</code>方法会返回一个新的Promise以便执行链式调用</li>
+<li><code>catch</code>和<code>finally</code>这些实例方法都必须返回一个新的Promise实例以便实现链式调用</li>
+</ul>
 
                                 
                                 </section>
@@ -1071,7 +1080,7 @@ myPromise2.then(
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"手写一个 Promise/A+","level":"1.21","depth":1,"previous":{"title":"从 Event Loop 谈 JS 的运行机制","level":"1.20","depth":1,"path":"eventloop.md","ref":"eventloop.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"promise/A+.md","mtime":"2024-08-20T08:34:40.781Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-20T08:34:45.539Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"手写一个 Promise/A+","level":"1.21","depth":1,"previous":{"title":"从 Event Loop 谈 JS 的运行机制","level":"1.20","depth":1,"path":"eventloop.md","ref":"eventloop.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"promise/A+.md","mtime":"2024-08-20T08:44:07.844Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-20T08:55:49.175Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
