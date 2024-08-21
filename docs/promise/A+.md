@@ -297,7 +297,7 @@ function MyPromise(fn) {
 }
 ```
 
-上面这种暂时将回调保存下来，等条件满足的时候再拿出来运行让我想起了一种模式：订阅发布模式。我们往回调数组里面 push 回调函数，其实就相当于往事件中心注册事件了，resolve 就相当于发布了一个成功事件，所有注册了的事件，即 onFulfilledCallbacks 里面的所有方法都会拿出来执行，同理 reject 就相当于发布了一个失败事件。[更多订阅发布模式的原理可以看这里](https://juejin.cn/post/6844904101331877895)。
+上面这种暂时将回调保存下来，等条件满足的时候再拿出来运行让我想起了一种模式：订阅发布模式。我们往回调数组里面 push 回调函数，其实就相当于往事件中心注册事件了，resolve 就相当于发布了一个成功事件，所有注册了的事件，即 onFulfilledCallbacks 里面的所有方法都会拿出来执行，同理 reject 就相当于发布了一个失败事件。[更多订阅发布模式的原理可以看这里](https://dreamherok.github.io/writeSomeThing/subcribe/subcribe.html)。
 
 #### 完成了一小步
 
