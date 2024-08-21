@@ -1,0 +1,864 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>了解Node.js的EventEmitter实现的发布订阅模式 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 5.1.4">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="../promise/A+.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../UNIAPPPERMISSION.html">
+            
+                <a href="../UNIAPPPERMISSION.html">
+            
+                    
+                    uniapp 华为应用市场权限说明解决方案 vuex
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../FORMATFLOAT.html">
+            
+                <a href="../FORMATFLOAT.html">
+            
+                    
+                    JS 保留小数并四舍五入
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../IOSDATE.html">
+            
+                <a href="../IOSDATE.html">
+            
+                    
+                    uniapp 踩坑记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../REFSTYLE.html">
+            
+                <a href="../REFSTYLE.html">
+            
+                    
+                    vue3 设置 ref.value.style 失败
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../VUE3NODE.html">
+            
+                <a href="../VUE3NODE.html">
+            
+                    
+                    vue3node 节点异常问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../GITPAGES.html">
+            
+                <a href="../GITPAGES.html">
+            
+                    
+                    gitbook 发布 gitpages 配置流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../HUSKY.html">
+            
+                <a href="../HUSKY.html">
+            
+                    
+                    HUSKY 使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../wechappAp.html">
+            
+                <a href="../wechappAp.html">
+            
+                    
+                    小程序包体压缩
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../UNIAPPUPDATE.html">
+            
+                <a href="../UNIAPPUPDATE.html">
+            
+                    
+                    uniapp 基座版本升级
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../VUEDIRECTIVE.html">
+            
+                <a href="../VUEDIRECTIVE.html">
+            
+                    
+                    vue 自定义 hover 指令
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../stylusLoader.html">
+            
+                <a href="../stylusLoader.html">
+            
+                    
+                    react stylus-loader 配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../VueArrayValidate.html">
+            
+                <a href="../VueArrayValidate.html">
+            
+                    
+                    vue 数组表单校验
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../SOLID.html">
+            
+                <a href="../SOLID.html">
+            
+                    
+                    SOLID 五大基本原则
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../Anchors.html">
+            
+                <a href="../Anchors.html">
+            
+                    
+                    关于滚动锚点的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../eslintImport.html">
+            
+                <a href="../eslintImport.html">
+            
+                    
+                    eslint import 保存自动删除
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../ES14Array.html">
+            
+                <a href="../ES14Array.html">
+            
+                    
+                    ES14 数组升级，新增 API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../chrome.html">
+            
+                <a href="../chrome.html">
+            
+                    
+                    chrome 多版本配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="../bowserProcess.html">
+            
+                <a href="../bowserProcess.html">
+            
+                    
+                    浏览器渲染进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="../eventloop.html">
+            
+                <a href="../eventloop.html">
+            
+                    
+                    从 Event Loop 谈 JS 的运行机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21" data-path="../promise/A+.html">
+            
+                <a href="../promise/A+.html">
+            
+                    
+                    手写一个 Promise/A+
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.22" data-path="subcribe.html">
+            
+                <a href="subcribe.html">
+            
+                    
+                    了解Node.js的EventEmitter实现的发布订阅模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >了解Node.js的EventEmitter实现的发布订阅模式</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h3 id="发布订阅模式">发布订阅模式</h3>
+<p>发布-订阅模式（Publish-Subscribe Pattern）是一种软件架构设计模式，属于行为型设计模式，用于解耦生产者（发布者）和消费者（订阅者）之间的关系。在这种模式中，发布者负责发布消息，而订阅者则可以选择订阅他们感兴趣的消息类型。当有新消息发布时，订阅者将收到通知并执行相应的操作。</p>
+<h3 id="发布订阅模式的关键概念">发布订阅模式的关键概念</h3>
+<ol>
+<li>发布者（Publisher）：负责发布消息的组件。它们通常不知道谁会接收到消息，只是将消息发送给与之连接的消息队列或主题。</li>
+<li>订阅者（Subscriber）：订阅特定类型的消息，并在该类型的消息被发布时接收到通知。订阅者可以根据自己的需求选择订阅的消息类型。</li>
+<li>消息（Message）：由发布者发布并由订阅者接收的信息单元。消息可以是任何形式的数据，例如文本、JSON、XML 等。</li>
+<li>主题（Topic）：定义消息类型的逻辑通道或分类。发布者将消息发布到特定的主题，而订阅者则根据需要订阅特定的主题。</li>
+<li>消息队列（Message Queue）：用于在发布者和订阅者之间传递消息的中介服务。它可以确保消息的异步传输，并提供缓冲和路由消息的功能。</li>
+<li>事件总线（Event Bus）：类似于消息队列，用于在组件之间传递消息，但通常更为轻量级，通常在单个应用程序内部使用。</li>
+</ol>
+<h3 id="为什么要用发布订阅模式">为什么要用发布订阅模式</h3>
+<ol>
+<li>解耦性（Decoupling）： 发布-订阅模式实现了生产者和消费者之间的解耦，发布者和订阅者之间的通信通过中介（例如消息队列、事件总线）进行，彼此不直接依赖或知晓对方的存在，从而提高了系统的灵活性和可维护性。</li>
+<li>扩展性（Scalability）： 由于发布者和订阅者之间的解耦，系统可以更容易地扩展。新的发布者或订阅者可以被添加而不影响现有的组件。</li>
+<li>灵活性（Flexibility）： 发布-订阅模式允许任意数量的发布者和订阅者存在，并且支持多对多的通信。发布者和订阅者可以根据需求动态地添加、删除或修改，而不影响整个系统的运行。</li>
+<li>异步通信（Asynchronous Communication）： 由于发布者和订阅者之间的通信通常是通过消息队列或事件总线进行的，因此支持异步通信。这使得系统能够更高效地处理大量消息，并提高了响应性。</li>
+<li>松散耦合（Loose Coupling）： 发布-订阅模式降低了组件之间的耦合度，因为它们不需要直接知道彼此的存在或实现细节。这使得系统更容易理解、维护和扩展。</li>
+</ol>
+<h3 id="简单代码实现">简单代码实现</h3>
+<pre><code>class Event {
+  constructor() {
+    this.events = {};
+  }
+  addListener(eventName, callback) {
+    this.events[eventName] = this.events[eventName] || [];
+    this.events[eventName].push(callback);
+  }
+  emit(eventName, ...args) {
+    let callbacks = this.events[eventName];
+    if (!callbacks || !callbacks.length) {
+      return;
+    }
+    this.events[eventName].forEach((callback) =&gt; {
+      callback(...args);
+    });
+  }
+  removeListener(eventName, callback) {
+    let callbacks = this.events[eventName];
+    if (!callbacks || !callbacks.length) {
+      return;
+    }
+    this.events[eventName] = callbacks.filter((item) =&gt; {
+      return item !== callback;
+    });
+  }
+}
+
+module.exports = new Event();
+</code></pre><h3 id="使用示例">使用示例</h3>
+<pre><code>const pubsub = require(&quot;./subcribe.js&quot;);
+
+setTimeout(() =&gt; {
+  pubsub.emit(&quot;1&quot;, &quot;hello&quot;);
+}, 1000);
+
+pubsub.addListener(&quot;1&quot;, (data) =&gt; {
+  setTimeout(() =&gt; {
+    console.log(&quot;1&quot;, data);
+    pubsub.emit(&quot;2&quot;, &quot;world&quot;);
+  }, 1000);
+});
+
+const listener2 = () =&gt; (data) =&gt; {
+  setTimeout(() =&gt; {
+    console.log(&quot;2&quot;, data);
+    pubsub.emit(&quot;3&quot;, &quot;!&quot;);
+  }, 1000);
+};
+pubsub.addListener(&quot;2&quot;, listener2);
+
+pubsub.addListener(&quot;2&quot;, (data) =&gt; {
+  setTimeout(() =&gt; {
+    console.log(&quot;3&quot;, data);
+    console.log(pubsub.events,&apos;events&apos;)
+    pubsub.removeListener(&quot;2&quot;, listener2);
+    console.log(pubsub.events,&apos;events&apos;)
+  }, 0);
+});
+</code></pre><h3 id="nodejs-的-eventemitter">Node.js 的 EventEmitter</h3>
+<p><code>Node.js</code>的 <code>EventEmitter</code>设计模式跟我们前面的例子是一样的，不过他有更多的错误处理和更多的 API，源码在 GitHub 上都有：<a href="https://github.com/nodejs/node/blob/main/lib/events.js" target="_blank">https://github.com/nodejs/node/blob/main/lib/events.js</a>。我们挑几个 API 看一下：</p>
+<pre><code>/**
+ * Creates a new `EventEmitter` instance.
+ * @param {{ captureRejections?: boolean; }} [opts]
+ * @constructs {EventEmitter}
+ */
+function EventEmitter(opts) {
+  EventEmitter.init.call(this, opts); // 构造函数
+}
+</code></pre><pre><code>// If you&apos;re updating this function definition, please also update any
+// re-definitions, such as the one in the Domain module (lib/domain.js).
+EventEmitter.init = function(opts) {
+
+  if (this._events === undefined ||
+      this._events === ObjectGetPrototypeOf(this)._events) {
+    this._events = { __proto__: null }; // 初始化事件
+    this._eventsCount = 0;
+    this[kShapeMode] = false;
+  } else {
+    this[kShapeMode] = true;
+  }
+
+  this._maxListeners = this._maxListeners || undefined;
+
+
+  if (opts?.captureRejections) {
+    validateBoolean(opts.captureRejections, &apos;options.captureRejections&apos;);
+    this[kCapture] = Boolean(opts.captureRejections);
+  } else {
+    // Assigning the kCapture property directly saves an expensive
+    // prototype lookup in a very sensitive hot path.
+    this[kCapture] = EventEmitter.prototype[kCapture];
+  }
+};
+</code></pre><p><code>EventEmitter.init</code>里面也是做了一些初始化的工作，<code>this._events</code>跟我们自己写的 this.events 功能是一样的，用来存储订阅的事件。。这里需要注意一点，如果一个类型的事件只有一个订阅,<code>this._events</code>就直接是那个函数了，而不是一个数组，在源码里面我们会多次看到对这个进行判断，这样写是为了提高性能。</p>
+<h4 id="订阅事件">订阅事件</h4>
+<p>EventEmitter 订阅事件的 API 是<code>on</code>和<code>addListener</code>，从源码中我们可以看出这两个方法是完全一样的：</p>
+<p><a href="https://github.com/nodejs/node/blob/main/lib/events.js#L548" target="_blank">代码传送门</a></p>
+<pre><code>EventEmitter.prototype.addListener = function addListener(type, listener) {
+  return _addListener(this, type, listener, false);
+};
+
+EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+function _addListener(target, type, listener, prepend) {
+  let m;
+  let events;
+  let existing;
+
+  checkListener(listener);
+
+  events = target._events; // 指向EventEmitter._events
+  if (events === undefined) {
+    events = target._events = { __proto__: null }; // 和init方法一样进行判断，提高性能
+    target._eventsCount = 0;
+  } else {
+    // To avoid recursion in the case that type === &quot;newListener&quot;! Before
+    // adding it to the listeners, first emit &quot;newListener&quot;.
+    if (events.newListener !== undefined) {
+      target.emit(&apos;newListener&apos;, type,
+                  listener.listener ?? listener);
+
+      // Re-assign `events` because a newListener handler could have caused the
+      // this._events to be assigned to a new object
+      events = target._events;
+    }
+    existing = events[type];
+  }
+
+  if (existing === undefined) {
+    // Optimize the case of one listener. Don&apos;t need the extra array object.
+    events[type] = listener; // 单个listener直接注册,不使用数组对象
+    ++target._eventsCount;
+  } else {
+    if (typeof existing === &apos;function&apos;) {
+      // Adding the second element, need to change to array.
+      existing = events[type] =
+        prepend ? [listener, existing] : [existing, listener]; // 第二次判断，转成数组
+      // If we&apos;ve already got an array, just append.
+    } else if (prepend) {
+      existing.unshift(listener);
+    } else {
+      existing.push(listener); // 数组添加事件监听
+    }
+
+    // Check for listener leak
+    m = _getMaxListeners(target);
+    if (m &gt; 0 &amp;&amp; existing.length &gt; m &amp;&amp; !existing.warned) {
+      existing.warned = true;
+      // No error code for this since it is a Warning
+      const w = genericNodeError(
+        `Possible EventEmitter memory leak detected. ${existing.length} ${String(type)} listeners ` +
+        `added to ${inspect(target, { depth: -1 })}. MaxListeners is ${m}. Use emitter.setMaxListeners() to increase limit`,
+        { name: &apos;MaxListenersExceededWarning&apos;, emitter: target, type: type, count: existing.length });
+      process.emitWarning(w);
+    }
+  }
+
+  return target;
+}
+</code></pre><h4 id="发布事件">发布事件</h4>
+<p><a href="https://github.com/nodejs/node/blob/main/lib/events.js#L467" target="_blank">代码传送门</a></p>
+<p><code>entEmitter</code>发布事件的 API 是<code>emit</code>，这个 API 里面会对&quot;error&quot;类型的事件进行特殊处理，也就是抛出错误：</p>
+<pre><code>EventEmitter.prototype.emit = function emit(type, ...args) {
+  let doError = (type === &apos;error&apos;);
+
+  const events = this._events; // 指向EventEmitter._events
+  if (events !== undefined) {
+    if (doError &amp;&amp; events[kErrorMonitor] !== undefined)
+      this.emit(kErrorMonitor, ...args);
+    doError = (doError &amp;&amp; events.error === undefined);
+  } else if (!doError)
+    return false;
+
+  // If there is no &apos;error&apos; event listener then throw.
+  if (doError) {
+    let er;
+    if (args.length &gt; 0)
+      er = args[0];
+    if (er instanceof Error) {
+      try {
+        const capture = {};
+        ErrorCaptureStackTrace(capture, EventEmitter.prototype.emit);
+        ObjectDefineProperty(er, kEnhanceStackBeforeInspector, {
+          __proto__: null,
+          value: FunctionPrototypeBind(enhanceStackTrace, this, er, capture),
+          configurable: true,
+        });
+      } catch {
+        // Continue regardless of error.
+      }
+
+      // Note: The comments on the `throw` lines are intentional, they show
+      // up in Node&apos;s output if this results in an unhandled exception.
+      throw er; // Unhandled &apos;error&apos; event 错误类型事件处理，抛出错误
+    }
+
+    let stringifiedEr;
+    try {
+      stringifiedEr = inspect(er);
+    } catch {
+      stringifiedEr = er;
+    }
+
+    // At least give some kind of context to the user
+    const err = new ERR_UNHANDLED_ERROR(stringifiedEr);
+    err.context = er;
+    throw err; // Unhandled &apos;error&apos; event
+  }
+
+  const handler = events[type]; // 指向EventEmitter._events[type]
+
+  if (handler === undefined)
+    return false;
+
+  if (typeof handler === &apos;function&apos;) {
+    const result = handler.apply(this, args); // 单个事件监听 直接执行
+
+    // We check if result is undefined first because that
+    // is the most common case so we do not pay any perf
+    // penalty
+    if (result !== undefined &amp;&amp; result !== null) {
+      addCatch(this, result, type, args);
+    }
+  } else {
+    const len = handler.length;
+    const listeners = arrayClone(handler);
+    for (let i = 0; i &lt; len; ++i) {
+      const result = listeners[i].apply(this, args); // 数组事件监听 遍历执行
+
+      // We check if result is undefined first because that
+      // is the most common case so we do not pay any perf
+      // penalty.
+      // This code is duplicated because extracting it away
+      // would make it non-inlineable.
+      if (result !== undefined &amp;&amp; result !== null) {
+        addCatch(this, result, type, args);
+      }
+    }
+  }
+
+  return true;
+};
+</code></pre><h4 id="取消订阅">取消订阅</h4>
+<p><a href="https://github.com/nodejs/node/blob/main/lib/events.js#L681" target="_blank">代码传送门</a></p>
+<p><code>EventEmitter</code>里面取消订阅的 API 是<code>removeListener</code>和<code>off</code>，这两个是完全一样的。<code>EventEmitter</code>的取消订阅 API 不仅仅会删除对应的订阅，在删除后还会 emit 一个 r<code>emoveListener</code>事件来通知外界。这里也会对<code>this._events</code>里面对应的 type 进行判断，如果只有一个，也就是说这个<code>type</code>的类型是<code>function</code>，会直接删除这个键，如果有多个订阅，就会找出这个订阅，然后删掉他。如果所有订阅都删完了，就直接将<code>this._events</code>置空：</p>
+<pre><code>EventEmitter.prototype.removeListener =
+    function removeListener(type, listener) {
+      checkListener(listener);
+
+      const events = this._events; // 指向EventEmitter._events
+      if (events === undefined)
+        return this;
+
+      const list = events[type];
+      if (list === undefined)
+        return this;
+
+      if (list === listener || list.listener === listener) {
+        this._eventsCount -= 1;
+
+        if (this[kShapeMode]) {
+          events[type] = undefined; // 如果是shape模式，直接置空
+        } else if (this._eventsCount === 0) {
+          this._events = { __proto__: null }; //_events内不存在任何type，直接置空
+        } else {
+          delete events[type]; // 删除指定的type
+          if (events.removeListener)
+            this.emit(&apos;removeListener&apos;, type, list.listener || listener);
+        }
+      } else if (typeof list !== &apos;function&apos;) {
+        let position = -1;
+
+        for (let i = list.length - 1; i &gt;= 0; i--) {
+          if (list[i] === listener || list[i].listener === listener) {
+            position = i;
+            break;
+          }
+        }
+
+        if (position &lt; 0)
+          return this;
+
+        if (position === 0)
+          list.shift(); // 如果是第一个，使用shift直接删除
+        else {
+          if (spliceOne === undefined)
+            spliceOne = require(&apos;internal/util&apos;).spliceOne;
+          spliceOne(list, position); // 如果不是第一个，使用splice删除
+        }
+
+        if (list.length === 1)
+          events[type] = list[0];   // 只有一个订阅，数组转成函数
+
+        if (events.removeListener !== undefined)
+          this.emit(&apos;removeListener&apos;, type, listener);
+      }
+
+      return this;
+    };
+
+EventEmitter.prototype.off = EventEmitter.prototype.removeListener;
+</code></pre><h3 id="缺点：">缺点：</h3>
+<ul>
+<li>消息传递顺序性难以保证（Ordering of Message Delivery）： 在某些情况下，由于消息传递是异步的，发布者发布消息的顺序与订阅者接收消息的顺序可能会不一致。这可能导致一些潜在的问题，特别是对于依赖于消息顺序的场景。</li>
+<li>调试复杂性（Debugging Complexity）： 由于发布-订阅模式中的组件之间是松散耦合的，因此在调试时可能会更加复杂。当出现问题时，需要跟踪消息的传递路径以找到问题所在。</li>
+<li>消息处理延迟（Message Processing Latency）： 由于发布-订阅模式通常是异步的，消息的传递和处理可能会引入一定程度的延迟。在某些实时性要求高的应用场景中，这可能会成为一个问题。</li>
+<li>可能引入过多的订阅者（Potential Overuse of Subscribers）： 如果不加限制地使用发布-订阅模式，可能会导致系统中存在过多的订阅者，这可能会降低系统的性能和可维护性。因此，需要在设计时仔细考虑订阅者的数量和范围。</li>
+</ul>
+<p>虽然发布-订阅模式具有一些缺点，但它的优点通常能够满足许多实际应用场景的需求，并且在大多数情况下，其优势远远超过了缺点。因此，在选择使用发布-订阅模式时，需要根据具体的需求和场景来权衡利弊。</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../promise/A+.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 手写一个 Promise/A+">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"了解Node.js的EventEmitter实现的发布订阅模式","level":"1.22","depth":1,"previous":{"title":"手写一个 Promise/A+","level":"1.21","depth":1,"path":"promise/A+.md","ref":"promise/A+.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"subcribe/subcribe.md","mtime":"2024-08-21T03:35:12.762Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-21T03:35:33.138Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
