@@ -277,9 +277,8 @@ import {Decimal} from 'decimal.js';
 
 [代码传送门](https://github.com/MikeMcl/decimal.js/blob/master/decimal.js#L1528)
 
-```
+
 ![图1](\images\sourceAna\decimal1.png)
-```
 
 指数有区别的情况下运算
 
