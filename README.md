@@ -27,4 +27,5 @@
 - [从 Event Loop 谈 JS 的运行机制](https://dreamherok.github.io/writeSomeThing/eventloop.html)
 - [手写一个 Promise/A+](https://dreamherok.github.io/writeSomeThing/promise/A+.html)
 - [了解Node.js的EventEmitter实现的发布订阅模式](https://dreamherok.github.io/writeSomeThing/subcribe/subcribe.html)
+- [decimal.js源码解析](https://dreamherok.github.io/writeSomeThing/sourceAna/decimal.js.html)
 <!--ListEnd-->
