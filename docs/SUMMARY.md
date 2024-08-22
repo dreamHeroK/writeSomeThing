@@ -22,3 +22,4 @@
 - [从 Event Loop 谈 JS 的运行机制](eventloop.md)
 - [手写一个 Promise/A+](promise/A+.md)
 - [了解Node.js的EventEmitter实现的发布订阅模式](subcribe/subcribe.md)
+- [decimal.js源码解析](sourceAna/decimal.js.md)
