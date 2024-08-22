@@ -1,0 +1,837 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>decimal.js源码解析 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 5.1.4">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="../subcribe/subcribe.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../UNIAPPPERMISSION.html">
+            
+                <a href="../UNIAPPPERMISSION.html">
+            
+                    
+                    uniapp 华为应用市场权限说明解决方案 vuex
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../FORMATFLOAT.html">
+            
+                <a href="../FORMATFLOAT.html">
+            
+                    
+                    JS 保留小数并四舍五入
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../IOSDATE.html">
+            
+                <a href="../IOSDATE.html">
+            
+                    
+                    uniapp 踩坑记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../REFSTYLE.html">
+            
+                <a href="../REFSTYLE.html">
+            
+                    
+                    vue3 设置 ref.value.style 失败
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../VUE3NODE.html">
+            
+                <a href="../VUE3NODE.html">
+            
+                    
+                    vue3node 节点异常问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../GITPAGES.html">
+            
+                <a href="../GITPAGES.html">
+            
+                    
+                    gitbook 发布 gitpages 配置流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../HUSKY.html">
+            
+                <a href="../HUSKY.html">
+            
+                    
+                    HUSKY 使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../wechappAp.html">
+            
+                <a href="../wechappAp.html">
+            
+                    
+                    小程序包体压缩
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../UNIAPPUPDATE.html">
+            
+                <a href="../UNIAPPUPDATE.html">
+            
+                    
+                    uniapp 基座版本升级
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../VUEDIRECTIVE.html">
+            
+                <a href="../VUEDIRECTIVE.html">
+            
+                    
+                    vue 自定义 hover 指令
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../stylusLoader.html">
+            
+                <a href="../stylusLoader.html">
+            
+                    
+                    react stylus-loader 配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../VueArrayValidate.html">
+            
+                <a href="../VueArrayValidate.html">
+            
+                    
+                    vue 数组表单校验
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../SOLID.html">
+            
+                <a href="../SOLID.html">
+            
+                    
+                    SOLID 五大基本原则
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../Anchors.html">
+            
+                <a href="../Anchors.html">
+            
+                    
+                    关于滚动锚点的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../eslintImport.html">
+            
+                <a href="../eslintImport.html">
+            
+                    
+                    eslint import 保存自动删除
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../ES14Array.html">
+            
+                <a href="../ES14Array.html">
+            
+                    
+                    ES14 数组升级，新增 API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../chrome.html">
+            
+                <a href="../chrome.html">
+            
+                    
+                    chrome 多版本配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="../bowserProcess.html">
+            
+                <a href="../bowserProcess.html">
+            
+                    
+                    浏览器渲染进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="../eventloop.html">
+            
+                <a href="../eventloop.html">
+            
+                    
+                    从 Event Loop 谈 JS 的运行机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21" data-path="../promise/A+.html">
+            
+                <a href="../promise/A+.html">
+            
+                    
+                    手写一个 Promise/A+
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.22" data-path="../subcribe/subcribe.html">
+            
+                <a href="../subcribe/subcribe.html">
+            
+                    
+                    了解Node.js的EventEmitter实现的发布订阅模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.23" data-path="decimal.js.html">
+            
+                <a href="decimal.js.html">
+            
+                    
+                    decimal.js源码解析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >decimal.js源码解析</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h4 id="decimaljs-作用">Decimal.js 作用</h4>
+<p>JavaScript 中的数字按照 IEEE 754 的标准，使用 64 位双精度浮点型来表示。其中符号位 S，指数位 E，尾数位 M 分别占了 1，11，52 位，并且在 ES5 规范 中指出了指数位 E 的取值范围是 [-1074, 971]。</p>
+<p>还有那些经典的面试题 02+0.1 == 0.3</p>
+<p>那么，Decimal.js 就是帮助我们解决 js 中的精度失准的问题</p>
+<h4 id="decimaljs-安装">Decimal.js 安装</h4>
+<p>Browser:</p>
+<pre><code>&lt;script src=&apos;path/to/decimal.js&apos;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;module&quot;&gt;
+  import Decimal from &apos;./path/to/decimal.mjs&apos;;
+  ...
+&lt;/script&gt;
+</code></pre><p>Node.js:</p>
+<pre><code>npm install decimal.js
+</code></pre><pre><code>const Decimal = require(&apos;decimal.js&apos;);
+
+import Decimal from &apos;decimal.js&apos;;
+
+import {Decimal} from &apos;decimal.js&apos;;
+</code></pre><h4 id="decimaljs-实现原理">Decimal.js 实现原理</h4>
+<p>把浮点数转化为字符串，模拟实际运算的过程。
+<a href="https://github.com/MikeMcl/decimal.js/blob/master/decimal.js#L2439" target="_blank">代码传送门</a></p>
+<pre><code>  // 转string
+  P.toString = function () {
+    var x = this,
+      Ctor = x.constructor,
+      str = finiteToString(x, x.e &lt;= Ctor.toExpNeg || x.e &gt;= Ctor.toExpPos);
+
+    return x.isNeg() &amp;&amp; !x.isZero() ? &apos;-&apos; + str : str;
+  };
+
+    //finiteToString 具体实现
+    function finiteToString(x, isExp, sd) {
+    if (!x.isFinite()) return nonFiniteToString(x);
+    var k,
+      e = x.e,
+      str = digitsToString(x.d),
+      len = str.length;
+
+    if (isExp) {
+      if (sd &amp;&amp; (k = sd - len) &gt; 0) {
+        str = str.charAt(0) + &apos;.&apos; + str.slice(1) + getZeroString(k);
+      } else if (len &gt; 1) {
+        str = str.charAt(0) + &apos;.&apos; + str.slice(1);
+      }
+
+      str = str + (x.e &lt; 0 ? &apos;e&apos; : &apos;e+&apos;) + x.e;
+    } else if (e &lt; 0) {
+      str = &apos;0.&apos; + getZeroString(-e - 1) + str;
+      if (sd &amp;&amp; (k = sd - len) &gt; 0) str += getZeroString(k);
+    } else if (e &gt;= len) {
+      str += getZeroString(e + 1 - len);
+      if (sd &amp;&amp; (k = sd - e - 1) &gt; 0) str = str + &apos;.&apos; + getZeroString(k);
+    } else {
+      if ((k = e + 1) &lt; len) str = str.slice(0, k) + &apos;.&apos; + str.slice(k);
+      if (sd &amp;&amp; (k = sd - len) &gt; 0) {
+        if (e + 1 === len) str += &apos;.&apos;;
+        str += getZeroString(k);
+      }
+    }
+
+    return str;
+  }
+</code></pre><h4 id="构造函数">构造函数</h4>
+<p><a href="https://github.com/MikeMcl/decimal.js/blob/master/decimal.js#L4275" target="_blank">代码传送门</a></p>
+<pre><code>  Decimal = clone(DEFAULTS);
+  function clone(obj) {
+    var i, p, ps;
+
+    /*
+     * The Decimal constructor and exported function.
+     * Return a new Decimal instance.
+     *
+     * v {number|string|Decimal} A numeric value.
+     *
+     */
+    function Decimal(v) {
+      var e, i, t,
+        x = this;
+
+      // Decimal called without new.
+      if (!(x instanceof Decimal)) return new Decimal(v);
+
+      // Retain a reference to this Decimal constructor, and shadow Decimal.prototype.constructor
+      // which points to Object.
+      x.constructor = Decimal;
+
+      // Duplicate.
+      if (isDecimalInstance(v)) {
+        x.s = v.s;
+
+        if (external) {
+          if (!v.d || v.e &gt; Decimal.maxE) {
+
+            // Infinity.
+            x.e = NaN;
+            x.d = null;
+          } else if (v.e &lt; Decimal.minE) {
+
+            // Zero.
+            x.e = 0;
+            x.d = [0];
+          } else {
+            x.e = v.e;
+            x.d = v.d.slice();
+          }
+        } else {
+          x.e = v.e;
+          x.d = v.d ? v.d.slice() : v.d;
+        }
+
+        return;
+      }
+
+      t = typeof v;
+
+      if (t === &apos;number&apos;) { // 对数字类型判断
+        if (v === 0) {
+          x.s = 1 / v &lt; 0 ? -1 : 1;
+          x.e = 0;
+          x.d = [0];
+          return;
+        }
+
+        if (v &lt; 0) {
+          v = -v;
+          x.s = -1;
+        } else {
+          x.s = 1;
+        }
+
+        // Fast path for small integers.
+        if (v === ~~v &amp;&amp; v &lt; 1e7) { // v为整数且小于1e7
+          for (e = 0, i = v; i &gt;= 10; i /= 10) e++; // 指数位
+
+          if (external) {
+            if (e &gt; Decimal.maxE) {
+              x.e = NaN;
+              x.d = null;
+            } else if (e &lt; Decimal.minE) {
+              x.e = 0;
+              x.d = [0];
+            } else {
+              x.e = e;
+              x.d = [v];
+            }
+          } else {
+            x.e = e;
+            x.d = [v]; // x.d 保存value
+          }
+
+          return;
+
+        // Infinity, NaN.
+        } else if (v * 0 !== 0) {
+          if (!v) x.s = NaN;
+          x.e = NaN;
+          x.d = null;
+          return;
+        }
+
+        return parseDecimal(x, v.toString());
+
+      } else if (t !== &apos;string&apos;) {
+        throw Error(invalidArgument + v);
+      }
+
+      // Minus sign?
+      if ((i = v.charCodeAt(0)) === 45) {
+        v = v.slice(1);
+        x.s = -1;
+      } else {
+        // Plus sign?
+        if (i === 43) v = v.slice(1);
+        x.s = 1;
+      }
+
+      return isDecimal.test(v) ? parseDecimal(x, v) : parseOther(x, v);
+    }
+
+    Decimal.prototype = P;
+
+    Decimal.ROUND_UP = 0;
+    Decimal.ROUND_DOWN = 1;
+    Decimal.ROUND_CEIL = 2;
+    Decimal.ROUND_FLOOR = 3;
+    Decimal.ROUND_HALF_UP = 4;
+    Decimal.ROUND_HALF_DOWN = 5;
+    Decimal.ROUND_HALF_EVEN = 6;
+    Decimal.ROUND_HALF_CEIL = 7;
+    Decimal.ROUND_HALF_FLOOR = 8;
+    Decimal.EUCLID = 9;
+
+    Decimal.config = Decimal.set = config;
+    Decimal.clone = clone;
+    Decimal.isDecimal = isDecimalInstance;
+
+    Decimal.abs = abs;
+    Decimal.acos = acos;
+    Decimal.acosh = acosh;        // ES6
+    Decimal.add = add;
+    Decimal.asin = asin;
+    Decimal.asinh = asinh;        // ES6
+    Decimal.atan = atan;
+    Decimal.atanh = atanh;        // ES6
+    Decimal.atan2 = atan2;
+    Decimal.cbrt = cbrt;          // ES6
+    Decimal.ceil = ceil;
+    Decimal.clamp = clamp;
+    Decimal.cos = cos;
+    Decimal.cosh = cosh;          // ES6
+    Decimal.div = div;
+    Decimal.exp = exp;
+    Decimal.floor = floor;
+    Decimal.hypot = hypot;        // ES6
+    Decimal.ln = ln;
+    Decimal.log = log;
+    Decimal.log10 = log10;        // ES6
+    Decimal.log2 = log2;          // ES6
+    Decimal.max = max;
+    Decimal.min = min;
+    Decimal.mod = mod;
+    Decimal.mul = mul;
+    Decimal.pow = pow;
+    Decimal.random = random;
+    Decimal.round = round;
+    Decimal.sign = sign;          // ES6
+    Decimal.sin = sin;
+    Decimal.sinh = sinh;          // ES6
+    Decimal.sqrt = sqrt;
+    Decimal.sub = sub;
+    Decimal.sum = sum;
+    Decimal.tan = tan;
+    Decimal.tanh = tanh;          // ES6
+    Decimal.trunc = trunc;        // ES6
+
+    if (obj === void 0) obj = {};
+    if (obj) {
+      if (obj.defaults !== true) {
+        ps = [&apos;precision&apos;, &apos;rounding&apos;, &apos;toExpNeg&apos;, &apos;toExpPos&apos;, &apos;maxE&apos;, &apos;minE&apos;, &apos;modulo&apos;, &apos;crypto&apos;];
+        for (i = 0; i &lt; ps.length;) if (!obj.hasOwnProperty(p = ps[i++])) obj[p] = this[p];
+      }
+    }
+
+    Decimal.config(obj);
+
+    return Decimal;
+  }
+</code></pre><h5 id="加法运算">加法运算</h5>
+<p><a href="https://github.com/MikeMcl/decimal.js/blob/master/decimal.js#L1528" target="_blank">代码传送门</a></p>
+<pre><code>![图1](\images\sourceAna\decimal1.png)
+</code></pre><p>指数有区别的情况下运算</p>
+<pre><code>    k = mathfloor(x.e / LOG_BASE);
+    e = mathfloor(y.e / LOG_BASE);
+
+    xd = xd.slice();
+    i = k - e;
+   if (i) {
+
+      if (i &lt; 0) {
+        d = xd;
+        i = -i;
+        len = yd.length;
+      } else {
+        d = yd;
+        e = k;
+        len = xd.length;
+      }
+
+      // Limit number of zeros prepended to max(ceil(pr / LOG_BASE), len) + 1.
+      k = Math.ceil(pr / LOG_BASE);
+      len = k &gt; len ? k + 1 : len + 1;
+
+      if (i &gt; len) {
+        i = len;
+        d.length = 1;
+      }
+
+      // Prepend zeros to equalise exponents. Note: Faster to use reverse then do unshifts.
+      d.reverse();
+      for (; i--;) d.push(0);
+      d.reverse();
+    }
+</code></pre><p>关键运算</p>
+<pre><code>    for (carry = 0; i;) { // i&gt;0 循环
+      carry = (xd[--i] = xd[i] + yd[i] + carry) / BASE | 0;
+      xd[i] %= BASE;
+    }
+</code></pre><p>ok 到这里加法运算的源码就解析完了。高级的运算就不一一列举了，和加法运算类似</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../subcribe/subcribe.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 了解Node.js的EventEmitter实现的发布订阅模式">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"decimal.js源码解析","level":"1.23","depth":1,"previous":{"title":"了解Node.js的EventEmitter实现的发布订阅模式","level":"1.22","depth":1,"path":"subcribe/subcribe.md","ref":"subcribe/subcribe.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"sourceAna/decimal.js.md","mtime":"2024-08-22T02:55:42.467Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-22T02:56:03.806Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
