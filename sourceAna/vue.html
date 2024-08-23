@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>decimal.js源码解析 · HonKit</title>
+        <title>vue响应式原理之观察者模式 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -56,8 +56,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="decimal.js.html" />
     
-    <link rel="prev" href="vue.html" />
+    
+    <link rel="prev" href="../subcribe/subcribe.html" />
     
 
     </head>
@@ -372,7 +374,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.23" data-path="vue.html">
+        <li class="chapter active" data-level="1.23" data-path="vue.html">
             
                 <a href="vue.html">
             
@@ -385,7 +387,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.24" data-path="decimal.js.html">
+        <li class="chapter " data-level="1.24" data-path="decimal.js.html">
             
                 <a href="decimal.js.html">
             
@@ -428,7 +430,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >decimal.js源码解析</a>
+        <a href=".." >vue响应式原理之观察者模式</a>
     </h1>
 </div>
 
@@ -443,296 +445,275 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h4 id="decimaljs-作用">Decimal.js 作用</h4>
-<p>JavaScript 中的数字按照 IEEE 754 的标准，使用 64 位双精度浮点型来表示。其中符号位 S，指数位 E，尾数位 M 分别占了 1，11，52 位，并且在 ES5 规范 中指出了指数位 E 的取值范围是 [-1074, 971]。</p>
-<p>还有那些经典的面试题 02+0.1 == 0.3</p>
-<p>那么，Decimal.js 就是帮助我们解决 js 中的精度失准的问题</p>
-<h4 id="decimaljs-安装">Decimal.js 安装</h4>
-<p>Browser:</p>
-<pre><code>&lt;script src=&apos;path/to/decimal.js&apos;&gt;&lt;/script&gt;
+                                <h3 id="观察者模式">观察者模式</h3>
+<ul>
+<li>概念</li>
+</ul>
+<p>观察者模式定义了对象间的一种一对多的依赖关系。当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知，并完成自动更新。</p>
+<ul>
+<li><p>优点</p>
+<ol>
+<li>观察者与被观察者是抽象耦合的</li>
+<li>建立了一套触发机制</li>
+</ol>
+</li>
+<li><p>缺点</p>
+<ol>
+<li>被观察者有很多的观察者时，通知更新这一过程会花费很多的时间</li>
+<li>观察者和被观察者之间存在循环依赖的话，可能导致系统奔溃</li>
+</ol>
+</li>
+<li><p>现实中的例子</p>
+</li>
+</ul>
+<p><img src="../images/sourceAna/vue1.png" alt="图一"></p>
+<p>从上图可以看到，一个 subject 可以被多个 observer 订阅/观察。当 subject 状态发生变化时，就会通知订阅者进行更新操作。在这样的一个模式中，订阅者的数量以及具体订阅者都是不确定的（订阅者列表是动态变化的），但仍能保证整个机制的正常运转。</p>
+<h3 id="vue-的响应式原理">Vue 的响应式原理</h3>
+<p>Vue2 实现响应式的核心是利用了 ES5 中的 <code>Object.defineProperty 方法</code>（这也是为什么 Vue.js 不能兼容 IE8 及以下版本浏览器的原因）。</p>
+<p>Vue 会为每个组件实例都创建一个 <code>watcher</code> ，它会在组件渲染的过程中把“接触”过的数据属性记录为依赖（<code>依赖收集</code>）。之后当依赖项的 <code>setter</code> 触发时，会通知 <code>watche</code>r，从而使它关联的组件重新渲染（派发更新）。</p>
+<p>代码实现上： 创建 Vue 实例时，会传入一个<code>function / object</code> 作为 data 属性。Vue 会遍历 data 属性所对应的对象的属性，并借助 <code>Object.defineProperty</code> 方法，进行数据劫持，将每个数据属性都转化为<code>响应式对象</code>（拥有<code>setter</code>和 <code>getter</code>）。</p>
+<ol>
+<li>在 getter 方法中，进行依赖收集</li>
+<li>在 setter 方法中，进行派发更新</li>
+</ol>
+<h3 id="简要分析源码中的观察者模式部分">简要分析源码中的观察者模式部分</h3>
+<p>说明： 下文分析的是 <code>vue.js 2</code> 的部分源码。</p>
+<ol>
+<li>数据劫持，将数据属性转化为响应式对象
+核心为 <code>defineReactive</code> 方法
+<a href="https://github.com/vuejs/vue/blob/main/src/core/observer/index.ts#L128" target="_blank">代码传送门</a></li>
+</ol>
+<pre><code>export function defineReactive(
+  obj: object,
+  key: string,
+  val?: any,
+  customSetter?: Function | null,
+  shallow?: boolean,
+  mock?: boolean,
+  observeEvenIfShallow = false
+) {
+  const dep = new Dep()
 
-&lt;script type=&quot;module&quot;&gt;
-  import Decimal from &apos;./path/to/decimal.mjs&apos;;
-  ...
-&lt;/script&gt;
-</code></pre><p>Node.js:</p>
-<pre><code>npm install decimal.js
-</code></pre><pre><code>const Decimal = require(&apos;decimal.js&apos;);
+  const property = Object.getOwnPropertyDescriptor(obj, key)
+  if (property &amp;&amp; property.configurable === false) {
+    return
+  }
 
-import Decimal from &apos;decimal.js&apos;;
+  // cater for pre-defined getter/setters
+  const getter = property &amp;&amp; property.get
+  const setter = property &amp;&amp; property.set
+  if (
+    (!getter || setter) &amp;&amp;
+    (val === NO_INITIAL_VALUE || arguments.length === 2)
+  ) {
+    val = obj[key]
+  }
 
-import {Decimal} from &apos;decimal.js&apos;;
-</code></pre><h4 id="decimaljs-实现原理">Decimal.js 实现原理</h4>
-<p>把浮点数转化为字符串，模拟实际运算的过程。
-<a href="https://github.com/MikeMcl/decimal.js/blob/master/decimal.js#L2439" target="_blank">代码传送门</a></p>
-<pre><code>  // 转string
-  P.toString = function () {
-    var x = this,
-      Ctor = x.constructor,
-      str = finiteToString(x, x.e &lt;= Ctor.toExpNeg || x.e &gt;= Ctor.toExpPos);
-
-    return x.isNeg() &amp;&amp; !x.isZero() ? &apos;-&apos; + str : str;
-  };
-
-    //finiteToString 具体实现
-    function finiteToString(x, isExp, sd) {
-    if (!x.isFinite()) return nonFiniteToString(x);
-    var k,
-      e = x.e,
-      str = digitsToString(x.d),
-      len = str.length;
-
-    if (isExp) {
-      if (sd &amp;&amp; (k = sd - len) &gt; 0) {
-        str = str.charAt(0) + &apos;.&apos; + str.slice(1) + getZeroString(k);
-      } else if (len &gt; 1) {
-        str = str.charAt(0) + &apos;.&apos; + str.slice(1);
+  let childOb = shallow ? val &amp;&amp; val.__ob__ : observe(val, false, mock)
+  Object.defineProperty(obj, key, {
+    enumerable: true,
+    configurable: true,
+    get: function reactiveGetter() {
+      const value = getter ? getter.call(obj) : val
+      if (Dep.target) {
+        if (__DEV__) {
+          dep.depend({
+            target: obj,
+            type: TrackOpTypes.GET,
+            key
+          })
+        } else {
+          dep.depend()
+        }
+        if (childOb) {
+          childOb.dep.depend()
+          if (isArray(value)) {
+            dependArray(value)
+          }
+        }
       }
+      return isRef(value) &amp;&amp; !shallow ? value.value : value
+    },
+    set: function reactiveSetter(newVal) {
+      const value = getter ? getter.call(obj) : val
+      if (!hasChanged(value, newVal)) {
+        return
+      }
+      if (__DEV__ &amp;&amp; customSetter) {
+        customSetter()
+      }
+      if (setter) {
+        setter.call(obj, newVal)
+      } else if (getter) {
+        // #7981: for accessor properties without setter
+        return
+      } else if (!shallow &amp;&amp; isRef(value) &amp;&amp; !isRef(newVal)) {
+        value.value = newVal
+        return
+      } else {
+        val = newVal
+      }
+      childOb = shallow ? newVal &amp;&amp; newVal.__ob__ : observe(newVal, false, mock)
+      if (__DEV__) {
+        dep.notify({
+          type: TriggerOpTypes.SET,
+          target: obj,
+          key,
+          newValue: newVal,
+          oldValue: value
+        })
+      } else {
+        dep.notify()
+      }
+    }
+  })
 
-      str = str + (x.e &lt; 0 ? &apos;e&apos; : &apos;e+&apos;) + x.e;
-    } else if (e &lt; 0) {
-      str = &apos;0.&apos; + getZeroString(-e - 1) + str;
-      if (sd &amp;&amp; (k = sd - len) &gt; 0) str += getZeroString(k);
-    } else if (e &gt;= len) {
-      str += getZeroString(e + 1 - len);
-      if (sd &amp;&amp; (k = sd - e - 1) &gt; 0) str = str + &apos;.&apos; + getZeroString(k);
+  return dep
+}
+</code></pre><ol>
+<li>依赖收集
+依赖收集从 getter 中的 dep.depend() 方法说起，下面是 Dep 类中的 depend 方法的实现：
+<a href="https://github.com/vuejs/vue/blob/main/src/core/observer/dep.ts#L59" target="_blank">代码传送门</a></li>
+</ol>
+<pre><code>  depend(info?: DebuggerEventExtraInfo) {
+    if (Dep.target) { // Watcher
+      Dep.target.addDep(this)
+      if (__DEV__ &amp;&amp; info &amp;&amp; Dep.target.onTrack) {
+        Dep.target.onTrack({
+          effect: Dep.target,
+          ...info
+        })
+      }
+    }
+  }
+</code></pre><p>其中调用了 Watcher 实例中的 addDep 方法：
+<a href="https://github.com/vuejs/vue/blob/main/src/core/observer/watcher.ts#l160" target="_blank">代码传送门</a></p>
+<pre><code>  addDep(dep: Dep) {
+    const id = dep.id
+    if (!this.newDepIds.has(id)) {
+      this.newDepIds.add(id)
+      this.newDeps.push(dep)
+      if (!this.depIds.has(id)) {
+        dep.addSub(this)
+      }
+    }
+  }
+</code></pre><ol>
+<li>派发更新
+派发更新从 setter 中的 dep.notify() 说起，下面是 Dep 类中的 notify 方法的实现：
+<a href="https://github.com/vuejs/vue/blob/main/src/core/observer/dep.ts#L71" target="_blank">代码传送门</a></li>
+</ol>
+<pre><code>  notify(info?: DebuggerEventExtraInfo) {
+    // stabilize the subscriber list first
+    const subs = this.subs.filter(s =&gt; s) as DepTarget[] // 克隆subs数组
+    if (__DEV__ &amp;&amp; !config.async) {
+      // subs aren&apos;t sorted in scheduler if not running async
+      // we need to sort them now to make sure they fire in correct
+      // order
+      subs.sort((a, b) =&gt; a.id - b.id)
+    }
+    for (let i = 0, l = subs.length; i &lt; l; i++) {
+      const sub = subs[i]
+      if (__DEV__ &amp;&amp; info) {
+        sub.onTrigger &amp;&amp;
+          sub.onTrigger({
+            effect: subs[i],
+            ...info
+          })
+      }
+      sub.update() // 调用watcher的update方法
+    }
+  }
+</code></pre><p>其中调用了 watcher 实例中的 update 方法：
+<a href="https://github.com/vuejs/vue/blob/main/src/core/observer/watcher.ts#l196" target="_blank">代码传送门</a></p>
+<pre><code>  update() {
+    /* istanbul ignore else */
+    if (this.lazy) {
+      this.dirty = true
+    } else if (this.sync) {
+      this.run()
     } else {
-      if ((k = e + 1) &lt; len) str = str.slice(0, k) + &apos;.&apos; + str.slice(k);
-      if (sd &amp;&amp; (k = sd - len) &gt; 0) {
-        if (e + 1 === len) str += &apos;.&apos;;
-        str += getZeroString(k);
-      }
+      queueWatcher(this)
     }
-
-    return str;
   }
-</code></pre><h4 id="构造函数">构造函数</h4>
-<p><a href="https://github.com/MikeMcl/decimal.js/blob/master/decimal.js#L4275" target="_blank">代码传送门</a></p>
-<pre><code>  Decimal = clone(DEFAULTS);
-  function clone(obj) {
-    var i, p, ps;
-
-    /*
-     * The Decimal constructor and exported function.
-     * Return a new Decimal instance.
-     *
-     * v {number|string|Decimal} A numeric value.
-     *
-     */
-    function Decimal(v) {
-      var e, i, t,
-        x = this;
-
-      // Decimal called without new.
-      if (!(x instanceof Decimal)) return new Decimal(v);
-
-      // Retain a reference to this Decimal constructor, and shadow Decimal.prototype.constructor
-      // which points to Object.
-      x.constructor = Decimal;
-
-      // Duplicate.
-      if (isDecimalInstance(v)) {
-        x.s = v.s;
-
-        if (external) {
-          if (!v.d || v.e &gt; Decimal.maxE) {
-
-            // Infinity.
-            x.e = NaN;
-            x.d = null;
-          } else if (v.e &lt; Decimal.minE) {
-
-            // Zero.
-            x.e = 0;
-            x.d = [0];
-          } else {
-            x.e = v.e;
-            x.d = v.d.slice();
-          }
-        } else {
-          x.e = v.e;
-          x.d = v.d ? v.d.slice() : v.d;
+</code></pre><ol>
+<li>简易实现
+源码中考虑的情况比较多，看起来比较复杂。为了便于理解观察者模式使用的核心思想，可以暂时忽略分支逻辑，只查看主要的逻辑。下面的代码，就是忽略各种分支情况后，最最简单的一个实现</li>
+</ol>
+<pre><code>class Watcher {
+    constructor(vm, expr, callback) {
+        this.vm = vm;
+        this.expr = expr;
+        this.callback = callback;
+        this.oldValue = this.get();
+    }
+    get() {
+        Dep.target = this;
+        let value = CompileUtil.getValue(this.vm, this.expr);
+        Dep.target = null;
+        return value;
+    }
+    update() {
+        let newValue = CompileUtil.getValue(this.vm, this.expr)
+        if (this.oldValue !== newValue) {
+            this.callback(newValue)
         }
+    }
+}
+// 发布/订阅
+class Dep {
+    constructor() {
+        // 存储所有的观察者
+        this.subs = [];
+    }
+    // 订阅
+    addSub(watcher) {
+        this.subs.push(watcher);
+    }
+    // 发布
+    notify() {
+        this.subs.forEach((watcher) =&gt; {
+            watcher.update()
+        })
+    }
+}
 
-        return;
-      }
-
-      t = typeof v;
-
-      if (t === &apos;number&apos;) { // 对数字类型判断
-        if (v === 0) {
-          x.s = 1 / v &lt; 0 ? -1 : 1;
-          x.e = 0;
-          x.d = [0];
-          return;
-        }
-
-        if (v &lt; 0) {
-          v = -v;
-          x.s = -1;
-        } else {
-          x.s = 1;
-        }
-
-        // Fast path for small integers.
-        if (v === ~~v &amp;&amp; v &lt; 1e7) { // v为整数且小于1e7
-          for (e = 0, i = v; i &gt;= 10; i /= 10) e++; // 指数位
-
-          if (external) {
-            if (e &gt; Decimal.maxE) {
-              x.e = NaN;
-              x.d = null;
-            } else if (e &lt; Decimal.minE) {
-              x.e = 0;
-              x.d = [0];
-            } else {
-              x.e = e;
-              x.d = [v];
+// 实现数据劫持
+// 观察类 将传入的数据的定义都改为 defineProperty 的方式
+class Observer {
+    constructor(data) {
+        this.observe(data);
+    }
+    observe(data) {
+        if (data &amp;&amp; typeof data === &apos;object&apos;) {
+            for (let key in data) {
+                this.defineReactive(data, key, data[key]);
+                this.observe(data[key]);
             }
-          } else {
-            x.e = e;
-            x.d = [v]; // x.d 保存value
-          }
-
-          return;
-
-        // Infinity, NaN.
-        } else if (v * 0 !== 0) {
-          if (!v) x.s = NaN;
-          x.e = NaN;
-          x.d = null;
-          return;
         }
-
-        return parseDecimal(x, v.toString());
-
-      } else if (t !== &apos;string&apos;) {
-        throw Error(invalidArgument + v);
-      }
-
-      // Minus sign?
-      if ((i = v.charCodeAt(0)) === 45) {
-        v = v.slice(1);
-        x.s = -1;
-      } else {
-        // Plus sign?
-        if (i === 43) v = v.slice(1);
-        x.s = 1;
-      }
-
-      return isDecimal.test(v) ? parseDecimal(x, v) : parseOther(x, v);
     }
-
-    Decimal.prototype = P;
-
-    Decimal.ROUND_UP = 0;
-    Decimal.ROUND_DOWN = 1;
-    Decimal.ROUND_CEIL = 2;
-    Decimal.ROUND_FLOOR = 3;
-    Decimal.ROUND_HALF_UP = 4;
-    Decimal.ROUND_HALF_DOWN = 5;
-    Decimal.ROUND_HALF_EVEN = 6;
-    Decimal.ROUND_HALF_CEIL = 7;
-    Decimal.ROUND_HALF_FLOOR = 8;
-    Decimal.EUCLID = 9;
-
-    Decimal.config = Decimal.set = config;
-    Decimal.clone = clone;
-    Decimal.isDecimal = isDecimalInstance;
-
-    Decimal.abs = abs;
-    Decimal.acos = acos;
-    Decimal.acosh = acosh;        // ES6
-    Decimal.add = add;
-    Decimal.asin = asin;
-    Decimal.asinh = asinh;        // ES6
-    Decimal.atan = atan;
-    Decimal.atanh = atanh;        // ES6
-    Decimal.atan2 = atan2;
-    Decimal.cbrt = cbrt;          // ES6
-    Decimal.ceil = ceil;
-    Decimal.clamp = clamp;
-    Decimal.cos = cos;
-    Decimal.cosh = cosh;          // ES6
-    Decimal.div = div;
-    Decimal.exp = exp;
-    Decimal.floor = floor;
-    Decimal.hypot = hypot;        // ES6
-    Decimal.ln = ln;
-    Decimal.log = log;
-    Decimal.log10 = log10;        // ES6
-    Decimal.log2 = log2;          // ES6
-    Decimal.max = max;
-    Decimal.min = min;
-    Decimal.mod = mod;
-    Decimal.mul = mul;
-    Decimal.pow = pow;
-    Decimal.random = random;
-    Decimal.round = round;
-    Decimal.sign = sign;          // ES6
-    Decimal.sin = sin;
-    Decimal.sinh = sinh;          // ES6
-    Decimal.sqrt = sqrt;
-    Decimal.sub = sub;
-    Decimal.sum = sum;
-    Decimal.tan = tan;
-    Decimal.tanh = tanh;          // ES6
-    Decimal.trunc = trunc;        // ES6
-
-    if (obj === void 0) obj = {};
-    if (obj) {
-      if (obj.defaults !== true) {
-        ps = [&apos;precision&apos;, &apos;rounding&apos;, &apos;toExpNeg&apos;, &apos;toExpPos&apos;, &apos;maxE&apos;, &apos;minE&apos;, &apos;modulo&apos;, &apos;crypto&apos;];
-        for (i = 0; i &lt; ps.length;) if (!obj.hasOwnProperty(p = ps[i++])) obj[p] = this[p];
-      }
+    defineReactive(obj, key, value) {
+        this.observe(value);
+        let dep = new Dep();
+        Object.defineProperty(obj, key, {
+            get() {
+                // 添加观察者
+                Dep.target &amp;&amp; dep.addSub(Dep.target);
+                return value;
+            },
+            set: (newValue) =&gt; {
+                if (newValue !== value) {
+                    // 将新值转为 get set 形式后再进行赋值
+                    this.observe(newValue);
+                    value = newValue;
+                    // 通知观察者
+                    dep.notify();
+                }
+            }
+        })
     }
-
-    Decimal.config(obj);
-
-    return Decimal;
-  }
-</code></pre><h5 id="加法运算">加法运算</h5>
-<p><a href="https://github.com/MikeMcl/decimal.js/blob/master/decimal.js#L1528" target="_blank">代码传送门</a></p>
-<p><img src="../images/sourceAna/decimal1.png" alt="图1"></p>
-<p>指数有区别的情况下运算</p>
-<pre><code>    k = mathfloor(x.e / LOG_BASE);
-    e = mathfloor(y.e / LOG_BASE);
-
-    xd = xd.slice();
-    i = k - e;
-   if (i) {
-
-      if (i &lt; 0) {
-        d = xd;
-        i = -i;
-        len = yd.length;
-      } else {
-        d = yd;
-        e = k;
-        len = xd.length;
-      }
-
-      // Limit number of zeros prepended to max(ceil(pr / LOG_BASE), len) + 1.
-      k = Math.ceil(pr / LOG_BASE);
-      len = k &gt; len ? k + 1 : len + 1;
-
-      if (i &gt; len) {
-        i = len;
-        d.length = 1;
-      }
-
-      // Prepend zeros to equalise exponents. Note: Faster to use reverse then do unshifts.
-      d.reverse();
-      for (; i--;) d.push(0);
-      d.reverse();
-    }
-</code></pre><p>关键运算</p>
-<pre><code>    for (carry = 0; i;) { // i&gt;0 循环
-      carry = (xd[--i] = xd[i] + yd[i] + carry) / BASE | 0;
-      xd[i] %= BASE;
-    }
-</code></pre><p>ok 到这里加法运算的源码就解析完了。高级的运算就不一一列举了，和加法运算类似</p>
-
+}
+</code></pre>
                                 
                                 </section>
                             
@@ -759,10 +740,14 @@ import {Decimal} from &apos;decimal.js&apos;;
 
             
                 
-                <a href="vue.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: vue响应式原理之观察者模式">
+                <a href="../subcribe/subcribe.html" class="navigation navigation-prev " aria-label="Previous page: 了解Node.js的EventEmitter实现的发布订阅模式">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="decimal.js.html" class="navigation navigation-next " aria-label="Next page: decimal.js源码解析">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -771,7 +756,7 @@ import {Decimal} from &apos;decimal.js&apos;;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"decimal.js源码解析","level":"1.24","depth":1,"previous":{"title":"vue响应式原理之观察者模式","level":"1.23","depth":1,"path":"sourceAna/vue.md","ref":"sourceAna/vue.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"sourceAna/decimal.js.md","mtime":"2024-08-22T02:58:05.925Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-23T01:23:57.734Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"vue响应式原理之观察者模式","level":"1.23","depth":1,"next":{"title":"decimal.js源码解析","level":"1.24","depth":1,"path":"sourceAna/decimal.js.md","ref":"sourceAna/decimal.js.md","articles":[]},"previous":{"title":"了解Node.js的EventEmitter实现的发布订阅模式","level":"1.22","depth":1,"path":"subcribe/subcribe.md","ref":"subcribe/subcribe.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"sourceAna/vue.md","mtime":"2024-08-23T01:23:32.173Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-23T01:23:57.734Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
