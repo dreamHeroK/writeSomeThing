@@ -1,0 +1,732 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>React重新渲染指南 · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 5.1.4">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="../sourceAna/decimal.js.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../UNIAPPPERMISSION.html">
+            
+                <a href="../UNIAPPPERMISSION.html">
+            
+                    
+                    uniapp 华为应用市场权限说明解决方案 vuex
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../FORMATFLOAT.html">
+            
+                <a href="../FORMATFLOAT.html">
+            
+                    
+                    JS 保留小数并四舍五入
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../IOSDATE.html">
+            
+                <a href="../IOSDATE.html">
+            
+                    
+                    uniapp 踩坑记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../REFSTYLE.html">
+            
+                <a href="../REFSTYLE.html">
+            
+                    
+                    vue3 设置 ref.value.style 失败
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../VUE3NODE.html">
+            
+                <a href="../VUE3NODE.html">
+            
+                    
+                    vue3node 节点异常问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../GITPAGES.html">
+            
+                <a href="../GITPAGES.html">
+            
+                    
+                    gitbook 发布 gitpages 配置流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../HUSKY.html">
+            
+                <a href="../HUSKY.html">
+            
+                    
+                    HUSKY 使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../wechappAp.html">
+            
+                <a href="../wechappAp.html">
+            
+                    
+                    小程序包体压缩
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../UNIAPPUPDATE.html">
+            
+                <a href="../UNIAPPUPDATE.html">
+            
+                    
+                    uniapp 基座版本升级
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../VUEDIRECTIVE.html">
+            
+                <a href="../VUEDIRECTIVE.html">
+            
+                    
+                    vue 自定义 hover 指令
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../stylusLoader.html">
+            
+                <a href="../stylusLoader.html">
+            
+                    
+                    react stylus-loader 配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../VueArrayValidate.html">
+            
+                <a href="../VueArrayValidate.html">
+            
+                    
+                    vue 数组表单校验
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../SOLID.html">
+            
+                <a href="../SOLID.html">
+            
+                    
+                    SOLID 五大基本原则
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../Anchors.html">
+            
+                <a href="../Anchors.html">
+            
+                    
+                    关于滚动锚点的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../eslintImport.html">
+            
+                <a href="../eslintImport.html">
+            
+                    
+                    eslint import 保存自动删除
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../ES14Array.html">
+            
+                <a href="../ES14Array.html">
+            
+                    
+                    ES14 数组升级，新增 API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../chrome.html">
+            
+                <a href="../chrome.html">
+            
+                    
+                    chrome 多版本配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="../bowserProcess.html">
+            
+                <a href="../bowserProcess.html">
+            
+                    
+                    浏览器渲染进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="../eventloop.html">
+            
+                <a href="../eventloop.html">
+            
+                    
+                    从 Event Loop 谈 JS 的运行机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.21" data-path="../promise/A+.html">
+            
+                <a href="../promise/A+.html">
+            
+                    
+                    手写一个 Promise/A+
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.22" data-path="../subcribe/subcribe.html">
+            
+                <a href="../subcribe/subcribe.html">
+            
+                    
+                    了解Node.js的EventEmitter实现的发布订阅模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.23" data-path="../sourceAna/vue.html">
+            
+                <a href="../sourceAna/vue.html">
+            
+                    
+                    vue响应式原理之观察者模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.24" data-path="../sourceAna/decimal.js.html">
+            
+                <a href="../sourceAna/decimal.js.html">
+            
+                    
+                    decimal.js源码解析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.25" data-path="render.html">
+            
+                <a href="render.html">
+            
+                    
+                    React重新渲染指南
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >React重新渲染指南</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h3 id="react重新渲染指南：一切尽在掌握">React重新渲染指南：一切尽在掌握</h3>
+<p><code>原文地址 https://www.developerway.com/posts/react-re-renders-guide 作者：Nadia Makarevich</code></p>
+<p>关于React的重新渲染综合指南。该指南解释了什么是重新渲染，什么是必要的和不必要的重新渲染，什么可以触发 React 组件重新渲染。
+还包括可以帮助防止重新渲染的最重要的模式和一些导致不必要的重新渲染和性能不佳的反模式。每个模式和反模式都附有Demo演示和代码示例。</p>
+<h4 id="1-什么是react中的重新渲染re-render">1. 什么是React中的重新渲染(Re-render)</h4>
+<p>在谈论 React 性能时，我们需要关注两个主要阶段：</p>
+<ul>
+<li>初始渲染 - 当组件首次出现在屏幕上时发生</li>
+<li>重新渲染 - 已经在屏幕上的组件的第二次和任何连续渲染</li>
+</ul>
+<p>当 React 需要使用一些新数据更新应用程序时，会发生重新渲染。通常，这是由于用户与应用程序交互或通过异步请求或某些订阅模型传入的一些外部数据而发生的。</p>
+<p>没有任何异步数据更新的非交互式应用永远不会重新渲染，因此不需要关心重新渲染性能优化</p>
+<p>🧐 什么是必要和不必要的重新渲染？</p>
+<p><strong>必要的重新渲染</strong> - 当组件数据源发生改变，或组件直接使用了新的数据。例如，如果用户在输入框中数入新内容，则管理其状态的组件需要在每次敲击键盘时更新自身，即重新渲染。</p>
+<p><strong>不必要的重新渲染</strong> - 由于错误或低效的应用程序架构，通过不同的重新渲染机制通过应用程序传播的组件的重新渲染。例如，如果用户在输入框中输入，并且在每次敲击键盘时重新渲染整个页面，则该页面已被不必要地重新渲染。</p>
+<p>不必要的重新渲染本身 <strong>不是问题</strong> ：React 非常快并且通常能够在用户没有注意到的情况下悄悄处理。</p>
+<p>但是，如果重新渲染发生得太频繁和/或在非常重的组件上发生，这可能会导致用户体验出现“滞后”，每次交互都会出现明显的延迟，甚至应用程序变得完全没有响应。</p>
+<h4 id="2-react-组件什么时候重新渲染自己？">2. React 组件什么时候重新渲染自己？</h4>
+<p>组件重新渲染自身有四个原因：状态更改、父组件（或子组件）重新渲染、Context发生变化和Hook更改。还有一个很大的传言：当组件的属性(prop)发生变化时会发生重新渲染。就其本身而言，这不是真的（请参阅下面的解释）。</p>
+<p><strong>🧐重新渲染原因：状态变化</strong></p>
+<p>当组件的状态发生变化时，它会重新渲染自己。通常，它发生在回调或 useEffect 勾子中。</p>
+<p>状态变化是所有重新渲染的“根”源。</p>
+<p>请参阅<a href="https://codesandbox.io/p/sandbox/part2-1-re-renders-because-of-state-ngh8uc" target="_blank">codesandbox中的示例</a></p>
+<p><img src="../images/react/render/1.png" alt="图一"></p>
+<h5 id="🧐重新渲染原因：父组件重新渲染">🧐重新渲染原因：父组件重新渲染</h5>
+<p>如果父组件重新渲染，组件将重新渲染自己。或者，如果我们从相反的方向来看：当一个组件重新渲染时，它也会重新渲染它的所有子组件。</p>
+<p>它总是往下传导的：子组件的重新渲染不会触发父组件的重新渲染。 （这里有一些警告和例外情况，请参阅完整指南了解更多详细信息：<a href="https://www.developerway.com/posts/react-elements-children-parents" target="_blank">React Element、children、parents 和 re-renders 的奥秘</a>）。</p>
+<p><a href="https://codesandbox.io/s/part-2-2-re-renders-because-of-parent-b0xvxt?file=/src/App.tsx" target="_blank">请参阅codesandbox中的示例</a></p>
+<p><img src="../images/react/render/2.png" alt="图二"></p>
+<h5 id="🧐重新渲染原因：context发生变化">🧐重新渲染原因：Context发生变化</h5>
+<p>当 Context Provider 中的值发生变化时，所有使用此 Context 的组件都将重新渲染，即使它们不直接使用数据的更改部分。这些重新渲染无法通过直接记忆(memoization)来防止，但有一些解决方法可以模拟它（参见第 7 部分：防止由上下文引起的重新渲染）。</p>
+<p><a href="https://codesandbox.io/p/sandbox/part-2-3-re-render-because-of-context-i75lwh" target="_blank">请参阅codesandbox的示例</a></p>
+<p><img src="../images/react/render/3.png" alt="图三"></p>
+<h5 id="🧐-重新渲染原因：钩子hook变化">🧐 重新渲染原因：钩子(hook)变化</h5>
+<p>钩子内发生的一切都“属于”使用它的组件。关于上下文和状态更改的相同规则在这里适用：</p>
+<ul>
+<li>钩子内的状态更改将触发“宿主”组件的不可预防的重新渲染</li>
+<li>如果钩子使用了 Context 并且 Context 的值发生了变化，它将触发“宿主”组件的不可预防的重新渲染</li>
+</ul>
+<p>钩子可以链式连接。链中的每个钩子仍然“属于”“宿主”组件，并且相同的规则适用于其中任何一个。</p>
+<p><a href="https://codesandbox.io/p/sandbox/part-2-4-re-render-because-of-hooks-5kpdrp" target="_blank">请参阅codesandbox中的示例</a></p>
+<p><img src="../images/react/render/4.png" alt="图四"></p>
+<h5 id="⛔️重新渲染原因：属性props变化">⛔️重新渲染原因：属性(props)变化</h5>
+<p>在谈论未缓存(memo)组件的重新渲染时，组件的 props 是否改变并不重要。</p>
+<p>因为改变 props，它们需要由父组件更新。这意味着父组件必须重新渲染，这将触发子组件的重新渲染，无论其props如何。</p>
+<p><a href="https://codesandbox.io/p/sandbox/part-2-5-re-render-props-not-relevant-2b8o0p" target="_blank">请参阅codesandbox中的示例</a></p>
+<p>只有在使用缓存技术（React.memo、useMemo）时，props 的变化才变得重要。</p>
+<p><img src="../images/react/render/5.png" alt="图五"></p>
+<h4 id="3-使用组合防止重新渲染">3. 使用组合防止重新渲染</h4>
+<h5 id="⛔️避免：creating-components-render-function">⛔️避免：creating components render function</h5>
+<p>在另一个组件的渲染函数中创建组件是一种反模式，可能是最大的性能杀手。在每次重新渲染时，React 都会重新创建这个组件（即销毁它并从头开始重新创建它），这将比正常的重新渲染慢得多。最重要的是，这将导致以下错误：</p>
+<ul>
+<li>重新渲染期间可能出现内容“闪烁”</li>
+<li>每次重新渲染时都会在组件中重置状态</li>
+<li>没有依赖项的useEffect 每次重新渲染后都会处罚</li>
+<li>重新渲染前这个组件被聚焦，重新渲染后焦点将丢失</li>
+</ul>
+<p><a href="https://codesandbox.io/p/sandbox/part-3-1-creating-components-inline-t2vmkj" target="_blank">参阅codesandbox中的示例</a></p>
+<p>需要阅读的其他资源：<a href="https://www.developerway.com/posts/how-to-write-performant-react-code" target="_blank">如何编写高性能的 React 代码：规则、模式、注意事项</a></p>
+<p><img src="../images/react/render/6.png" alt="图6"></p>
+<h5 id="✅使用组合防止重新渲染：moving-state-down">✅使用组合防止重新渲染：moving state down</h5>
+<p>当一个组件非常重，而它的其中一个部分状态只用在渲染树的孤立的特定的地方时，这种模式可能是有益的。一个典型的例子是在一个复杂的组件中通过点击按钮来打开/关闭一个对话框，该组件渲染了页面的很大一部分。</p>
+<p>在这种情况下，控制模态对话框外观的状态、对话框本身以及触发更新的按钮都可以封装在一个更小的组件中。因此，较大的组件不会在这些状态更改时重新渲染。</p>
+<p><a href="https://codesandbox.io/p/sandbox/part-3-2-moving-state-down-vlh4gf" target="_blank">请参阅codesandbox中的示例</a></p>
+<p>需要阅读的其他资源：<a href="https://www.developerway.com/posts/react-elements-children-parents" target="_blank">React Element 的奥秘、子组件、父组件和重新渲染，如何编写高性能的 React 代码：规则、模式、注意事项</a></p>
+<p><img src="../images/react/render/7.png" alt="图7"></p>
+<h5 id="✅-使用组合防止重新渲染：children-as-props">✅ 使用组合防止重新渲染：children as props</h5>
+<p>这也可以称为“围绕子组件的包裹状态”。这种模式类似于“下移状态”：它将状态变化封装在一个较小的组件中。这里的不同之处在于，状态用于包装渲染树的慢速部分的元素，因此不能那么容易地提取它。一个典型的例子是附加到组件根元素的 onScroll 或 onMouseMove 回调。</p>
+<p>在这种情况下，可以将状态管理和使用该状态的组件提取到一个较小的组件中，并且可以将慢速组件作为子组件传递给它。从较小的组件的角度来看，children只是props，因此它们不会受到状态变化的影响，因此不会重新渲染。</p>
+<p><a href="https://codesandbox.io/s/part-3-3-children-as-props-59icyq?file=/src/App.tsx" target="_blank">请参阅codesandbox中的示例</a></p>
+<p>其他要阅读的资源：<a href="https://www.developerway.com/posts/react-elements-children-parents" target="_blank">React Element、children、parents 和 re-renders 的奥秘</a></p>
+<p><img src="../images/react/render/8.png" alt="图8"></p>
+<h5 id="✅-使用组合防止重新渲染：components-as-props">✅ 使用组合防止重新渲染：components as props</h5>
+<p>与之前的模式几乎相同，具有相同的行为：它将状态封装在一个较小的组件中，而重组件作为 props 传递给它。道具不受状态变化的影响，因此重组件不会重新渲染。</p>
+<p>当一些重组件独立于状态，但不能作为一个组作为子元素提取时，它可能很有用。</p>
+<ul>
+<li><a href="https://codesandbox.io/p/sandbox/part-3-4-passing-components-as-props-9h3o5u" target="_blank">请参阅codesandbox中的示例</a></li>
+<li>阅读源于react组件作为prop: <a href="https://www.developerway.com/posts/react-component-as-prop-the-right-way" target="_blank">React component as prop: the right way™️</a></li>
+</ul>
+<p><img src="../images/react/render/9.png" alt="图9"></p>
+<h4 id="4-使用-reactmemo-防止重新渲染">4. 使用 React.memo 防止重新渲染</h4>
+<p>在 React.memo 中包装一个组件将停止在渲染树的某处触发的下游重新渲染链，除非该组件的 props 已更改。</p>
+<p>这在渲染不依赖于重新渲染源（即状态、更改的数据）的重组件时很有用。</p>
+<p><a href="https://codesandbox.io/p/sandbox/part-4-simple-memo-fz4xhw" target="_blank">请参阅codesandbox中的示例</a></p>
+<p><img src="../images/react/render/10.png" alt="图10"></p>
+<h5 id="✅-reactmemo：带有-props-的组件">✅ React.memo：带有 props 的组件</h5>
+<p>为了使 React.memo 正常工作，所有非原始值的props 都必须被记忆</p>
+<p><a href="https://codesandbox.io/p/sandbox/part-4-1-memo-on-component-with-props-fq55hm" target="_blank">参见 codesandbox 中的示例</a></p>
+<p><img src="../images/react/render/12.png" alt="图12"></p>
+<h5 id="✅-reactmemo-component-with-props">✅ React.memo: component with props</h5>
+<p><code>React.memo</code>必须应用于作为 <code>children/props</code> 传递的元素。记忆父组件将不起作用：<code>children</code> 和 <code>props</code> 将是对象，因此它们会随着每次重新渲染而改变。</p>
+<p><a href="https://codesandbox.io/p/sandbox/part-4-2-memo-on-components-in-props-55tebl" target="_blank">请参阅codesandbox中的示例</a></p>
+<p><img src="../images/react/render/11.png" alt="图11"></p>
+<h4 id="5-使用-usememousecallback-提高重新渲染性能">5. 使用 useMemo/useCallback 提高重新渲染性能</h4>
+<h5 id="⛔️-避免：props-上不必要的-usememousecallback">⛔️ 避免：props 上不必要的 useMemo/useCallback</h5>
+<p>记忆 props 本身不会阻止子组件的重新渲染。如果父组件重新渲染，无论其 props 如何，它都会触发子组件的重新渲染。</p>
+<p><a href="https://codesandbox.io/p/sandbox/part-5-1-unnecessary-usememo-lmk8fq" target="_blank">参见 codesandbox 中的示例</a></p>
+<p><img src="../images/react/render/13.png" alt="图13"></p>
+<h5 id="✅-必备-usememousecallback">✅ 必备 useMemo/useCallback</h5>
+<p>如果子组件被包裹React.memo，所有非原始值的 props 都必须被记忆</p>
+<p><a href="https://codesandbox.io/p/sandbox/part-5-2-usememo-in-props-trx97x" target="_blank">参见 codesandbox 中的示例</a></p>
+<p><img src="../images/react/render/14.png" alt="图14"></p>
+<p>如果组件在诸如<code>useEffect</code>、<code>useMemo</code>之类的钩子中使用非原始值作为依赖项useCallback，则应该将其记住。</p>
+<p><a href="https://codesandbox.io/p/sandbox/part-5-2-usememo-in-effect-88tbov" target="_blank">参见 codesandbox 中的示例</a></p>
+<p><img src="../images/react/render/15.png" alt="图15"></p>
+<h5 id="✅-usememo-进行耗时的计算">✅ useMemo 进行耗时的计算</h5>
+<p>其中一个用例<code>useMemo</code>是避免每次重新渲染时进行耗时的计算。</p>
+<p><code>useMemo</code>有其成本（消耗一些内存并使初始渲染稍微变慢），因此不应将其用于每次计算。在 React 中，在大多数情况下，安装和更新组件将是最耗时的计算（除非您实际上正在计算素数，而您无论如何都不应该在前端进行此操作）。</p>
+<p>因此，<code>useMemo</code>的典型用例是记忆 React 元素。通常是现有渲染树的一部分或生成的渲染树的结果，例如返回新元素的 <code>map</code> 函数。</p>
+<p>与组件更新相比，“纯” javascript 操作（例如排序或过滤数组）的成本通常可以忽略不计。</p>
+<p><a href="https://codesandbox.io/p/sandbox/part-5-3-usememo-for-expensive-calculations-trx97x" target="_blank">参见 codesandbox 中的示例</a></p>
+<p><img src="../images/react/render/16.png" alt="图16"></p>
+<h4 id="6-提高列表的重新渲染性能">6. 提高列表的重新渲染性能</h4>
+<p>除了常规的重新渲染规则和模式，key 属性会影响 React 中列表的性能。</p>
+<p>重要提示：仅提供 key 属性不会提高列表的性能。为了防止重新渲染列表元素，您需要将它们包装在 React.memo 中并遵循其所有最佳实践。</p>
+<p>Key的值应该是一个字符串，这在列表中每个元素的重新渲染之间是一致的。通常，使用项目的 id 或数组的索引。</p>
+<p>可以使用数组的索引作为键，如果列表是静态的，即元素没有添加/删除/插入/重新排序。</p>
+<p>在动态列表上使用数组的索引会导致：</p>
+<ul>
+<li>如果item具有状态或任何不受控制的元素（如表单输入），则会出现错误</li>
+<li>如果item包装在 <code>React.memo</code> 中，性能会下降</li>
+</ul>
+<p>在此处阅读有关此内容的更多详细信息：<a href="https://www.developerway.com/posts/react-key-attribute" target="_blank">React 关键属性：性能列表的最佳实践</a></p>
+<ul>
+<li><p><a href="https://codesandbox.io/p/sandbox/part-6-static-list-with-index-and-id-as-key-7i0ebi" target="_blank">请参阅codesandbox中的示例 - 静态列表</a></p>
+</li>
+<li><p><a href="https://codesandbox.io/p/sandbox/part-6-dynamic-list-with-index-and-id-as-key-s50knr" target="_blank">请参阅codesandbox中的示例 - 动态列表</a></p>
+</li>
+</ul>
+<h5 id="⛔️避免：随机值作为列表中的键">⛔️避免：随机值作为列表中的键</h5>
+<p>随机生成的值永远不应用作列表中键属性的值。它们将导致 React 在每次重新渲染时重新安装项目，这将导致：</p>
+<ul>
+<li>列表的表现很差</li>
+<li>如果元素具有状态或任何不受控制的元素（如表单输入），则会出现错误</li>
+</ul>
+<p><a href="https://codesandbox.io/p/sandbox/part-6-1-random-values-in-keys-z1zhy6" target="_blank">请参阅codesandbox中的示例</a></p>
+<p><img src="../images/react/render/17.png" alt="图17"></p>
+<h4 id="7-防止-context-导致的重新渲染">7. 防止 Context 导致的重新渲染</h4>
+<h5 id="✅-防止-context-重新渲染：记忆-provider-的值">✅ 防止 Context 重新渲染：记忆 Provider 的值</h5>
+<p>如果 Context Provider 不是放置在应用程序的最根部，并且它有可能因为其祖先的变化而重新渲染自身，则应该记住它的值。</p>
+<p><a href="https://codesandbox.io/s/part-7-1-memoize-context-provider-value-qgn0me?file=/src/App.tsx" target="_blank">参见 codesandbox 中的示例</a></p>
+<p><img src="../images/react/render/18.png" alt="图18"></p>
+<h5 id="✅-防止-context-重新渲染：拆分data和-api">✅ 防止 Context 重新渲染：拆分DATA和 API</h5>
+<p>如果 Context 中有数据和 API（getter 和 setter）的组合，则可以将它们拆分为同一组件下的不同 Provider。这样，仅使用 API 的组件在数据更改时不会重新渲染。</p>
+<p>在此处阅读有关此模式的更多信息：<a href="https://www.developerway.com/posts/how-to-write-performant-react-apps-with-context" target="_blank">如何使用 Context 编写高性能 React 应用程序</a></p>
+<p><a href="https://codesandbox.io/p/sandbox/part-7-2-split-context-data-and-api-r8lsws" target="_blank">参见 codesandbox 中的示例</a></p>
+<p><img src="../images/react/render/19.png" alt="图19"></p>
+<h5 id="✅-防止-context-重新渲染：将data分割成chunks">✅ 防止 Context 重新渲染：将DATA分割成chunks</h5>
+<p>如果 Context 管理一些独立的数据属性，尽可能最小化它。</p>
+<p>在此处阅读有关此模式的更多信息：<a href="https://www.developerway.com/posts/how-to-write-performant-react-apps-with-context" target="_blank">如何使用 Context 编写高性能 React 应用程序</a></p>
+<p><a href="https://codesandbox.io/p/sandbox/part-7-3-split-context-into-chunks-dbg20m" target="_blank">参见 codesandbox 中的示例</a></p>
+<p><img src="../images/react/render/20.png" alt="图20"></p>
+<h5 id="✅-防止上下文重新渲染：context-selectors">✅ 防止上下文重新渲染：Context Selectors</h5>
+<p>即使使用钩子，也无法阻止使用部分 <code>Context</code> 值的组件重新渲染，即使所使用的数据没有改变<code>useMemo</code>。</p>
+<p>然而，上下文选择器可以通过使用高阶组件和来伪造<code>React.memo</code>。</p>
+<p>在此处阅读有关此模式的更多信息：<a href="https://www.developerway.com/posts/higher-order-components-in-react-hooks-era" target="_blank">React Hooks 时代的高阶组件</a></p>
+<p><a href="https://codesandbox.io/p/sandbox/part-7-4-context-selector-lc8n5g" target="_blank">参见 codesandbox 中的示例</a></p>
+<p><img src="../images/react/render/21.png" alt="图21"></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../sourceAna/decimal.js.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: decimal.js源码解析">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"React重新渲染指南","level":"1.25","depth":1,"previous":{"title":"decimal.js源码解析","level":"1.24","depth":1,"path":"sourceAna/decimal.js.md","ref":"sourceAna/decimal.js.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"react/render.md","mtime":"2024-09-04T03:15:26.596Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-09-04T07:34:31.253Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
