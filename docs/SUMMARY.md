@@ -24,3 +24,4 @@
 - [了解Node.js的EventEmitter实现的发布订阅模式](subcribe/subcribe.md)
 - [vue响应式原理之观察者模式](sourceAna/vue.md)
 - [decimal.js源码解析](sourceAna/decimal.js.md)
+- [React重新渲染指南](react/render.md)
