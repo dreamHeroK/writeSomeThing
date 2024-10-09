@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>eslint import 保存自动删除 · HonKit</title>
+        <title>依赖安装常见问题 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -56,10 +56,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="ES14Array.html" />
     
-    
-    <link rel="prev" href="Anchors.html" />
+    <link rel="prev" href="react/render.html" />
     
 
     </head>
@@ -283,7 +281,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.16" data-path="eslintImport.html">
+        <li class="chapter " data-level="1.16" data-path="eslintImport.html">
             
                 <a href="eslintImport.html">
             
@@ -413,7 +411,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.26" data-path="nodeSass.html">
+        <li class="chapter active" data-level="1.26" data-path="nodeSass.html">
             
                 <a href="nodeSass.html">
             
@@ -456,7 +454,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >eslint import 保存自动删除</a>
+        <a href="." >依赖安装常见问题</a>
     </h1>
 </div>
 
@@ -471,39 +469,29 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>今天遇到一个奇怪的问题，导致了应用白屏
-在于修改代码时,有一段分环境的 uniapp 引用被删除掉了。
-eg:</p>
-<pre><code>// #ifdef H5
-// h5端
-import Fly from &apos;xxxx&apos;;
-// #endif
-
-// #ifdef APP-PLUS
-// app端
-import Fly from &apos;xxxx&apos;;
-// #endif
-
-// #ifdef MP-WEIXIN
-import Fly from &apos;xxx&apos;;
-// #endif
-</code></pre><p>在保存后，发现其他引用消失了</p>
-<pre><code>// #ifdef H5
-// h5端
-import Fly from &apos;flyio/dist/npm/fly&apos;;
-// #endif
-
-// #ifdef APP-PLUS
-// app端
-// #endif
-
-// #ifdef MP-WEIXIN
-// #endif
-</code></pre><p>另外一个同事保存是 ok 的，于是查询资料<a href="https://segmentfault.com/q/1010000043953631" target="_blank">eslint 自动删除无效引用</a>,在这里查了一下对应资料，打开自己的 vscode 配置，搜索<code>eslint.codeActionsOnSave</code>,发现我的默认配置为</p>
-<pre><code>    &quot;editor.codeActionsOnSave&quot;: {
-        &quot;source.organizeImports&quot;: &quot;explicit&quot; 
-    },
-</code></pre><p>修改<code>&quot;source.organizeImports&quot;</code>为&quot;never&quot;后，保存发现可以保存成功，于是在这个uniapp项目下增加本地vscode配置就ok了</p>
+                                <h4 id="背景">背景</h4>
+<p>在clone以前的项目时，安装依赖的情况下，经常会出现gyp的错误，导致安装失败。</p>
+<p>比如：</p>
+<ol>
+<li>python 未安装或python版本问题</li>
+<li>visual studio 未安装或版本问题</li>
+<li>其他</li>
+</ol>
+<h4 id="出现原因">出现原因</h4>
+<ol>
+<li>安装node-sass时，会自动安装node-gyp，而node-gyp会自动安装python，而python的安装需要安装visual studio，而visual studio的安装需要到官网下载。</li>
+<li>更加麻烦的是，node-sass需要和你的node版本对应，这一点需要去npm对应的页面查看依赖对应node版本.<a href="https://www.npmjs.com/package/node-sass" target="_blank">传送门</a></li>
+</ol>
+<h4 id="解决方案">解决方案</h4>
+<p>按照一下步骤安装</p>
+<ol>
+<li>安装<a href="https://www.python.org/" target="_blank">python</a></li>
+<li>安装<a href="https://visualstudio.microsoft.com/zh-hans/" target="_blank">visual studio</a> 请确保你安装的是社区版，并且是C++的桌面开发环境</li>
+<li>安装node-sass <code>npm install node-sass</code> 下载对应node版本的node-sass版本</li>
+<li>安装完成</li>
+</ol>
+<h4 id="完结撒花">完结撒花</h4>
+<p>❀❀❀                                          </p>
 
                                 
                                 </section>
@@ -531,14 +519,10 @@ import Fly from &apos;flyio/dist/npm/fly&apos;;
 
             
                 
-                <a href="Anchors.html" class="navigation navigation-prev " aria-label="Previous page: 关于滚动锚点的使用">
+                <a href="react/render.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: React重新渲染指南">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="ES14Array.html" class="navigation navigation-next " aria-label="Next page: ES14 数组升级，新增 API">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -547,7 +531,7 @@ import Fly from &apos;flyio/dist/npm/fly&apos;;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"eslint import 保存自动删除","level":"1.16","depth":1,"next":{"title":"ES14 数组升级，新增 API","level":"1.17","depth":1,"path":"ES14Array.md","ref":"ES14Array.md","articles":[]},"previous":{"title":"关于滚动锚点的使用","level":"1.15","depth":1,"path":"Anchors.md","ref":"Anchors.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"eslintImport.md","mtime":"2024-08-27T02:21:09.070Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-10-09T14:02:21.558Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"依赖安装常见问题","level":"1.26","depth":1,"previous":{"title":"React重新渲染指南","level":"1.25","depth":1,"path":"react/render.md","ref":"react/render.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"nodeSass.md","mtime":"2024-10-09T14:01:19.975Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-10-09T14:02:21.558Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
