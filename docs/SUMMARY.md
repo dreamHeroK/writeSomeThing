@@ -25,3 +25,4 @@
 - [vue响应式原理之观察者模式](sourceAna/vue.md)
 - [decimal.js源码解析](sourceAna/decimal.js.md)
 - [React重新渲染指南](react/render.md)
+- [依赖安装常见问题](nodeSass.md)

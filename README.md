@@ -30,4 +30,5 @@
 - [vue响应式原理之观察者模式](https://dreamherok.github.io/writeSomeThing/sourceAna/vue.html)
 - [decimal.js源码解析](https://dreamherok.github.io/writeSomeThing/sourceAna/decimal.js.html)
 - [React重新渲染指南](https://dreamherok.github.io/writeSomeThing/react/render.html)
+- [依赖安装常见问题](https://dreamherok.github.io/writeSomeThing/nodeSass.html)
 <!--ListEnd-->
